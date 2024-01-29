@@ -63,7 +63,7 @@ const MenuBuzon = () => {
                       </Col>
                       <Col xs="1"></Col>
                       <Col xs="2">
-                      <Link style={{ textDecoration: 'none', color: 'white' }} to="/buzon" >
+                      <Link style={{ textDecoration: 'none', color: 'white' }} to="/buzon/historial" >
                             <Card
                                 body
                                 color="warning"

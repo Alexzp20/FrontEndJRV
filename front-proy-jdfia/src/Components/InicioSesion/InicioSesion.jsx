@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, FormGroup, Input, Label, Row, Col} from 'reactstrap';
+import { Button, Container,  Input, Label, Row, Col} from 'reactstrap';
 
 const InicioSesion = () => {
     return (

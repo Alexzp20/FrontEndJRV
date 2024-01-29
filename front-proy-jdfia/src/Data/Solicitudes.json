@@ -1,0 +1,63 @@
+[{
+    "id":1,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Asignación de jurado para estudiantes de tesis",
+    "documento": "solicitud1.pdf"
+},
+{
+    "id":2,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "solicitud de prestamo de dinero",
+    "documento": "solicitud2.pdf"
+},
+{
+    "id":3,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Aprobación de nuevo pensum para ingenieria en sistemas",
+    "documento": "solicitud3.pdf"
+},
+{
+    "id":4,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Revisión de fechas para nuevo ciclo",
+    "documento": "solicitud4.pdf"
+},
+{
+    "id":5,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "solicitud de aprobación de estudiantes de CUM honorifico",
+    "documento": "solicitud5.pdf"
+}
+,
+{
+    "id":6,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Remodelación de infraestructura de la facultad",
+    "documento": "solicitud6.pdf"
+}
+,
+{
+    "id":7,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Compra de pupitres",
+    "documento": "solicitud7.pdf"
+}
+,
+{
+    "id":8,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Revisión de fechas para parciales ciclo 1/2024",
+    "documento": "solicitud8.pdf"
+},
+{
+    "id":9,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "solicitud de presupuesto ciclo 1/2024",
+    "documento": "solicitud9.pdf"
+},
+{
+    "id":10,
+    "fechaSubida": "2022-10-10",
+    "descripcion": "Aprobación horarios inscripción ciclo 1/2024",
+    "documento": "solicitud10.pdf"
+}]
