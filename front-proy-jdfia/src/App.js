@@ -9,6 +9,8 @@ import HistorialBuzon from './Components/Buzon/HistorialBuzon';
 import BusquedaSolicitud from './Components/Buscador/BusquedaSolicitud';
 import BusquedaAgenda from './Components/Buscador/BusquedaAgenda';
 import BusquedaAcuerdo from './Components/Buscador/BusquedaAcuerdo';
+import MenuEstadistico from './Components/Estadisticos/MenuEstadistico';
+import MenuAjustes from './Components/Ajustes/MenuAjustes';
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
           <Route path='/buscador/solicitud' element={<BusquedaSolicitud/>}/>
           <Route path='/buscador/agenda' element={<BusquedaAgenda/>}/>
           <Route path='/buscador/acuerdo' element={<BusquedaAcuerdo/>}/>
+          <Route path='/estadistico' element={<MenuEstadistico/>}/>
+          <Route path='/ajustes' element={<MenuAjustes/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           
         </Routes>

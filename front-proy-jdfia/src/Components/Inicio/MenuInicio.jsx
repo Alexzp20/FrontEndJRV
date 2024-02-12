@@ -64,6 +64,51 @@ const MenuInicio = () => {
                         </Link>
                       </Col>
                        {/*FIN DEL CARD*/}
+                         {/*INICIO DEL CARD */}
+                      <Col xs = "3">
+                        <Link style={{ textDecoration: 'none', color: 'Black' }} to="/estadistico" >
+                            <Card
+                                body
+                                color="info"
+                                outline
+                                className='shadow-lg'
+                            >
+                                <CardHeader tag={"h4"} className='text-center'>
+                                    Estadisticos
+                                </CardHeader>
+                                <CardBody>
+                                    <CardImg 
+                                        alt="Card image cap"
+                                        src="https://picsum.photos/500/400"
+                                        />
+                                    </CardBody>
+                            </Card> 
+                        </Link>
+                      </Col>
+                       {/*FIN DEL CARD*/}
+
+                        {/*INICIO DEL CARD */}
+                      <Col xs = "3">
+                        <Link style={{ textDecoration: 'none', color: 'Black' }} to="/ajustes" >
+                            <Card
+                                body
+                                color="info"
+                                outline
+                                className='shadow-lg'
+                            >
+                                <CardHeader tag={"h4"} className='text-center'>
+                                    Ajustes
+                                </CardHeader>
+                                <CardBody>
+                                    <CardImg 
+                                        alt="Card image cap"
+                                        src="https://picsum.photos/500/400"
+                                        />
+                                    </CardBody>
+                            </Card> 
+                        </Link>
+                      </Col>
+                       {/*FIN DEL CARD*/}
                     </Row> 
                 </Container>
             </Container>
