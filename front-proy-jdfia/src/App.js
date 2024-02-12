@@ -11,6 +11,8 @@ import BusquedaAgenda from './Components/Buscador/BusquedaAgenda';
 import BusquedaAcuerdo from './Components/Buscador/BusquedaAcuerdo';
 import MenuEstadistico from './Components/Estadisticos/MenuEstadistico';
 import MenuAjustes from './Components/Ajustes/MenuAjustes';
+import EstAreas from './Components/Estadisticos/EstAreas';
+import EstRanFecha from './Components/Estadisticos/EsRanFecha';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path='/buscador/agenda' element={<BusquedaAgenda/>}/>
           <Route path='/buscador/acuerdo' element={<BusquedaAcuerdo/>}/>
           <Route path='/estadistico' element={<MenuEstadistico/>}/>
+           <Route path='/estadistico/fechas' element={<EstRanFecha/>}/>
+         <Route path='/estadistico/areas' element={<EstAreas/>}/>
           <Route path='/ajustes' element={<MenuAjustes/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           
