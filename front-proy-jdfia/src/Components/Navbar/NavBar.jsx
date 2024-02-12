@@ -33,12 +33,6 @@ const NavBar = () => {
                             <NavbarText><Link style={{ textDecoration: 'none' }} to="/" >notificaciones</Link></NavbarText>                              
                         </NavItem>
                         <NavItem>
-                            <NavbarText><Link style={{ textDecoration: 'none' }} to="/" >Integrantes</Link></NavbarText>                              
-                        </NavItem>
-                        <NavItem>
-                            <NavbarText><Link style={{ textDecoration: 'none' }} to="/" >Nosotros</Link></NavbarText>                              
-                        </NavItem>
-                        <NavItem>
                             <NavbarText><Link className= 'text-nowrap' style={{ textDecoration: 'none'}} to="/" >Cerrar Sesion</Link></NavbarText>                              
                         </NavItem>
                         </Nav>
