@@ -18,7 +18,7 @@ const MenuBuscador = () => {
                     <Row>
                     <Col xs="2"></Col>
                       <Col xs = "2">
-                        <Link style={{ textDecoration: 'none', color: 'white' }} to="/buzon" >
+                        <Link style={{ textDecoration: 'none', color: 'white' }} to="/buscador/agenda" >
                             <Card
                                 body
                                 color="warning"

@@ -7,6 +7,7 @@ import InicioSesion from './Components/InicioSesion/InicioSesion';
 import BuzonSolicitudes from './Components/Buzon/BuzonSolicitudes';
 import HistorialBuzon from './Components/Buzon/HistorialBuzon';
 import BusquedaSolicitud from './Components/Buscador/BusquedaSolicitud';
+import BusquedaAgenda from './Components/Buscador/BusquedaAgenda';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/buzon/historial' element={<HistorialBuzon/>}/>
           <Route path='/buscador' element={<MenuBuscador/>}/>
           <Route path='/buscador/solicitud' element={<BusquedaSolicitud/>}/>
+          <Route path='/buscador/agenda' element={<BusquedaAgenda/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           
         </Routes>
