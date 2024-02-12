@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Row, Table } from 'reactstrap';
-import FilaSolicitud from './FilaSolicitud';
 import { pedirSolicitudes } from '../../Helpers/pedirDatos';
+import FilaSolicitud from '../Buscador/Filas/FilaSolicitud';
 
 const HistorialBuzon = () => {
 
