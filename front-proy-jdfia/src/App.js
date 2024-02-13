@@ -13,6 +13,7 @@ import MenuEstadistico from './Components/Estadisticos/MenuEstadistico';
 import MenuAjustes from './Components/Ajustes/MenuAjustes';
 import EstAreas from './Components/Estadisticos/EstAreas';
 import EstRanFecha from './Components/Estadisticos/EsRanFecha';
+import MenuUsuarios from './Components/Usuarios/MenuUsuarios';
 
 function App() {
   return (
@@ -34,7 +35,9 @@ function App() {
            <Route path='/estadistico/fechas' element={<EstRanFecha/>}/>
          <Route path='/estadistico/areas' element={<EstAreas/>}/>
           <Route path='/ajustes' element={<MenuAjustes/>}/>
+          <Route path='/ajustes/usuarios' element={<MenuUsuarios/>}/>
           <Route path='/' element={<InicioSesion/>}/>
+          <Route path='*' element={<InicioSesion/>}/>
           
         </Routes>
       </BrowserRouter> 

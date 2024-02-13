@@ -1,6 +1,7 @@
 import solicitudes from '../Data/Solicitudes.json'
 import agendas from '../Data/Agendas.json'
 import acuerdos from '../Data/Acuerdos.json'
+import usuarios from '../Data/Usuarios.json'
 
 export const pedirSolicitudes= () => {
 
@@ -20,11 +21,19 @@ export const pedirAgendas= () => {
     })
     }
 
-    export const pedirAcuerdos= () => {
+export const pedirAcuerdos= () => {
 
-        return new Promise ((resolve, reject) =>{
-            setTimeout(() => {
-                resolve(acuerdos);
-            }, 500)
-        })
-        }
+    return new Promise ((resolve, reject) =>{
+        setTimeout(() => {
+            resolve(acuerdos);
+        }, 500)
+    })
+    }
+
+export const pedirUsuarios = ()=>{
+    return new Promise ((resolve,reject) =>{
+        setTimeout(()=>{
+                resolve(usuarios);     
+        },500)
+    })
+}
