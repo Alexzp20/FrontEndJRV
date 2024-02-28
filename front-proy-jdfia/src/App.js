@@ -14,6 +14,7 @@ import MenuAjustes from './Components/Ajustes/MenuAjustes';
 import EstAreas from './Components/Estadisticos/EstAreas';
 import EstRanFecha from './Components/Estadisticos/EsRanFecha';
 import MenuUsuarios from './Components/Usuarios/MenuUsuarios';
+import Footer from './Components/Footer/Footer';
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
           
         </Routes>
       </BrowserRouter> 
+
+      <Footer/>
     </div>
   );
 }
