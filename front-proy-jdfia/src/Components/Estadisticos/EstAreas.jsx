@@ -19,7 +19,7 @@ const EstAreas = () => {
         <Container>
             <Row>
                 <Col xs="12">
-                    <Container className=' p-2 bg-secondary my-4 rounded bg-opacity-75' >
+                    <Container className=' p-2 bg-custom-dark my-4 rounded bg-opacity-75' >
                         <br />
                     <Row>
                         <Col >

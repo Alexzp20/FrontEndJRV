@@ -48,7 +48,7 @@ const BusquedaSolicitud = () => {
                 </Row>
                 <br />
                 <Row>
-                    <Label className="text-center" for="inputBusqueda" sm="3">
+                    <Label className="text-center text-light" for="inputBusqueda" sm="3">
                         Busqueda por descripción
                     </Label>
                     <Col sm="7">
@@ -76,7 +76,7 @@ const BusquedaSolicitud = () => {
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody className='table-warning'>
+                            <tbody className='table-light'>
                             {solicitudes.map((solicitud)=><FilaSolicitud key={solicitud.id} solicitud={solicitud}/>)}
                             </tbody>
                         </Table>

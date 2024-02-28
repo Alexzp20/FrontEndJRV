@@ -20,7 +20,7 @@ const InicioSesion = () => {
             <Row>
                 <Col xs="2"></Col>
                 <Col xs="8">
-                    <Container className=' bg-secondary rounded bg-opacity-75'> 
+                    <Container className=' bg-custom-dark rounded bg-opacity-75'> 
                         <br />
                         <Row>
                             <h2 className='text-center text-light'>Iniciar Sesion</h2>
@@ -70,7 +70,7 @@ const InicioSesion = () => {
                                     <Row>
                                         <Col xs='4'></Col>
                                         <Col xs='5'>
-                                        <Button color="success" type='submit'>
+                                        <Button color="custom-success" className="text-light"type='submit'>
                                                 Iniciar Sesion
                                         </Button>
                                         </Col>

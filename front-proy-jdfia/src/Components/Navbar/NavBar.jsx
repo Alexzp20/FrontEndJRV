@@ -7,33 +7,33 @@ const NavBar = () => {
         <div>
             <Navbar
             className="navbar-light"
-            color="secondary"
+            color="custom-primary"
             dark
             light
             >
             <Container fluid>
                 <Row >
-                    <Col xs="6">
-                        <NavbarBrand>
-                        <Link style={{ textDecoration: 'none', color: 'white'}} to="/inicio" >Junta Directiva</Link>
+                    <Col xs="6" >
+                        <NavbarBrand >
+                        <Link className='text-custom-secondary'  style={{ textDecoration: 'none'}} to="/inicio" >Junta Directiva</Link>
                         </NavbarBrand>
 
                     </Col>
-                    <Col xs="6">
+                    <Col xs="6" >
                         <Nav fill>
-                        <NavItem>
-                            <NavbarText><Link style={{ textDecoration: 'none' }} to="/inicio" >Inicio</Link></NavbarText>                              
+                        <NavItem  >
+                            <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none' }} to="/inicio" >Inicio</Link></NavbarText>                              
                         </NavItem>
 
                         <NavItem>
-                            <NavbarText><Link style={{ textDecoration: 'none' }} to="/" >Perfil</Link></NavbarText>                              
+                            <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none' }} to="/" >Perfil</Link></NavbarText>                              
                         </NavItem>
 
                         <NavItem>
-                            <NavbarText><Link style={{ textDecoration: 'none' }} to="/" >notificaciones</Link></NavbarText>                              
+                            <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none' }} to="/" >notificaciones</Link></NavbarText>                              
                         </NavItem>
                         <NavItem>
-                            <NavbarText><Link className= 'text-nowrap' style={{ textDecoration: 'none'}} to="/" >Cerrar Sesion</Link></NavbarText>                              
+                            <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none'}} to="/" >Cerrar Sesion</Link></NavbarText>                              
                         </NavItem>
                         </Nav>
                     </Col>

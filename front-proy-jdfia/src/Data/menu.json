@@ -1,0 +1,30 @@
+[{
+    "direccion": "/buzon",
+    "titulo": " Buzon",
+    "imagen": "https://picsum.photos/500/400"
+}
+,
+{
+    "direccion": "/buscador",
+    "titulo": "Buscador",
+    "imagen": "https://picsum.photos/500/400"
+}
+,
+{
+    "direccion": "/estadistico",
+    "titulo": "Estadisticos",
+    "imagen": "https://picsum.photos/500/400"
+}
+,
+{
+    "direccion": "/ajustes",
+    "titulo": "Ajustes",
+    "imagen": "https://picsum.photos/500/400"
+}
+,
+{
+    "direccion": "/nueva/agenda",
+    "titulo": "Nueva Agenda",
+    "imagen": "https://picsum.photos/500/400"
+}
+]

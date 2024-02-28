@@ -7,7 +7,7 @@ const MenuBuscador = () => {
     return (
         <div>
              <br />
-            <Container className='p-3 bg-secondary my-2 rounded bg-opacity-75' >
+            <Container className='p-3 bg-custom-dark my-2 rounded bg-opacity-75' >
             <Row>
                 <h3 className='text-center text-light'>Busqueda</h3>
             </Row> 
@@ -21,7 +21,7 @@ const MenuBuscador = () => {
                         <Link style={{ textDecoration: 'none', color: 'white' }} to="/buscador/agenda" >
                             <Card
                                 body
-                                color="warning"
+                                color="custom-secondary"
                                 outline
                                 className="bg-transparent "
                             >
@@ -44,7 +44,7 @@ const MenuBuscador = () => {
                       <Link style={{ textDecoration: 'none', color: 'white' }} to="/buscador/acuerdo" >
                             <Card
                                 body
-                                color="warning"
+                                color="custom-secondary"
                                 outline
                                 className="bg-transparent "
                             >
@@ -67,7 +67,7 @@ const MenuBuscador = () => {
                       <Link style={{ textDecoration: 'none', color: 'white' }} to="/buscador/solicitud" >
                             <Card
                                 body
-                                color="warning"
+                                color="custom-secondary"
                                 outline
                                 className="bg-transparent "
                             >

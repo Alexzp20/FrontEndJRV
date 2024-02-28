@@ -9,8 +9,8 @@ const FilaAgenda = ({agenda}) => {
             <td>{agenda.descripcion}</td>
             <td>{agenda.hora_inicio}</td>
             <td>
-                <Button className='m-1' color='warning'>Editar</Button>
-                <Button color='danger'>Eliminar</Button>
+                <Button className='m-1 text-white' color='custom-warning'>Editar</Button>
+                <Button className="text-white" color='custom-danger'>Eliminar</Button>
             </td>
         </tr>   
     );

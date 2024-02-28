@@ -7,7 +7,7 @@ const MenuEstadistico = () => {
     return (
         <div>
             <br />
-            <Container className='p-3 bg-secondary my-2 rounded bg-opacity-75' >
+            <Container className='p-3 bg-custom-dark my-2 rounded bg-opacity-75' >
             <Row>
                 <h3 className='text-center text-light'>Estadisticos</h3>
             </Row> 
@@ -21,9 +21,9 @@ const MenuEstadistico = () => {
                         <Link style={{ textDecoration: 'none', color: 'white' }} to="/estadistico/fechas" >
                             <Card
                                 body
-                                color="warning"
+                                color="custom-secondary"
                                 outline
-                                className="bg-transparent "
+                                className="bg-transparent"
                             >
                                
                                 <CardBody>
@@ -44,7 +44,7 @@ const MenuEstadistico = () => {
                       <Link style={{ textDecoration: 'none', color: 'white' }} to="/estadistico/areas" >
                             <Card
                                 body
-                                color="warning"
+                                color="custom-secondary"
                                 outline
                                 className="bg-transparent"
                             >

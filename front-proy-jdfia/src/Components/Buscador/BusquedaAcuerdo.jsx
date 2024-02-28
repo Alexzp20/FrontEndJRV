@@ -49,7 +49,7 @@ const BusquedaAcuerdo = () => {
                     </Row>
                     <br />
                     <Row>
-                        <Label className="text-center" for="inputBusqueda" sm="3">
+                        <Label className="text-center text-light" for="inputBusqueda" sm="3">
                             Busqueda por descripción
                         </Label>
                         <Col sm="7">
@@ -68,7 +68,7 @@ const BusquedaAcuerdo = () => {
                     <Row>
                         <Col xs='12'>
                             <Table bordered striped className='text-center'>
-                                <thead className='table-primary'>
+                                <thead className='table-primary '>
                                     <tr>    
                                         <th>#</th>
                                         <th>Descripción de la solicitud</th>
@@ -77,7 +77,7 @@ const BusquedaAcuerdo = () => {
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody className='table-warning'>
+                                <tbody className='table-light'>
                                 {acuerdos.map((acuerdo)=><FilaAcuerdo key={acuerdo.id_evento} acuerdo={acuerdo}/>)}
                                 </tbody>
                             </Table>

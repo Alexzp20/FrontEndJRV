@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'reactstrap';
 
 const Footer = () => {
     return (
-        <footer className='bg-secondary'>
+        <footer className='bg-custom-primary'>
         <Container fluid>
          <Row className='text-center text-light'>
              <Col xs="12">

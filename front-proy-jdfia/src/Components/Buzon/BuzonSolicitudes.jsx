@@ -16,7 +16,7 @@ const BuzonSolicitudes = () => {
             <Row>
             <Col xs="1"></Col>
             <Col xs="10">
-                <Container className=' p-2 bg-secondary my-4 rounded bg-opacity-75' >
+                <Container className=' p-2 bg-custom-dark my-4 rounded bg-opacity-75' >
                     <Row>
                         <Col >
                             <h1 className='text-center text-light'>Subida de solicitudes</h1>
@@ -72,9 +72,9 @@ const BuzonSolicitudes = () => {
                                     
                                     </FormGroup>
                                     <Container fluid className='text-center'>
-                                        <Button className='m-2' color='success' type='submit'>Enviar</Button>
+                                        <Button className='m-2 text-light' color='custom-success' type='submit'>Enviar</Button>
                                         
-                                        <Button className='m-2' color='danger'>Cancelar</Button>
+                                        <Button className='m-2 text-light' color='custom-danger'>Cancelar</Button>
                                     </Container>
                             </Form>
                         </Col>

@@ -8,7 +8,7 @@ const FilaAcuerdo = ({acuerdo}) => {
             <td>{acuerdo.descripcion_solicitud}</td>
             <td>{acuerdo.descripcion_acuerdo}</td>
             <td>{acuerdo.documento_acuerdo}</td>
-            <td><Button color='danger'>Eliminar</Button></td>
+            <td><Button className="text-white" color='custom-danger'>Eliminar</Button></td>
         </tr>   
     );
 }

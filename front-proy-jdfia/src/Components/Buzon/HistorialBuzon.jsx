@@ -19,7 +19,7 @@ const HistorialBuzon = () => {
         <Container>
             <Row>
                 <Col xs='12'>
-                 <Container className=' p-4 bg-secondary my-4 rounded bg-opacity-75' >
+                 <Container className=' p-4 bg-custom-dark my-4 rounded bg-opacity-75' >
                     <Row>
                         <Col >
                             <h1 className='text-center text-light'>Historial de Documentos</h1>
@@ -38,7 +38,7 @@ const HistorialBuzon = () => {
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody className='table-warning'> 
+                                <tbody className='table-light'> 
                                     {solicitudes.map((solicitud)=> <FilaSolicitud key={solicitud.id} solicitud={solicitud} />)}
                                 </tbody>
                             </Table>

@@ -79,10 +79,10 @@ const ModalNewUsuario = ({modal, toggle}) => {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="success" onClick={toggle}>
+                    <Button className='text-light' color="custom-success" onClick={toggle}>
                         Añadir usuario
                     </Button>{' '}
-                    <Button color="danger" onClick={toggle}>
+                    <Button className='text-light' color="custom-danger" onClick={toggle}>
                         Cancelar
                     </Button>
                 </ModalFooter>

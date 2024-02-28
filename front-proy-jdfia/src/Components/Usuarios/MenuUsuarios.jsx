@@ -23,7 +23,7 @@ const MenuUsuarios = () => {
     }, []);
 
     return (
-            <Container className='p-3 bg-secondary my-4 rounded bg-opacity-75'>
+            <Container className='p-3 bg-custom-dark my-4 rounded bg-opacity-75'>
                     <br />
                     <Row>
                         <Col xs="12">
@@ -37,15 +37,15 @@ const MenuUsuarios = () => {
                     <Row >
                         <Col xs="3"> <h4 className='text-light'>Lista de usuarios</h4></Col>
                         <Col xs="5"></Col>
-                        <Col xs="3" className=' p-2 text-center'>
-                            <Label className='text-light text-center' sm={6} for="newUserBt"><h6>Añadir usuario: </h6></Label>
-                            <Button id="newUserBt" color='success' onClick={toggle}>Nuevo usuario</Button>
+                        <Col xs="3" className=' p-2 text-center text-light'>
+                            <Label className=' text-center' sm={6} for="newUserBt"><h6>Añadir usuario: </h6></Label>
+                            <Button id="newUserBt" className='text-light' color='custom-success' onClick={toggle}>Nuevo usuario</Button>
                         </Col>
                     </Row>
                     <Row >
                         <Col  xs="12">
                             <Table borderless striped hover className='text-center'>
-                                <thead className='table-info'>
+                                <thead className='table-primary'>
                                     <tr>
                                         <th>#</th>
                                         <th>Nombre de usuario</th>

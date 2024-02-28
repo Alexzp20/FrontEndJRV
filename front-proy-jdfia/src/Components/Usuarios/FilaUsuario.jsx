@@ -11,8 +11,8 @@ const FilaUsuario = ({usuario}) => {
             <td>{usuario.carnet}</td>
             <td>{usuario.cv}</td>
             <td>
-                <Button className='m-1' color='warning'>Editar</Button>
-                <Button color='danger'>Eliminar</Button>
+                <Button className='m-1 text-light' color='custom-warning'>Editar</Button>
+                <Button className='m-1 text-light' color='custom-danger'>Eliminar</Button>
             </td>
         </tr>   
     );
