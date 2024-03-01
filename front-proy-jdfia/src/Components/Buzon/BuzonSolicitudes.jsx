@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
+import { pedirCategorias, pedirSubCategorias } from '../../Helpers/pedirDatos';
 
 const BuzonSolicitudes = () => {
 
-    const {handleSubmit, control} = useForm();
+    const {handleSubmit, control, watch, setValue} = useForm();
+    const [categorias, setCategorias ] = useState([]);
+    const [subCategorias, setSubCategorias ] = useState([]);
+    const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', ''), 10);
+
+    const subcategoriasSeleccionadas = subCategorias.filter(
+        subcategoria => subcategoria.idCategoria === idCategoriaSeleccionada
+      );
+
+    useEffect(() => {
+       pedirCategorias()
+       .then((res) =>{
+        setCategorias(res)
+    
+       })
+       pedirSubCategorias()
+       .then((res)=>{
+        setSubCategorias(res)
+       })
+    }, []);
+    
 
     const onSubmit = (data) =>{
             console.log(data);
@@ -27,6 +48,17 @@ const BuzonSolicitudes = () => {
                         <Col xs="2"></Col>
                         <Col xs="8">
                             <Form  onSubmit={handleSubmit(onSubmit)} >
+                                    <FormGroup>
+                                        <Label className='text-light' for="codSolicitud">
+                                            Codigo de la solicitud
+                                        </Label>
+                                        <Controller
+                                            name="codSolicitud"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) =>  <Input {...field} type="text" id= "codSolicitud" bsSize="sm" placeholder="Ingrese un codigo" />}
+                                        />
+                                    </FormGroup>
                                     <FormGroup>
                                         <Label className='text-light' for="descSolicitud">
                                             Descripción de la solicitud
@@ -62,15 +94,32 @@ const BuzonSolicitudes = () => {
 
                                                 <Input {...field}type="select" id= "categoriaSolicitud" bsSize="sm">
                                                     <option value="" >Seleccione una opción</option>
-                                                    <option value="Administración academica">Administración academica</option>
-                                                    <option value="">Comite tecnico asesor</option>
-                                                    <option value="">Otros academicos</option>
-                                                    <option value="">Funcionamiento de la facultad</option>
+                                                    {categorias.map((categoria) =><option value={categoria.idCategoria} key={categoria.idCategoria}>{categoria.categoria}</option>)}
                                                 </Input>
                                             )}
                                         />
                                     
                                     </FormGroup>
+                                    {subcategoriasSeleccionadas.length > 0 && (
+                                        <FormGroup>
+                                        <Label className='text-light' for="subCategoriaSolicitud">
+                                            Subcategoria de la solicitud
+                                        </Label>
+                                        <Controller
+                                                name="subCategoriaSolicitud"
+                                                control={control}
+                                                defaultValue=""
+                                                render={({ field }) => (
+    
+                                                    <Input {...field}type="select" id= "subCategoriaSolicitud" bsSize="sm">
+                                                         <option value="" >Seleccione una opción</option>
+                                                        {subcategoriasSeleccionadas.map((subcategoria) =><option value={subcategoria.idSubCategoria} key={subcategoria.idSubCategoria}>{subcategoria.subCategoria}</option>)}    
+                                                    </Input>
+                                                )}
+                                            />
+                                        
+                                        </FormGroup>
+                                    )}
                                     <Container fluid className='text-center'>
                                         <Button className='m-2 text-light' color='custom-success' type='submit'>Enviar</Button>
                                         

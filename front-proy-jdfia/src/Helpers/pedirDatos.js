@@ -2,6 +2,8 @@ import solicitudes from '../Data/Solicitudes.json'
 import agendas from '../Data/Agendas.json'
 import acuerdos from '../Data/Acuerdos.json'
 import usuarios from '../Data/Usuarios.json'
+import categorias from '../Data/categorias.json'
+import subCategorias from '../Data/subCategorias.json'
 
 export const pedirSolicitudes= () => {
 
@@ -37,3 +39,20 @@ export const pedirUsuarios = ()=>{
         },500)
     })
 }
+
+export const pedirCategorias = ()=>{
+    return new Promise ((resolve,reject) =>{
+        setTimeout(()=>{
+                resolve(categorias);     
+        },500)
+    })
+}
+
+export const pedirSubCategorias = ()=>{
+    return new Promise ((resolve,reject) =>{
+        setTimeout(()=>{
+                resolve(subCategorias);     
+        },500)
+    })
+}
+
