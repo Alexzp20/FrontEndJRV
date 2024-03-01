@@ -4,9 +4,9 @@ import { Button } from 'reactstrap';
 const FilaUsuario = ({usuario}) => {
     return (
         <tr>
-            <th scope='row'>{usuario.id_usuario}</th>
-            <td>{usuario.nombre_usuario}</td>
-            <td>{usuario.correo}</td>
+            <th scope='row'>{usuario.id}</th>
+            <td>{usuario.name}</td>
+            <td>{usuario.email}</td>
             <td>{usuario.fecha_nacimiento}</td>
             <td>{usuario.carnet}</td>
             <td>{usuario.cv}</td>

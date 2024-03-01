@@ -14,7 +14,9 @@ const MenuUsuarios = () => {
 
 
     useEffect(() => {
-        pedirUsuarios()
+        fetch("http://127.0.0.1:8000/api/users")
+        //pedirUsuarios()
+        .then((data) => data.json())
         .then((res)=>{
            setUsuarios(res);
            console.log(res)
