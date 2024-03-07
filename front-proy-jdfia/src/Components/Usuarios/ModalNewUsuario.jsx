@@ -1,107 +1,232 @@
 import React, { useEffect, useState } from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
+import {useForm, Controller} from 'react-hook-form'; 
 
 const ModalNewUsuario = ({modal, toggle}) => {
 
-    
+    const {handleSubmit, control,watch} = useForm();
+
     const [roles, setRoles] = useState([]);
+    const [puestos, setPuestos] = useState([]);
+    const puesto = parseInt(watch('puestoUsuario', ''), 10);
+    
+    const deshabilitar = () =>{
+        if(puesto === 1 || puesto === 3) return true
+        else return false
+    }
+    
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/rols")
         //pedirUsuarios()
         .then((data) => data.json())
         .then((res)=>{
-           setRoles(res);
-           console.log(res)
+            setRoles(res);
         })
-    
+        
+        fetch("http://127.0.0.1:8000/api/puestos")
+        //pedirUsuarios()
+        .then((data) => data.json())
+        .then((res)=>{
+            setPuestos(res);
+        })
+        
     }, []);
-
+    
+    const onSubmit = (data) =>{
+        console.log(data);
+        }
 
     return (
         <Container className='p-3 my-4'>
             <Modal scrollable size="xl" isOpen={modal} toggle={toggle}>
                 <ModalHeader toggle={toggle}>Nuevo usuario</ModalHeader>
                 <ModalBody>
-                    <Form>
+                    <Form onSubmit={handleSubmit(onSubmit)}>
                         <Row>
                             <Col xs="6">
+                            <FormGroup >
+                                    <Label for="puestoUsuario">Puesto</Label>
+                                    <Controller
+                                            name="puestoUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => (
+                                                <Input  {...field} id="puestoUsuario" type="select" options={roles.ROL}>
+                                                <option value="0">Seleccione una    </option>
+                                                {puestos.map((puesto)=>{
+                                                  return  <option value={puesto.id} key={puesto.id}>{puesto.PUESTO}</option>
+                                                })}
+                                                </Input>
+                                            )}
+                                        />
+                                    
+                                </FormGroup>
                                 <FormGroup >
                                     <Label for="nombreUsuario">Nombre de usuario</Label>
-                                    <Input
-                                    id="nombreUsuario"
-                                    placeholder="Ingrese un nombre de usuario"
-                                    type="text"
-                                    />
+                                    <Controller
+                                            name="nombreUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="nombreUsuario"
+                                            placeholder="Ingrese un nombre de usuario"
+                                            type="text"
+                                            />}
+                                        />
+                                    
+                                </FormGroup>
+                                <FormGroup >
+                                    <Label for="nombresUsuario">Nombre</Label>
+                                    <Controller
+                                            name="nombresUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="nombresUsuario"
+                                            placeholder="Ingrese un nombre"
+                                            type="text"
+                                            disabled={deshabilitar()}
+                                            />
+                                            }
+                                        />
+
+
                                 </FormGroup>
                                 <FormGroup >
                                     <Label for="contraUsuario">Contraseña</Label>
-                                    <Input
-                                    id="contraUsuario"
-                                    placeholder="Ingrese una contraseña"
-                                    type="password"
-                                    />
-                                </FormGroup>
-                                <FormGroup >
-                                    <Label for="cvUsuario">Curriculum Vitae (opcional)</Label>
-                                    <Input
-                                    id="cvUsuario"
-                                    type="file"
-                                    />
+                                    <Controller
+                                            name="contraUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="contraUsuario"
+                                            placeholder="Ingrese una contraseña"
+                                            type="password"
+                                            />
+                                            }
+                                        />
                                 </FormGroup>
                                 <FormGroup >
                                     <Label for="carnetUsuario">Carnet</Label>
-                                    <Input
-                                    id="carnetUsuario"
-                                    placeholder='ingrese un carnet'
-                                    type="text"
-                                    />
+                                    <Controller
+                                            name="carnetUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="carnetUsuario"
+                                            placeholder='ingrese un carnet'
+                                            type="text"
+                                            disabled={deshabilitar()}   
+                                            />
+                                            }
+                                        />
                                 </FormGroup>
                             </Col>
 
                             <Col xs="6">
+                            <FormGroup >
+                                    <Label for="rolUsuario">Rol</Label>
+                                    <Controller
+                                            name="rolUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => (
+                                    <Input {...field} id="rolUsuario" type="select" options={roles.ROL}>
+                                    {roles.map((rol)=>{
+                                      return  <option value={rol.id} key={rol.id}>{rol.ROL}</option>
+                                    })}
+                                    </Input>)}
+                                        />                          
+                                </FormGroup>
                                 <FormGroup >
                                     <Label for="correoUsuario">Correo electronico</Label>
-                                    <Input
-                                    id="correoUsuario"
-                                    placeholder="Ingrese correo electronico"
-                                    type="email"
-                                    />
+                                    <Controller
+                                            name="correoUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="correoUsuario"
+                                            placeholder="Ingrese correo electronico"
+                                            type="email"
+                                            />
+                                            }
+                                        />
+                                </FormGroup>
+                                <FormGroup >
+                                    <Label for="apellidoUsuario">Apellidos</Label>
+                                    <Controller
+                                            name="apellidoUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="apellidoUsuario"
+                                            placeholder="Ingrese un apellido"
+                                            type="text"
+                                            disabled={deshabilitar()}
+                                            />
+                                            }
+                                        />
                                 </FormGroup>
                                 <FormGroup >
                                     <Label for="contrarepUsuario">Repetir contraseña</Label>
-                                    <Input
-                                    id="contrarepUsuario"
-                                    placeholder="Ingrese una contraseña"
-                                    type="password"
-                                    />
+                                    <Controller
+                                            name="contrarepUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="contrarepUsuario"
+                                            placeholder="Ingrese una contraseña"
+                                            type="password"
+                                            />
+                                            }
+                                        />
                                 </FormGroup>
                                 <FormGroup >
                                     <Label for="nacUsuario">Fecha de nacimiento</Label>
-                                    <Input
-                                    id="nacUsuario"
-                                    type="date"
-                                    />
+                                    <Controller
+                                            name="nacUsuario"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="nacUsuario"
+                                            type="date"
+                                            disabled={deshabilitar()}
+                                            />
+                                            }
+                                        />
                                 </FormGroup>
-                                <FormGroup >
-                                    <Label for="rolUsuario">Rol</Label>
-                                    <Input id="rolUsuario" type="select" options={roles.ROL}>
-                                    
-                                    </Input>
-                                                                        
-                                </FormGroup>
+                               
                             </Col>
                         </Row>
-                    </Form>
-                </ModalBody>
-                <ModalFooter>
-                    <Button className='text-light' color="custom-success" onClick={toggle}>
+                        <br />
+                        <ModalFooter>
+                    <Button className='text-light' color="custom-success" type='submit'>
                         Añadir usuario
                     </Button>{' '}
                     <Button className='text-light' color="custom-danger" onClick={toggle}>
                         Cancelar
                     </Button>
                 </ModalFooter>
+                    </Form>
+                </ModalBody>
+               
             </Modal>
         </Container>
         );
