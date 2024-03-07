@@ -15,6 +15,7 @@ import EstAreas from './Components/Estadisticos/EstAreas';
 import EstRanFecha from './Components/Estadisticos/EsRanFecha';
 import MenuUsuarios from './Components/Usuarios/MenuUsuarios';
 import Footer from './Components/Footer/Footer';
+import Miembros from './Components/Junta Directiva/Miembros';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
          <Route path='/estadistico/areas' element={<EstAreas/>}/>
           <Route path='/ajustes' element={<MenuAjustes/>}/>
           <Route path='/ajustes/usuarios' element={<MenuUsuarios/>}/>
+          <Route path='/junta/miembros' element={<Miembros/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           <Route path='*' element={<InicioSesion/>}/>
           

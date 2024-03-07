@@ -28,7 +28,9 @@ const NavBar = () => {
                         <NavItem>
                             <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none' }} to="/" >Perfil</Link></NavbarText>                              
                         </NavItem>
-
+                        <NavItem>
+                            <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none'}} to="/junta/miembros" >Miembros JD</Link></NavbarText>                              
+                        </NavItem>
                         <NavItem>
                             <NavbarText><Link className='text-custom-secondary' style={{ textDecoration: 'none' }} to="/" >notificaciones</Link></NavbarText>                              
                         </NavItem>
