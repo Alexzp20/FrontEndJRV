@@ -1,50 +1,48 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, Input, Label, Row, Table } from 'reactstrap';
+import { Button, Col, Container, Input, Label, Row, Table } from 'reactstrap';
 
 
 const Miembros = () => {
 
 
-    const [fechaInicial, setFechaInicial] = useState('');
-    const [fechaFinal, setFechaFinal] = useState('');
+    const [fechaInicial, setFechaInicial] = useState('2024-01-01');
+    const [fechaFinal, setFechaFinal] = useState('2024-01-01');
     const [usuarios, setUsuarios ] = useState([]);
     const [usuariosFiltrados, setUsuariosFiltrados ] = useState([]);
 
 
-  {/*
-  useEffect(() => {
-
-        const filtrados = usuarios.filter((usuario) => {
-            const usuarioNac = new Date(usuario.fecha_nacimiento);
-            return usuarioNac >= new Date(fechaInicial) && usuarioNac <= new Date(fechaFinal);
-          });
-      
-
-        setUsuariosFiltrados(filtrados);
-    }, [fechaFinal,fechaInicial, usuariosFiltrados]); 
-*/}
+    const reiniciar = () =>{
+        setFechaInicial('');
+        setFechaFinal('');
+    }
+  
+    
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/users")
+
+        var filtrados; 
+
+        if(fechaFinal === '' && fechaInicial === ''){
+            filtrados = usuariosFiltrados
+        }
+        else{
+          filtrados = usuariosFiltrados.filter((usuario) => {
+                const usuarioNac = new Date(usuario.fecha_nacimiento);
+                return usuarioNac >= new Date(fechaInicial) && usuarioNac <= new Date(fechaFinal);
+              });
+        }
+            setUsuarios(filtrados);
+        }, [fechaFinal,fechaInicial]); 
+        
+        
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/users/puesto?puesto_id=2")
         .then((data) => data.json())
         .then((res)=>{
            setUsuarios(res);
-         //  filtrarJuntaDirectiva(res);
-           console.log(res)
+           setUsuariosFiltrados(res);
         }) 
     }, []);
-
-    {/*
-    const filtrarJuntaDirectiva = (usuarios) => {
-        const usuariosFiltrados = usuarios.filter((usuario) =>{
-            if(usuario.id === '1')
-            {
-                return usuario
-            }
-        })
-        setUsuariosFiltrados(usuariosFiltrados)
-    }
-*/}
 
     return (
         <Container className=' p-4 bg-custom-dark my-4 rounded bg-opacity-75' >
@@ -54,19 +52,30 @@ const Miembros = () => {
                         </Col>
                     </Row>
                     <br />
+                    <br />
+                    <br />
                     <Row className='text-light'>
                         <Col xs="1"></Col>
                         <Col xs="4"> 
                             <Label >Fecha inicial</Label>
                             <Input type="date" value={fechaInicial} onChange={(e) => setFechaInicial(e.target.value)}></Input>
                         </Col>
-                        <Col xs="2"></Col>
+                        <Col xs="2">
+                            </Col>
                         <Col xs="4">
                             <Label >Fecha final</Label>
                             <Input type="date" value={fechaFinal} onChange={(e) => setFechaFinal(e.target.value)}></Input>
                         </Col>
                         <Col xs="1"></Col>
                     </Row>
+                    <br />
+                        <Row>
+                            <Col xs="5"></Col>
+                            <Col xs="2">
+                                <Button block color='custom-secondary' onClick={()=>{reiniciar()}}> Reiniciar fechas</Button>
+                            </Col>
+                            <Col xs="5"></Col>
+                        </Row>
                     <br />
                     <Row>
                         <Table className='text-center'>
@@ -81,14 +90,14 @@ const Miembros = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            { usuariosFiltrados.length > 0 && usuariosFiltrados.map((usuario) => (
+                            { usuarios.length > 0 && usuarios.map((usuario) => (
                                 <tr key={usuario.id}>
                                     <th scope='row'>{usuario.id}</th>
                                     <td>{usuario.name}</td>
-                                    <td>{usuario.name}</td>
+                                    <td>{usuario.apellido}</td>
                                     <td>{usuario.email}</td>
-                                    <td>{usuario.password}</td>
                                     <td>{usuario.carnet}</td>
+                                    <td>{usuario.fecha_nacimiento}</td>
                                 </tr>
                             ))}
                             </tbody>
