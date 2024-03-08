@@ -34,7 +34,50 @@ const ModalNewUsuario = ({modal, toggle}) => {
     }, []);
     
     const onSubmit = (data) =>{
-        console.log(data);
+        console.log(data)
+        var newUser = { 
+        }
+        
+        if(data.puestoUsuario === '2')
+        {
+            newUser = {
+                "username": data.nombreUsuario,
+                "name": data.nombresUsuario,
+                "apellido": data.apellidoUsuario,
+                "email": data.correoUsuario,
+                "password": data.contraUsuario,
+                "fecha_nacimiento": "2000-12-12",
+                "carnet": data.carnetUsuario,
+                "puesto_id": parseInt(data.puestoUsuario),
+                "rol_id": parseInt(data.rolUsuario)
+            }
+        }
+        else{
+            newUser = {
+                "username": data.nombreUsuario,
+                "name": data.nombresUsuario,
+                "apellido": null,
+                "email": data.correoUsuario,
+                "password": data.contraUsuario,
+                "fecha_nacimiento": null,
+                "carnet": null,
+                "puesto_id": parseInt(data.puestoUsuario),
+                "rol_id": parseInt(data.rolUsuario)
+                 }  
+        }
+        
+        console.log(newUser)
+        fetch('http://127.0.0.1:8000/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                        },
+            body: JSON.stringify(newUser)
+        })
+        .then(response => response.json())
+        .then(data => console.log('Datos enviados:', data))
+        .catch(error => console.error('Error al enviar datos:', error));
+
         }
 
     return (
