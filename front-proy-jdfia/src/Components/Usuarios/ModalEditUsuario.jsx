@@ -3,20 +3,42 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 
-const ModalNewUsuario = ({modalNew, toggleNew}) => {
+const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
 
-    const {handleSubmit, control,watch} = useForm();
-
-    const [roles, setRoles] = useState([]);
-    const [puestos, setPuestos] = useState([]);
-    const puesto = parseInt(watch('puestoUsuario', ''), 10);
+    const {handleSubmit, control,watch,setValue} = useForm();
     
+    
+    
+    const [roles, setRoles] = useState([]);
+    const puesto = parseInt(watch('puestoUsuario', ''), 10);
+    const [puestos, setPuestos] = useState([]);
+    const [idEdit,setIdEdit] = useState('');
+
+
     const deshabilitar = () =>{
         if(puesto === 1 || puesto === 3) return true
         else return false
     }
+
     
     useEffect(() => {
+        setValue('puestoUsuario',usuario.puesto_id)
+        setValue('rolUsuario',usuario.rol_id)
+        setValue('nombreUsuario',usuario.username)
+        setValue('nombresUsuario',usuario.name)
+        setValue('apellidoUsuario',usuario.apellido)
+        setValue('correoUsuario',usuario.email)
+        setValue('fechaNacimiento',usuario.fecha_nacimiento)
+        setValue('contraUsuario',usuario.password)
+        setValue('carnetUsuario',usuario.carnet)
+        setIdEdit(usuario.id)
+    }, [setValue,usuario])
+    
+
+    
+    useEffect(() => {
+
+
         fetch("http://127.0.0.1:8000/api/rols")
         //pedirUsuarios()
         .then((data) => data.json())
@@ -34,7 +56,6 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
     }, []);
     
     const onSubmit = (data) =>{
-        console.log(data)
         var newUser = { 
         }
         
@@ -66,9 +87,8 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                  }  
         }
         
-        console.log(newUser)
-        fetch('http://127.0.0.1:8000/api/users', {
-            method: 'POST',
+        fetch(`http://127.0.0.1:8000/api/users/${idEdit}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
                         },
@@ -82,8 +102,8 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
 
     return (
         <Container className='p-3 my-4'>
-            <Modal scrollable size="xl" isOpen={modalNew} toggle={toggleNew}>
-                <ModalHeader toggle={toggleNew}>Nuevo usuario</ModalHeader>
+            <Modal scrollable size="xl" isOpen={modalEdit} toggle={toggleEdit}>
+                <ModalHeader toggle={toggleEdit}>Editar Usuario</ModalHeader>
                 <ModalBody>
                     <Form onSubmit={handleSubmit(onSubmit)}>
                         <Row>
@@ -152,6 +172,19 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                                             id="contraUsuario"
                                             placeholder="Ingrese una contraseña"
                                             type="password"
+                                            />
+                                        }
+                                        />
+                                        <Label for="verContraseña">Ver Contraseña</Label> 
+                                        <Controller
+                                            name="verContra"
+                                            control={control}
+                                            defaultValue=""
+                                            render={({ field }) => 
+                                            <Input
+                                            {...field}
+                                            id="verContra"
+                                            type="checkbox"
                                             />
                                             }
                                         />
@@ -261,9 +294,9 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                         <br />
                         <ModalFooter>
                     <Button className='text-light' color="custom-success" type='submit'>
-                        Añadir usuario
+                        Editar usuario
                     </Button>{' '}
-                    <Button className='text-light' color="custom-danger" onClick={toggleNew}>
+                    <Button className='text-light' color="custom-danger" onClick={toggleEdit}>
                         Cancelar
                     </Button>
                 </ModalFooter>
@@ -272,8 +305,7 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                
             </Modal>
         </Container>
-        );
-        
+    );
 }
 
-export default ModalNewUsuario;
+export default ModalEditUsuario;

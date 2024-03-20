@@ -1,7 +1,16 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
-const FilaUsuario = ({usuario}) => {
+const FilaUsuario = ({usuario, toggleEdit, setUsuarioEdit, deleteUser}) => {
+
+
+    const toggleEditar = () => {
+
+        setUsuarioEdit(usuario);
+        toggleEdit();
+
+    }
+
     return (
         <tr>
             <th scope='row'>{usuario.id}</th>
@@ -11,8 +20,8 @@ const FilaUsuario = ({usuario}) => {
             <td>{usuario.carnet}</td>
             <td>{usuario.cv}</td>
             <td>
-                <Button className='m-1 text-light' color='custom-warning'>Editar</Button>
-                <Button className='m-1 text-light' color='custom-danger'>Eliminar</Button>
+                <Button className='m-1 text-light' color='custom-warning' onClick={toggleEditar}>Editar</Button>
+                <Button className='m-1 text-light' color='custom-danger' onClick={()=>{deleteUser(usuario.id)}}>Eliminar</Button>
             </td>
         </tr>   
     );
