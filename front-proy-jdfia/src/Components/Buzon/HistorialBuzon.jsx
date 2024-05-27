@@ -36,6 +36,8 @@ const HistorialBuzon = () => {
                                         <th>Descripción</th>
                                         <th>Archivo</th>
                                         <th>Acciones</th>
+                                        <th>Estado de la solicitud</th>
+                                        <th>Comentario</th>
                                     </tr>
                                 </thead>
                                 <tbody className='table-light'> 

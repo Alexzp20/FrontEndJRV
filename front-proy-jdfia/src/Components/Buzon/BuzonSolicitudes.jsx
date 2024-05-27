@@ -1,34 +1,91 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
-import { pedirCategorias, pedirSubCategorias } from '../../Helpers/pedirDatos';
+/* import { pedirCategorias, pedirSubCategorias } from '../../Helpers/pedirDatos'; */
+import Swal from 'sweetalert2';
 
 const BuzonSolicitudes = () => {
 
-    const {handleSubmit, control, watch, setValue} = useForm();
+    const {handleSubmit, control, watch, reset, formState: { errors },setValue} = useForm();
     const [categorias, setCategorias ] = useState([]);
     const [subCategorias, setSubCategorias ] = useState([]);
-    const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', ''), 10);
+    const [documento, setDocumento ] = useState(null);
+    const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', 0), 10);
+   
 
-    const subcategoriasSeleccionadas = subCategorias.filter(
-        subcategoria => subcategoria.idCategoria === idCategoriaSeleccionada
-      );
+
+    
 
     useEffect(() => {
-       pedirCategorias()
-       .then((res) =>{
-        setCategorias(res)
-    
-       })
-       pedirSubCategorias()
-       .then((res)=>{
-        setSubCategorias(res)
-       })
+
+       fetch('http://localhost:8000/api/categorias')
+        .then(response => response.json())
+        .then(data =>{ setCategorias(data); console.log(data)})
+        .catch(error => console.log(error));
+       
     }, []);
+        
+    useEffect(() => {
+        const categoria = categorias.find(cat => cat.id === parseInt(idCategoriaSeleccionada));
+        if (categoria) {
+          setSubCategorias(categoria.subcategorias);
+          setValue('subCategoriaSolicitud', ''); // Reset subcategory when category changes
+        } else {
+          setSubCategorias([]);
+        }
+      }, [idCategoriaSeleccionada, categorias, setValue]);
+
+
     
 
-    const onSubmit = (data) =>{
-            console.log(data);
+    const onSubmit = async (data) =>{
+
+
+        let subcategoria = !data.subCategoriaSolicitud ? "" : parseInt(data.subCategoriaSolicitud,10)
+
+        const form = new FormData();
+        form.append('descripcion', data.descSolicitud);
+        form.append('categoria_id', parseInt(data.categoriaSolicitud,10));
+        if(subcategoria !== "") form.append('subcategoria_id', subcategoria); 
+        form.append('name', data.codSolicitud);
+        form.append('file', documento);
+
+        for (let [key, value] of form.entries()) {
+            console.log(key, value);
+          }
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/solicitud', {
+              method: 'POST',
+              body: form
+            });
+      
+            if (response.ok) {
+                Swal.fire({
+                    title: "Solicitud Añadida",
+                    text: "La solicitud se ha enviado con exito con exito",
+                    icon: "success"
+                });
+               reset();
+            } else {
+                const errorData = await response.json();
+                console.log(errorData)
+                Swal.fire({
+                    title: "Error",
+                    text: "",
+                    icon: "error"
+                });
+              console.error('');
+            }
+          } catch (error) {
+            Swal.fire({
+                    title: "Error en la solicitud",
+                    text: {error},
+                    icon: "error"
+                });
+          }
+
+
     }
 
     return (
@@ -77,10 +134,39 @@ const BuzonSolicitudes = () => {
                                     <Controller
                                             name="archivoSolicitud"
                                             control={control}
+                                            // rules={{
+                                            //     required: "Debe seleccionar un archivo .pdf",
+                                            //     validate: {
+                                            //         maxSize: (value) => {
+                                            //           if (!value) return true; // Si no hay archivo, no hay error
+                                            //           return (value[0]?.size <= 5 * 1024 * 1024) || 'El archivo debe ser menor o igual a 5 MB';
+                                            //         },
+                                            //       },
+                                            //   }} 
                                             defaultValue=""
-                                            render={({ field }) => <Input {...field} type="file" id= "archivoSolicitud"  bsSize="sm" /> }
+                                            render={({ field, fieldState }) =>(
+                                                <>
+                                                <Input 
+                                                {...field} 
+                                                type="file" 
+                                                id= "archivoSolicitud"
+                                                bsSize="sm"
+                                                accept='.pdf'
+                                                onChange={(e) => {
+                                                    setDocumento(e.target.files[0])
+                                                    field.onChange(e);
+                                                    field.onBlur(e);  
+                                                    console.log(!!fieldState.error, fieldState.error)     
+                                                }} 
+                                                /> 
+                                                 {errors.archivoSolicitud && (
+                                                    <p style={{ color: 'red' }}>{errors.archivoSolicitud.message}</p>
+                                                )}
+                                                </>)}
+                                                
+                                                  /* {{fieldState.error && (
+                                                    <FormFeedback>{fieldState.error.message}</FormFeedback>)}} */
                                         />
-                                
                                     </FormGroup>
                                     <FormGroup>
                                     <Label className='text-light' for="categoriaSolicitud">
@@ -92,15 +178,15 @@ const BuzonSolicitudes = () => {
                                             defaultValue=""
                                             render={({ field }) => (
 
-                                                <Input {...field}type="select" id= "categoriaSolicitud" bsSize="sm">
-                                                    <option value="" >Seleccione una opción</option>
-                                                    {categorias.map((categoria) =><option value={categoria.idCategoria} key={categoria.idCategoria}>{categoria.categoria}</option>)}
+                                                <Input {...field} type="select" id= "categoriaSolicitud" bsSize="sm"  >
+                                                    <option value=""  >Seleccione una opción</option>
+                                                    {categorias.map((categoria) =><option value={categoria.id} key={categoria.id}>{categoria.name}</option>)}
                                                 </Input>
                                             )}
                                         />
                                     
                                     </FormGroup>
-                                    {subcategoriasSeleccionadas.length > 0 && (
+                                    {subCategorias.length > 0 && (
                                         <FormGroup>
                                         <Label className='text-light' for="subCategoriaSolicitud">
                                             Subcategoria de la solicitud
@@ -113,7 +199,7 @@ const BuzonSolicitudes = () => {
     
                                                     <Input {...field}type="select" id= "subCategoriaSolicitud" bsSize="sm">
                                                          <option value="" >Seleccione una opción</option>
-                                                        {subcategoriasSeleccionadas.map((subcategoria) =><option value={subcategoria.idSubCategoria} key={subcategoria.idSubCategoria}>{subcategoria.subCategoria}</option>)}    
+                                                        {subCategorias.map((subcategoria) =><option value={subcategoria.id} key={subcategoria.id}>{subcategoria.name}</option>)}    
                                                     </Input>
                                                 )}
                                             />

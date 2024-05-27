@@ -29,6 +29,7 @@ function App() {
           <Route path='/buzon' element={<MenuBuzon/>}/>
           <Route path='/buzon/nuevaSolicitud' element={<BuzonSolicitudes/>}/>
           <Route path='/buzon/historial' element={<HistorialBuzon/>}/>
+          <Route path='/buzon/revision' element={<RevisionSolicitud/>}/>
           <Route path='/buscador' element={<MenuBuscador/>}/>
           <Route path='/buscador/solicitud' element={<BusquedaSolicitud/>}/>
           <Route path='/buscador/agenda' element={<BusquedaAgenda/>}/>

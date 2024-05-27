@@ -70,9 +70,11 @@ const BusquedaSolicitud = () => {
                             <thead className='table-primary'>
                                 <tr>    
                                     <th>#</th>
-                                    <th>Fecha de subida</th>
+                                    <th>Fecha/hora de subida</th>
                                     <th>Descripción de la solicitud</th>
                                     <th>Documento de acuerdo</th>
+                                    <th>Codigo de la solicitud</th>
+                                    <th>Estado de la solicitud</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

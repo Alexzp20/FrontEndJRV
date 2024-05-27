@@ -8,6 +8,8 @@ const FilaSolicitud = ({solicitud}) => {
             <td>{solicitud.fechaSubida}</td>
             <td>{solicitud.descripcion}</td>
             <td>{solicitud.documento}</td>
+            <td></td>
+            <td></td>
             <td><Button className="text-white" color='custom-danger'>Eliminar</Button></td>
         </tr>   
     );
