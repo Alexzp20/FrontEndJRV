@@ -35,9 +35,9 @@ const InicioSesion = () => {
                             <Col xs="6" >
                                 <br />
                                 <Form onSubmit={handleSubmit(onSubmit)}>
-                                    <Label className='text-light' for="user"> Nombre de usuario </Label>
+                                    <Label className='text-light' for="user"> Correo Electronico </Label>
                                     <Controller
-                                                name="userText"
+                                                name="mailText"
                                                 control={control}
                                                 defaultValue=""
                                                 render={({ field }) => 
@@ -46,8 +46,8 @@ const InicioSesion = () => {
                                                     bsSize="sm"
                                                     className="mb-3 " 
                                                     id="user"
-                                                    placeholder="Ingrese su usuario"
-                                                    type="text"
+                                                    placeholder="Ingrese su correo electronico"
+                                                    type="email"
                                                 />}
                                         />  
 
