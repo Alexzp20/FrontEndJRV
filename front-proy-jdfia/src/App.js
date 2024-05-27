@@ -16,6 +16,8 @@ import EstRanFecha from './Components/Estadisticos/EsRanFecha';
 import MenuUsuarios from './Components/Usuarios/MenuUsuarios';
 import Footer from './Components/Footer/Footer';
 import Miembros from './Components/Junta Directiva/Miembros';
+import NuevaAgenda from './Components/Agenda/NuevaAgenda';
+import RevisionSolicitud from './Components/Buzon/RevisionSolicitud';
 
 function App() {
   return (
@@ -40,6 +42,7 @@ function App() {
           <Route path='/ajustes' element={<MenuAjustes/>}/>
           <Route path='/ajustes/usuarios' element={<MenuUsuarios/>}/>
           <Route path='/junta/miembros' element={<Miembros/>}/>
+          <Route path='/nueva/agenda' element={<NuevaAgenda/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           <Route path='*' element={<InicioSesion/>}/>
           
