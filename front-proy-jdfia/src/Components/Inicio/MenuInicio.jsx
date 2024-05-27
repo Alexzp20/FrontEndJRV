@@ -41,12 +41,14 @@ const MenuInicio = () => {
                                             color="custom-secondary"
                                             outline
                                             className="bg-custom-primary"
+                                            style={{display:'grid', justifyItems: 'center'}}
                                         >
                                             <CardHeader tag={"h4"} className='text-center'>
                                                 {opcion.titulo}
                                             </CardHeader>
                                             <CardBody>
-                                                <CardImg 
+                                                <CardImg
+                                                    style={{filter: 'invert(100%)', width:"5rem", aspectRatio: 20/22    }}
                                                     alt="Card image cap"
                                                     src={opcion.imagen}
                                                     />

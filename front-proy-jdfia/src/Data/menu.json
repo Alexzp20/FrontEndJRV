@@ -1,30 +1,30 @@
 [{
     "direccion": "/buzon",
-    "titulo": " Buzon",
-    "imagen": "https://picsum.photos/500/400"
+    "titulo": "Solicitudes",
+    "imagen": "/images/MenuInicio/Solicitudes.png"
 }
 ,
 {
     "direccion": "/buscador",
     "titulo": "Buscador",
-    "imagen": "https://picsum.photos/500/400"
+    "imagen": "/images/MenuInicio/Buscador.png"
 }
 ,
 {
     "direccion": "/estadistico",
     "titulo": "Estadisticos",
-    "imagen": "https://picsum.photos/500/400"
+    "imagen": "/images/MenuInicio/Estadisticos.png"
 }
 ,
 {
     "direccion": "/ajustes",
     "titulo": "Ajustes",
-    "imagen": "https://picsum.photos/500/400"
+    "imagen": "/images/MenuInicio/Ajustes.png"
 }
 ,
 {
     "direccion": "/nueva/agenda",
     "titulo": "Nueva Agenda",
-    "imagen": "https://picsum.photos/500/400"
+    "imagen": "/images/MenuInicio/Nuevo.png"
 }
 ]
