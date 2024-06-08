@@ -27,7 +27,7 @@ export default function RevisionSolicitud() {
     const getSolicitudes = () => {
         fetch('http://127.0.0.1:8000/api/solicitudes/estado/1')
         .then(response => response.json())
-        .then(data =>{ setSolicitudes(data);})
+        .then(data =>{ setSolicitudes(data); console.log(data)})
         .catch(error => console.log(error));
     }
 
@@ -141,6 +141,7 @@ export default function RevisionSolicitud() {
                                     <tr>    
                                         <th>#</th>
                                         <th>Fecha y hora de subida</th>
+                                        <th>Codigo de la solicitud</th>
                                         <th>Categoria de la solicitud</th>
                                         <th>Archivo</th>
                                         <th>Acciones</th>
@@ -150,7 +151,8 @@ export default function RevisionSolicitud() {
                                     {solicitudes.map((solicitud)=>
                                 <tr key={solicitud.id}>
                                     <th>{solicitud.id}</th>
-                                    <td>{solicitud.fechaSubida}</td>
+                                    <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
+                                    <td>{solicitud.codigo}</td>
                                     <td>{solicitud.descripcion}</td>
                                     <td><FaFilePdf onClick={()=>{getDocumento(solicitud.documentos[0].id)}} className='w-50 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
                                     <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(solicitud)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{handleSolicitud(solicitud, 2,"")}}>Aprobar</Button> { } <Button color='custom-danger'className='text-light' onClick={()=>{toggleDenegar(solicitud)}}>Denegar</Button> { }

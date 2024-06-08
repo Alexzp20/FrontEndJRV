@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
-/* import { pedirCategorias, pedirSubCategorias } from '../../Helpers/pedirDatos'; */
+
 import Swal from 'sweetalert2';
 
 const BuzonSolicitudes = () => {
@@ -63,7 +63,7 @@ const BuzonSolicitudes = () => {
             if (response.ok) {
                 Swal.fire({
                     title: "Solicitud Añadida",
-                    text: "La solicitud se ha enviado con exito con exito",
+                    text: "La solicitud se ha enviado con exito ",
                     icon: "success"
                 });
                reset();
