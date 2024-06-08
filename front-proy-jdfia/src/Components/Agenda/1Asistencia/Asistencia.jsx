@@ -9,7 +9,7 @@ const Asistencia = ({setAsistencia}) => {
     const [asistentesSuplentes,setAsistentesSuplentes]= useState([]);
     const [asistentesOtros,setAsistentesOtros]= useState([]);
     const [modalNew,setModalNew]= useState(false);
-
+    const [usuarios, setUsuarios]= useState([])
     const toggleNew = () => setModalNew(!modalNew)
 
 
@@ -18,14 +18,16 @@ const Asistencia = ({setAsistencia}) => {
         .then((data) => data.json())
         .then((res)=>{
            console.log(res)
+           setUsuarios(res)
         })
     }, [])
 
 
     useEffect(() => {
         
-        const asistentes = [asistentesPropietarios, asistentesPropietarios, asistentesOtros]
+        const asistentes = [...asistentesPropietarios, ...asistentesSuplentes, ...asistentesOtros]
         setAsistencia(asistentes)
+
 
     }, [asistentesPropietarios, asistentesOtros, asistentesSuplentes, setAsistencia]);
 
@@ -35,7 +37,7 @@ const Asistencia = ({setAsistencia}) => {
 
 
     return (
-        <Container>
+        <Container className=' px-4'>
              <Row>
                 <h5>1- Establecimiento del Quorum</h5>
                 <br />
@@ -82,7 +84,7 @@ const Asistencia = ({setAsistencia}) => {
                 </Table>
             </Row>
 
-            <ModalNuevaAsistencia modalNew={modalNew} toggleNew={toggleNew} setAsistentesOtros={setAsistentesOtros} setAsistentesPropietarios={setAsistentesPropietarios} setAsistentesSuplentes={setAsistentesSuplentes}/>
+            <ModalNuevaAsistencia modalNew={modalNew} toggleNew={toggleNew} setAsistentesOtros={setAsistentesOtros} setAsistentesPropietarios={setAsistentesPropietarios} setAsistentesSuplentes={setAsistentesSuplentes} usuarios={usuarios}/>
         </Container>
         );
 }

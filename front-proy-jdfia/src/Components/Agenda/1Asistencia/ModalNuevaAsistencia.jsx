@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Input, Row, Modal, ModalHeader, ModalBody, Label   } from 'reactstrap';
 
 
-const ModalNuevaAsistencia = ({modalNew, toggleNew, setAsistentesPropietarios, setAsistentesSuplentes, setAsistentesOtros}) => {
+const ModalNuevaAsistencia = ({modalNew, toggleNew, setAsistentesPropietarios, setAsistentesSuplentes, setAsistentesOtros, usuarios}) => {
 
     const [tipoAsistente, setTipoAsistente] = useState('0');
     const [usuarioAsistente, setUsuarioAsistente] = useState('');
@@ -35,7 +35,7 @@ const AnadirAsistencia = () =>{
 
     let nuevaAsistencia = {
             "tipoAsistente": tipoAsistente,
-            "usuarioAsistente": usuarioAsistente,
+            "usuarioAsistente": parseInt(usuarioAsistente),
             "horaAsistencia": horaAsistencia,
             "asistencia": asistencia,
             "quorum": quorum    
@@ -87,8 +87,10 @@ const setNuevaAsistencia = (setAsistentes, nuevaAsistencia) =>{
                         <br />
                         <Label >Seleccione el usuario</Label>
                         <Input type="select" id='usuarioAsistente' onChange={handleUsuarioAsistente}>
-                        <option value="1" >Usuario 1</option>
-                        <option value="2" >Usuario 2</option>
+                        <option value="0" >Seleccione un usuario</option>
+                        {usuarios.length > 0 && usuarios.map(usuario => <option value={usuario.id} >{usuario.name + " " + usuario.apellido}</option> )}
+                        
+                        
                         </Input>
                         <br />
                         <Label >Ingrese la hora de asistencia</Label>

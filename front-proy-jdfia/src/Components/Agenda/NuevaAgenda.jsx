@@ -6,6 +6,7 @@ import AprobacionAgenda from './2Aprobacion/AprobacionAgenda';
 import MenuActas from './3Actas/MenuActas';
 import TablaSolicitudes from './4Solicitudes/TablaSolicitudes';
 import { MenuInformes } from './9Informes/MenuInformes';
+import Swal from 'sweetalert2';
 
 
 const NuevaAgenda = () => {
@@ -16,32 +17,65 @@ const NuevaAgenda = () => {
     const [actas , setActas] = useState ([]);
     const [informes , setInformes] = useState ([]);
 
-      const onSubmitAgenda = (data) =>{
+      const onSubmitAgenda = async (data) =>{
 
         const generales = {...data}
+        
+        let agenda = {
+            "generales": generales,
+            "asistencias": asistencias,
+            "actas": actas,
+            "solicitudes": solicitudes,
+            "informes": informes
+          }
+          console.log(agenda)
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/agenda', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+                    },
+              body: JSON.stringify(agenda)
+            });
+      
+            if (response.ok) {
+                Swal.fire({
+                    title: "Agenda Añadida",
+                    text: "La Agenda se ha enviado con exito",
+                    icon: "success"
+                });
+            
+            } else {
+                const errorData = await response.json();
+                console.log(errorData)
+                Swal.fire({
+                    title: "Error",
+                    text: "",
+                    icon: "error"
+                });
+              console.error('');
+            }
+          } catch (error) {
+            Swal.fire({
+                    title: "Error en la solicitud",
+                    text: {error},
+                    icon: "error"
+                });
+          }
+    
 
-        var agenda = {
-            generales,
-            asistencias,
-            actas,
-            solicitudes,
-            informes
 
-        }
 
-        console.log(agenda)
+
         }
 
     return (
-            <Container>
-                <Row>
-                    <Col xs="12">
-                        <Container className=' p-2 bg-custom-dark my-4 rounded bg-opacity-75' >
+                        <Container className='bg-custom-dark my-4  py-2 rounded bg-opacity-75' >
                             
                              <br />
-                             <Form  className="m-1 p-1 text-light" onSubmit={handleAgenda(onSubmitAgenda)} >
+                             <Form  className="bg-custom-light rounded mb-3 py-3" onSubmit={handleAgenda(onSubmitAgenda)} >
                                 <Row>
-                                    <Col className='text-center text-light'>
+                                    <Col className='text-center'>
                                         <h4>UNIVERSIDAD DE EL SALVADOR</h4>
                                         <h4>FACULTAD DE INGENIERIA</h4>
                                         <h4>JUNTA DIRECTIVA</h4>
@@ -181,11 +215,14 @@ const NuevaAgenda = () => {
                                 </Row>
                                 <br />
                                 <Row>
+                                    <Col xs="12">
+
                                                <Asistencia setAsistencia={setAsistencias}/>
                                                 <AprobacionAgenda Controller={Controller} control={control}/>
                                               <MenuActas setTotalActas={setActas}/>
                                              <TablaSolicitudes setSolicitudes={setSolicitudes} solicitudes={solicitudes} />
                                                 <MenuInformes setTotalInformes={setInformes}/>
+                                    </Col>
                                 </Row>
                                 <br />
                                 <br />
@@ -194,11 +231,10 @@ const NuevaAgenda = () => {
                                                     <Col xs="4"><Button className='text-light' color='custom-success' type='submit' block> añadir agenda</Button></Col>
                                                     <Col xs="4"></Col>
                                                 </Row>
+                                <br />
+                                <br />
                                 </Form >
                         </Container>
-                    </Col>
-                </Row>
-            </Container>
 
     );
 }

@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Input, Table, Button } from 'reactstrap';
-import { pedirSolicitudes } from '../../../Helpers/pedirDatos';
+import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
 
 
 const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
@@ -9,11 +8,14 @@ const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
     const [solicitudes,setSolicitudes] = useState([]);
 
     useEffect(() => {
-        pedirSolicitudes()
+        fetch("http://127.0.0.1:8000/api/solicitudes/estado/2")
+        .then((data) => data.json())
         .then((res)=>{
-            setSolicitudes(res);
+           console.log(res)
+           setSolicitudes(res)
         })
-    }, []);
+    }, [])
+
 
     return (
         <Container className='p-3 my-4'>
@@ -35,11 +37,11 @@ const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
                                     <tbody>
                                     {solicitudes.map((solicitud)=>
                                         <tr key={solicitud.id}>
-                                        <td scope='row'>{solicitud.id}</td>
-                                        <td scope='row'>{solicitud.fechaSubida}</td>
-                                        <td scope='row'>{solicitud.descripcion}</td>
-                                        <td scope='row'>{solicitud.documento}</td>
-                                        <td scope='row'>
+                                        <th scope='row'>{solicitud.id}</th>
+                                        <td >{solicitud.fechaSubida}</td>
+                                        <td >{solicitud.descripcion}</td>
+                                        <td >{solicitud.documento}</td>
+                                        <td >
                                             <Button color='custom-primary' onClick={()=>handleAsignacion(solicitud)}>
                                                 Añadir
                                             </Button>

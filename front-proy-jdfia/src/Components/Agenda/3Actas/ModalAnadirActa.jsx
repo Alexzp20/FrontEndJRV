@@ -1,92 +1,56 @@
-import React, { useState } from 'react';
-import { Button, Col, Container, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
+import { FaFilePdf } from 'react-icons/fa6';
 
-const ModalAnadirActa = ({modalNew, toggleNew, setActas}) => {
+const ModalAnadirActa = ({modalNew, toggleNew, setActasAgenda}) => {
 
-        const [codActa, setCodActa] = useState('');
-        const [fechaActa, setFechaActa] = useState('');
-        const [docActa, setDocActa] = useState(null);
+    const [actas,setActas] = useState([]);
 
-        const handleCodActa = (event) => {
-            setCodActa(event.target.value);
-            
-          };
-        const handleFechaActa = (event) => {
-            setFechaActa(event.target.value);
-          
-          };
-        const handleDocActa = (event) => {
-            
-            const doc = event.target.files[0]; 
-
-            setDocActa(doc)
-          };
-
-
-    const AnadirActa = () =>{
-        const acta = {
-            "codigoActa": codActa,
-            "fechaActa": fechaActa,
-            "documentoActa": docActa
-        }
-        setActas(prevActas => {
-            const nuevoArreglo = [...prevActas]; // Crear una copia del arreglo original
-            nuevoArreglo.push(acta); // Añadir el nuevo valor al arreglo
-            return nuevoArreglo;
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/actasAgenda")
+        .then((data) => data.json())
+        .then((res)=>{
+            console.log(res)
+           setActas(res)
         })
-
-        setCodActa('')
-        setFechaActa('')
-        setDocActa(null)
-
-    }
-
+    }, [])
+       
+  
     return (
         <Container className='p-3 my-4'>
-        <Modal scrollable size="lg" isOpen={modalNew} toggle={toggleNew}>
-            <ModalHeader toggle={toggleNew}>Añadir Acta</ModalHeader>
+        <Modal scrollable size="xl" isOpen={modalNew} toggle={toggleNew}>
+            <ModalHeader toggle={toggleNew}>Añadir Actas</ModalHeader>
             <ModalBody>
-                   <br />
-                   <Row>
-                    <Col xs="2"></Col>
-                    <Col xs="8">
-                       
-                            <Label for="codigoActa">Codigo de Acta</Label>
-                                    <Input
-                                    id="codigoActa"
-                                    placeholder="Ingrese el codigo"
-                                    type="text"
-                                    value={codActa}
-                                    onChange={handleCodActa}
-                                    />
-                                   
-                      
-                            <Label for="fechaActa">Fecha del Acta</Label>
-                                    <Input
-                                    id="fechaActa"
-                                    type="date"
-                                    value={fechaActa}
-                                    onChange={handleFechaActa}
-                                    />
-                      
-                            <Label for="documentoActa">Documento del Acta</Label>
-                                    <Input
-                                    id="documentoActa"
-                                    type="file"
-                                    onChange={handleDocActa}
-                                    />          
-                    </Col>
-                    <Col xs="2"></Col>
-                   </Row>
-                   <br />
-                   <ModalFooter>
-                    <Button className='text-light' color="custom-success"  onClick={ AnadirActa }>
-                        Añadir Acta
-                    </Button>{' '}
-                    <Button className='text-light' color="custom-danger" onClick={toggleNew}>
-                        Cancelar
-                    </Button>
-                </ModalFooter>
+                    <Row>
+                        <Col xs="12">
+                                <Table className='text-center'>
+                                    <thead>
+                                    <tr>    
+                                        <th>#</th>
+                                        <th>Fecha y hora de subida</th>
+                                        <th>Codigo del acta</th>
+                                        <th>Documento del acta</th>
+                                        <th>Seleccionar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {actas.map((acta)=>
+                                        <tr key={acta.id}>
+                                        <th scope='row'>{acta.id}</th>
+                                        <td >{acta.created_at.split("T")[0]+" "+ acta.created_at.split("T")[1].split(".")[0]}</td>
+                                        <td >{acta.codigo}</td>
+                                        <td ><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                        <td >
+                                            <Button color='custom-primary' onClick={()=>setActasAgenda(acta)}>
+                                                Añadir
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                    )}
+                                    </tbody>
+                                </Table>
+                        </Col>
+                    </Row>
             </ModalBody>
         </Modal>
     </Container>

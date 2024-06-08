@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Label, Row, Table } from 'reactstrap';
 import ModalAnadirActa from './ModalAnadirActa';
 import Swal from 'sweetalert2';
+import { FaFilePdf } from 'react-icons/fa6';
 
 const MenuActas = ({setTotalActas}) => {
 
@@ -17,10 +18,22 @@ const MenuActas = ({setTotalActas}) => {
 
 
 
+    const anadirActa = (acta) =>{
+      
+        if (actas.some((o) => o.id === acta.id)) {
+            setActas(actas.filter((o) => o.id !== acta.id))
+        }
+        else
+        {
+            setActas([...actas, acta])  
+        }
+    }
+
+
     const deleteActa = (index) =>{
 
         Swal.fire({
-            title: "Desea eliminar esta Acta",
+            title: "Desea eliminar esta acta de la agenda",
             showCancelButton: true,
             confirmButtonText: "Eliminar",
           }).then((result) => {
@@ -59,7 +72,7 @@ const MenuActas = ({setTotalActas}) => {
             </Row>
             <Row>
                 <Col xs="12">
-                <ModalAnadirActa modalNew={modalNew} toggleNew={toggleNew} setActas={setActas}/>
+                <ModalAnadirActa modalNew={modalNew} toggleNew={toggleNew} setActasAgenda={anadirActa}/>
                 </Col>
             </Row>
                  <Row>
@@ -76,13 +89,13 @@ const MenuActas = ({setTotalActas}) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {actas.length >0 && (actas.map((acta, index)=>{
-                                    return <tr key={index}>
-                                            <th>{index+1}</th>
-                                            <td>{acta.codigoActa}</td>
-                                            <td>{acta.fechaActa}</td>
-                                            <td>{acta.documentoActa}</td>
-                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteActa(index)}}>Eliminar</Button></td>
+                                {actas.length >0 && (actas.map((acta)=>{
+                                    return <tr key={acta.id}>
+                                            <th>{acta.id}</th>
+                                            <td>{acta.codigo}</td>
+                                            <td>{acta.created_at.split("T")[0]+" "+ acta.created_at.split("T")[1].split(".")[0]}</td>
+                                            <td><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteActa(acta.id-1)}}>Eliminar</Button></td>
                                            </tr>
                                 }))}
                             </tbody>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Label, Row, Table } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { ModalAnadirInforme } from './ModalAnadirInforme';
+import { FaFilePdf } from 'react-icons/fa6';
 
 export const MenuInformes = ({setTotalInformes}) => {
     const [modalNew, setModalNew] = useState(false);
@@ -13,6 +14,18 @@ export const MenuInformes = ({setTotalInformes}) => {
     useEffect(() => {
         setTotalInformes(informes)
     }, [informes, setTotalInformes]);
+
+
+    const anadirInforme = (informe) =>{
+      
+        if (informes.some((o) => o.id === informe.id)) {
+            setInformes(informes.filter((o) => o.id !== informe.id))
+        }
+        else
+        {
+            setInformes([...informes, informe])  
+        }
+    }
 
 
 
@@ -73,20 +86,20 @@ export const MenuInformes = ({setTotalInformes}) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {informes.length >0 && (informes.map((informe, index)=>{
-                                    return <tr key={index}>
-                                            <th>{index+1}</th>
-                                            <td>{informe.codigoActa}</td>
-                                            <td>{informe.fechaActa}</td>
-                                            <td>{informe.documentoActa}</td>
-                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteInforme(index)}}>Eliminar</Button></td>
-                                           </tr>
+                                {informes.length >0 && (informes.map((informe)=>{
+                                    return <tr key={informe.id}>
+                                                <th>{informe.id}</th>
+                                                <td>{informe.codigo}</td>
+                                                <td>{informe.created_at.split("T")[0]+" "+ informe.created_at.split("T")[1].split(".")[0]}</td>
+                                                <td><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                                <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteInforme(informe.id-1)}}>Eliminar</Button></td>
+                                            </tr>
                                 }))}
                             </tbody>
                         </Table>
                     </Col>
                 </Row>
-                <ModalAnadirInforme toggleNew={toggleNew} modalNew={modalNew} setInformes={setInformes}/>
+                <ModalAnadirInforme toggleNew={toggleNew} modalNew={modalNew} setInformesAgenda={anadirInforme}/>
        </Container>
     )
 }

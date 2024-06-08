@@ -70,12 +70,12 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
 
       const handleSeleccion = (solicitud) => {
 
-        switch(parseInt(solicitud.idCategoria)) {
-            case 1:
+        switch(parseInt(solicitud.categoria_id)) {
+            case 0:
                 anadirSolicitud(solicitud, solicitudesSeguimiento, setSolicitudesSeguimiento)
               break;
-            case 2:
-              switch (parseInt(solicitud.idSubcategoria)) {
+            case 1:
+              switch (parseInt(solicitud.subcategoria_id)) {
                 case 1:
                       anadirSolicitud(solicitud, solicitudesAdminAcademicas, setSolicitudesAdminAcademicas)
                   break;
@@ -94,15 +94,15 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
                   break;
               }
               break;
-            case 3:
+            case 2:
                 anadirSolicitud(solicitud, solicitudesFacultad, setSolicitudesFacultad)
               break;
-            case 4:
-              switch (parseInt(solicitud.idSubcategoria)) {
-                case 1:
+            case 3:
+              switch (parseInt(solicitud.subcategoria_id)) {
+                case 5:
                       anadirSolicitud(solicitud, solicitudesConErogacion, setSolicitudesConErogacion)
                   break;
-                case 2:
+                case 4:
                     anadirSolicitud(solicitud, solicitudesSinErogacion,setSolicitudesSinErogacion)
                   break;
                 default:
@@ -110,7 +110,7 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
                   break;
               }
               break;
-            case 5:
+            case 4:
                 anadirSolicitud(solicitud, solicitudesVarios, setSolicitudesVarios)
               break;
             default:
@@ -140,7 +140,7 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
 
     return (
         <Container>
-            <h5>Asignación de solicitudes</h5>
+            <h5>4- Asignación de solicitudes</h5>
             <br />
             <Row>
                 <Col xs="10"></Col>

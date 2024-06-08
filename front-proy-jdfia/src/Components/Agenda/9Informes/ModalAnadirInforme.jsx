@@ -1,95 +1,55 @@
-import React, { useState } from 'react';
-import { Button, Col, Container, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
+import { FaFilePdf } from 'react-icons/fa6';
+export const ModalAnadirInforme = ({modalNew, toggleNew, setInformesAgenda}) => {
 
+    const [informes,setInformes] = useState([]);
 
-export const ModalAnadirInforme = ({modalNew, toggleNew, setInformes}) => {
-
-    const [codInforme, setCodInforme] = useState('');
-        const [fechaInforme, setFechaInforme] = useState('');
-        const [docInforme, setDocInforme] = useState(null);
-
-        const handleCodInforme = (event) => {
-            setCodInforme(event.target.value);
-            
-          };
-        const handleFechaInforme = (event) => {
-            setFechaInforme(event.target.value);
-          
-          };
-        const handleDocInforme = (event) => {
-            
-            const doc = event.target.files[0]; 
-
-            setDocInforme(doc)
-          };
-
-
-    const AnadirInforme = () =>{
-        const informe = {
-            "codigoInforme": codInforme,
-            "fechaInforme": fechaInforme,
-            "documentoInforme": docInforme
-        }
-        setInformes(prevInformes => {
-            const nuevoArreglo = [...prevInformes]; // Crear una copia del arreglo original
-            nuevoArreglo.push(informe); // Añadir el nuevo valor al arreglo
-            return nuevoArreglo;
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/api/informesAgenda")
+        .then((data) => data.json())
+        .then((res)=>{
+            console.log(res)
+           setInformes(res)
         })
-
-        setCodInforme('')
-        setFechaInforme('')
-        setDocInforme(null)
-
-    }
-
+    }, [])
 
 
   return (
     <Container className='p-3 my-4'>
-    <Modal scrollable size="lg" isOpen={modalNew} toggle={toggleNew}>
-        <ModalHeader toggle={toggleNew}>Añadir Informe</ModalHeader>
+    <Modal scrollable size="xl" isOpen={modalNew} toggle={toggleNew}>
+        <ModalHeader toggle={toggleNew}>Añadir informes</ModalHeader>
         <ModalBody>
-               <br />
-               <Row>
-                <Col xs="2"></Col>
-                <Col xs="8">
-                   
-                        <Label for="codigoInforme">Codigo del informe</Label>
-                                <Input
-                                id="codigoInforme"
-                                placeholder="Ingrese el codigo"
-                                type="text"
-                                value={codInforme}
-                                onChange={handleCodInforme}
-                                />
-                               
-                  
-                        <Label for="fechaInforme">Fecha del informe</Label>
-                                <Input
-                                id="fechaInforme"
-                                type="date"
-                                value={fechaInforme}
-                                onChange={handleFechaInforme}
-                                />
-                  
-                        <Label for="documentoInforme">Documento del Informe</Label>
-                                <Input
-                                id="documentoInformoe"
-                                type="file"
-                                onChange={handleDocInforme}
-                                />          
-                </Col>
-                <Col xs="2"></Col>
-               </Row>
-               <br />
-               <ModalFooter>
-                <Button className='text-light' color="custom-success"  onClick={ AnadirInforme }>
-                    Añadir Informe
-                </Button>{' '}
-                <Button className='text-light' color="custom-danger" onClick={toggleNew}>
-                    Cancelar
-                </Button>
-            </ModalFooter>
+                <Row>
+                    <Col xs="12">
+                            <Table className='text-center'>
+                                <thead>
+                                <tr>    
+                                    <th>#</th>
+                                    <th>Fecha y hora de subida</th>
+                                    <th>Codigo del informe</th>
+                                    <th>Documento del infome</th>
+                                    <th>Seleccionar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {informes.map((informe)=>
+                                    <tr key={informe.id}>
+                                    <th scope='row'>{informe.id}</th>
+                                    <td >{informe.created_at.split("T")[0]+" "+ informe.created_at.split("T")[1].split(".")[0]}</td>
+                                    <td >{informe.codigo}</td>
+                                    <td ><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                    <td >
+                                        <Button color='custom-primary' onClick={()=>setInformesAgenda(informe)}>
+                                            Añadir
+                                        </Button>
+                                    </td>
+                                </tr>
+                                )}
+                                </tbody>
+                            </Table>
+                    </Col>
+                </Row>
         </ModalBody>
     </Modal>
 </Container>
