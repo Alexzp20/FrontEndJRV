@@ -1,7 +1,20 @@
-[{
+[
+    {
     "direccion": "/buzon",
     "titulo": "Solicitudes",
     "imagen": "/images/MenuInicio/Solicitudes.png"
+}
+,
+    {
+    "direccion": "/informe",
+    "titulo": "Informes",
+    "imagen": "/images/MenuInicio/Informe.png"
+}
+,
+    {
+    "direccion": "/acta",
+    "titulo": "Actas",
+    "imagen": "/images/MenuInicio/Acta.png"
 }
 ,
 {

@@ -18,6 +18,12 @@ import Footer from './Components/Footer/Footer';
 import Miembros from './Components/Junta Directiva/Miembros';
 import NuevaAgenda from './Components/Agenda/NuevaAgenda';
 import RevisionSolicitud from './Components/Buzon/RevisionSolicitud';
+import { MenuActas } from './Components/Actas/MenuActas';
+import { NuevaActa } from './Components/Actas/NuevaActa';
+import { GestionActas } from './Components/Actas/GestionActas';
+import { MenuInformes } from './Components/Informes/MenuInformes';
+import { NuevoInforme } from './Components/Informes/NuevoInforme';
+import { GestionInformes } from './Components/Informes/GestionInformes';
 
 function App() {
   return (
@@ -43,6 +49,12 @@ function App() {
           <Route path='/ajustes/usuarios' element={<MenuUsuarios/>}/>
           <Route path='/junta/miembros' element={<Miembros/>}/>
           <Route path='/nueva/agenda' element={<NuevaAgenda/>}/>
+          <Route path='/acta' element={<MenuActas/>}/>
+          <Route path='/acta/nueva' element={<NuevaActa/>}/>
+          <Route path='/acta/gestion' element={<GestionActas/>}/>
+          <Route path='/informe' element={<MenuInformes/>}/>
+          <Route path='/informe/nuevo' element={<NuevoInforme/>}/>
+          <Route path='/informe/gestion' element={<GestionInformes/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           <Route path='*' element={<InicioSesion/>}/>
           
