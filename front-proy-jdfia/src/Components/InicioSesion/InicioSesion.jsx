@@ -2,16 +2,68 @@ import React from 'react';
 import { Button, Container, Input, Label, Row, Col,Form} from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const InicioSesion = () => {
 
     const {handleSubmit, control} = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = (data) =>{
-        console.log(data)
-         navigate("/inicio");
+
+    const onSubmit = async (data) =>{
+
+        let user = {
+        "email": data.mailText,
+        "password": data.userPass
         }
+
+          console.log(user)
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+                    },
+              body: JSON.stringify(user)
+            });
+      
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.token;
+                localStorage.setItem("token",token)
+                Swal.fire({
+                    title: "Bienvenido",
+                    text: "Sesión iniciada con exito",
+                    icon: "success"
+                });
+                navigate('/inicio')
+
+            } else {
+                const errorData = await response.json();
+                console.log(errorData)
+                Swal.fire({
+                    title: "Error",
+                    text: "credenciales incorrectas",
+                    icon: "error"
+                });
+            }
+          } catch (error) {
+            Swal.fire({
+                title: "Error",
+                text: "Error en la petición, intentelo mas tarde",
+                icon: "error"
+            });
+          }
+    
+
+
+
+
+        }
+
+
+
+
     return (
         <Container fluid>
             <br />
