@@ -24,6 +24,8 @@ import { GestionActas } from './Components/Actas/GestionActas';
 import { MenuInformes } from './Components/Informes/MenuInformes';
 import { NuevoInforme } from './Components/Informes/NuevoInforme';
 import { GestionInformes } from './Components/Informes/GestionInformes';
+import { VerPdf } from './Components/Pdf/VerPdf';
+import { MenuAgenda } from './Components/Agenda/MenuAgenda';
 
 function App() {
   return (
@@ -43,12 +45,13 @@ function App() {
           <Route path='/buscador/agenda' element={<BusquedaAgenda/>}/>
           <Route path='/buscador/acuerdo' element={<BusquedaAcuerdo/>}/>
           <Route path='/estadistico' element={<MenuEstadistico/>}/>
-           <Route path='/estadistico/fechas' element={<EstRanFecha/>}/>
-         <Route path='/estadistico/areas' element={<EstAreas/>}/>
+          <Route path='/estadistico/fechas' element={<EstRanFecha/>}/>
+          <Route path='/estadistico/areas' element={<EstAreas/>}/>
           <Route path='/ajustes' element={<MenuAjustes/>}/>
           <Route path='/ajustes/usuarios' element={<MenuUsuarios/>}/>
           <Route path='/junta/miembros' element={<Miembros/>}/>
-          <Route path='/nueva/agenda' element={<NuevaAgenda/>}/>
+          <Route path='/agenda' element={<MenuAgenda/>}/>
+          <Route path='/agenda/nueva' element={<NuevaAgenda/>}/>
           <Route path='/acta' element={<MenuActas/>}/>
           <Route path='/acta/nueva' element={<NuevaActa/>}/>
           <Route path='/acta/gestion' element={<GestionActas/>}/>
@@ -57,7 +60,6 @@ function App() {
           <Route path='/informe/gestion' element={<GestionInformes/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           <Route path='*' element={<InicioSesion/>}/>
-          
         </Routes>
       </BrowserRouter> 
 

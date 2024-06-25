@@ -47,13 +47,11 @@ const NuevaAgenda = () => {
             
             } else {
                 const errorData = await response.json();
-                console.log(errorData)
                 Swal.fire({
                     title: "Error",
                     text: "",
                     icon: "error"
                 });
-              console.error('');
             }
           } catch (error) {
             Swal.fire({

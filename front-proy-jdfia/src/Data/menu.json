@@ -36,8 +36,20 @@
 }
 ,
 {
-    "direccion": "/nueva/agenda",
+    "direccion": "/buzon/revision",
+    "titulo": "Revision",
+    "imagen": "/images/Buzon/Revision.png"
+}
+,
+{
+    "direccion": "/agenda/nueva",
     "titulo": "Nueva Agenda",
+    "imagen": "/images/MenuInicio/Nuevo.png"
+}
+,
+{
+    "direccion": "/agenda",
+    "titulo": "Menu Agendas",
     "imagen": "/images/MenuInicio/Nuevo.png"
 }
 ]
