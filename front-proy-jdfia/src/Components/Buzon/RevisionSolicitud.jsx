@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, Label, Row, Table } from 'reactstrap';     
-import FilaSolicitud from '../Buscador/Filas/FilaSolicitud';
 import ModalEditarSolicitud from './ModalEditarSolicitud';
 import ModalDenegarSolicitud from './ModalDenegarSolicitud';
 import Swal from 'sweetalert2';
-import { FaFilePdf } from 'react-icons/fa6';
+import { VerPdf } from '../Pdf/VerPdf';
 
 export default function RevisionSolicitud() {
 
     const [solicitudes, setSolicitudes] = useState([]);
     const [solicitudEdit, setSolicitudEdit] = useState({});
     const [documentoSolicitud, setDocumentoSolicitud] = useState(null);
+
     
     const [denegado, setDenegado] = useState({});
       //hooks de estado del modal de edit Solicitudes
@@ -19,6 +19,7 @@ export default function RevisionSolicitud() {
       //hooks de estado del modal del denegar solicitudes
       const [modalDeneg, setModalDeneg] = useState(false);
       const toggleDeneg = () => setModalDeneg(!modalDeneg);
+
 
     useEffect(() => {
        getSolicitudes()
@@ -30,29 +31,6 @@ export default function RevisionSolicitud() {
         .then(data =>{ setSolicitudes(data); console.log(data)})
         .catch(error => console.log(error));
     }
-
-
-    const getDocumento = (id) =>{
-
-        // let url
-        // fetch(`http://127.0.0.1:8000/api/solicitud/doc/${id}`)
-        // .then(response => {
-        //     if (!response.ok) {
-        //       throw new Error(`Error: ${response.status}`);
-        //     }
-        //     return response.blob();
-        //   })
-        // .then(
-        //     blob => {
-        //         url = URL.createObjectURL(blob);
-        //         console.log(url)
-        //         setDocumentoSolicitud(url);
-        //       }
-        // )
-        // .catch(error => console.log(error));
-
-    }
-
 
     
     const toggleEditar = (usuario) => {
@@ -154,18 +132,13 @@ export default function RevisionSolicitud() {
                                     <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
                                     <td>{solicitud.codigo}</td>
                                     <td>{solicitud.descripcion}</td>
-                                    <td><FaFilePdf onClick={()=>{getDocumento(solicitud.documentos[0].id)}} className='w-50 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                    <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
                                     <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(solicitud)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{handleSolicitud(solicitud, 2,"")}}>Aprobar</Button> { } <Button color='custom-danger'className='text-light' onClick={()=>{toggleDenegar(solicitud)}}>Denegar</Button> { }
                                     </td>
                                 </tr>)}
                                 </tbody>
                             </Table>
                         </Col>      
-                            {/* {documentoSolicitud ? (
-                             <iframe src={documentoSolicitud} width="100%" height="600px" />
-                            ) : (
-                                <div>Loading...</div>
-                            )}                         */}
                     </Row>
                     <ModalEditarSolicitud toggleEdit={toggleEdit} modalEdit={modalEdit} solicitud={solicitudEdit}/>
                     <ModalDenegarSolicitud toggleDeneg={toggleDeneg} modalDeneg={modalDeneg} denegado={denegado} handleSolicitud={handleSolicitud}/>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Label, Row, Table } from 'reactstrap';     
+import { Button, Col, Container,Row, Table } from 'reactstrap';     
 import Swal from 'sweetalert2';
-import { FaFilePdf } from 'react-icons/fa6';
 import { ModalEditActa } from './ModalEditActa';
+import { VerPdf } from '../Pdf/VerPdf';
 
 export const GestionActas = () => {
 
@@ -102,7 +102,7 @@ export const GestionActas = () => {
                                     <th>{acta.id}</th>
                                     <td>{acta.created_at.split("T")[0]+" "+ acta.created_at.split("T")[1].split(".")[0]}</td>
                                     <td>{acta.codigo}</td>
-                                    <td><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                    <td><VerPdf id={acta.id} tipo="acta"/></td>
                                     <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(acta)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{eliminarActa(acta.id)}}>Eliminar</Button> 
                                     </td>
                                 </tr>)}

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Label, Row, Table } from 'reactstrap';     
+import { Button, Col, Container, Row, Table } from 'reactstrap';     
 import Swal from 'sweetalert2';
-import { FaFilePdf } from 'react-icons/fa6';
 import { ModalEditInforme } from './ModalEditInforme';
-// import { ModalEditActa } from './ModalEditActa';
+import { VerPdf } from '../Pdf/VerPdf';
 
 export const GestionInformes = () => {
     const [informes, setInformes] = useState([]);
@@ -102,7 +101,7 @@ export const GestionInformes = () => {
                                     <th>{informe.id}</th>
                                     <td>{informe.created_at.split("T")[0]+" "+ informe.created_at.split("T")[1].split(".")[0]}</td>
                                     <td>{informe.codigo}</td>
-                                    <td><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                    <td><VerPdf id={informe.id} tipo="informe"/></td>
                                     <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(informe)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{eliminarInforme(informe.id)}}>Eliminar</Button> 
                                     </td>
                                 </tr>)}

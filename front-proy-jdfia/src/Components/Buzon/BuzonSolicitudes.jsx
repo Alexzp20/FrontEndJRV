@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
-import {useForm, Controller} from 'react-hook-form'; 
+import {useForm, Controller, set} from 'react-hook-form'; 
 
 import Swal from 'sweetalert2';
 
@@ -11,13 +11,11 @@ const BuzonSolicitudes = () => {
     const [subCategorias, setSubCategorias ] = useState([]);
     const [documento, setDocumento ] = useState(null);
     const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', 0), 10);
-   
+    const token = localStorage.getItem('token')
 
 
-    
 
     useEffect(() => {
-
        fetch('http://localhost:8000/api/categorias')
         .then(response => response.json())
         .then(data =>{ setCategorias(data); console.log(data)})
@@ -49,13 +47,22 @@ const BuzonSolicitudes = () => {
         if(subcategoria !== "") form.append('subcategoria_id', subcategoria); 
         form.append('name', data.codSolicitud);
         form.append('file', documento);
-
-        for (let [key, value] of form.entries()) {
-            console.log(key, value);
-          }
+        
+        if(!token)
+            {
+                console.log("token no encontrado")
+                return
+            }
+            else{
+                console.log(token)
+            }
 
         try {
             const response = await fetch('http://127.0.0.1:8000/api/solicitud', {
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Authorization': `Bearer ${token}`
+                },
               method: 'POST',
               body: form
             });
