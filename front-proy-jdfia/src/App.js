@@ -1,5 +1,4 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import NavBar from './Components/Navbar/NavBar';
 import MenuInicio from './Components/Inicio/MenuInicio';
 import MenuBuzon from './Components/Buzon/MenuBuzon';
 import MenuBuscador from './Components/Buscador/MenuBuscador';
@@ -31,9 +30,6 @@ function App() {
   return (
     <div className="App">
        <BrowserRouter>
-
-        <NavBar/>
-
         <Routes>
           <Route path='/inicio' element={<MenuInicio/>}/>
           <Route path='/buzon' element={<MenuBuzon/>}/>

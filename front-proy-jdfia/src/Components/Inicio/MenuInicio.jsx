@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardHeader, CardImg, Col} from 'reactstrap';
 import Cookies from 'universal-cookie';
+import NavBar from '../Navbar/NavBar';
 
 const MenuInicio = () => {
 
@@ -14,7 +15,8 @@ const MenuInicio = () => {
     }, []);
 
     return (
-        <div>
+        <React.Fragment>
+            <NavBar/>
             <br />
             <Container className='p-4 bg-custom-dark my-2 rounded bg-opacity-75' >
                 <Row>
@@ -61,7 +63,7 @@ const MenuInicio = () => {
                     </Row> 
                 </Container>
             </Container>
-        </div>  
+        </React.Fragment>  
     );
 }
 

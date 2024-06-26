@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
+import NavBar from '../Navbar/NavBar';
 
 
 
 export const NuevaActa = () => {
 
-    const {handleSubmit, control, watch, reset, formState: { errors },setValue} = useForm();
+    const {handleSubmit, control, reset, formState: { errors },setValue} = useForm();
     const [documento, setDocumento ] = useState(null);
 
 
@@ -54,7 +55,11 @@ export const NuevaActa = () => {
 
 
   return (
+    <React.Fragment>
+    <NavBar/>
+    <br />
     <Container>
+
     <Row>
     <Col xs="2"></Col>
     <Col xs="8">
@@ -126,5 +131,6 @@ export const NuevaActa = () => {
     </Col>  
     </Row>
     </Container>
+    </React.Fragment>
   )
 }

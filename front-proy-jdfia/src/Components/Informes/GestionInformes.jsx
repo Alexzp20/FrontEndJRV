@@ -3,6 +3,7 @@ import { Button, Col, Container, Row, Table } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { ModalEditInforme } from './ModalEditInforme';
 import { VerPdf } from '../Pdf/VerPdf';
+import NavBar from '../Navbar/NavBar';
 
 export const GestionInformes = () => {
     const [informes, setInformes] = useState([]);
@@ -75,6 +76,8 @@ export const GestionInformes = () => {
 
 
   return (
+    <React.Fragment>
+        <NavBar/>
     <Container className='p-4 bg-custom-dark my-3 rounded bg-opacity-75'>
     <br />
     <Row>
@@ -111,5 +114,6 @@ export const GestionInformes = () => {
                     </Row>
                     <ModalEditInforme  toggleEdit={toggleEdit} modalEdit={modalEdit} informe={informeEdit}/>
     </Container>
+    </React.Fragment>
   )
 }

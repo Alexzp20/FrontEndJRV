@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardText, Col, Container, Row} from 'reactstrap';
+import NavBar from '../Navbar/NavBar';
 
 const MenuBuzon = () => {
     return (
-        <div>
+        <React.Fragment>
+            <NavBar/>
             <br />
             <Container className='p-3 bg-custom-dark my-2 rounded bg-opacity-75' >
             <Row>
@@ -88,7 +90,7 @@ const MenuBuzon = () => {
                 <br />
             </Container>
             
-        </div>
+        </React.Fragment>
     );
 }
 

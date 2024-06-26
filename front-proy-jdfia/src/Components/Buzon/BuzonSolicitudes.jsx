@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
-import {useForm, Controller, set} from 'react-hook-form'; 
+import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import {useForm, Controller} from 'react-hook-form'; 
+import NavBar from '../Navbar/NavBar';
 
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
@@ -98,7 +99,8 @@ const BuzonSolicitudes = () => {
     }
 
     return (
-        <div >
+        <React.Fragment >
+            <NavBar/>
             <Container>
             <Row>
             <Col xs="1"></Col>
@@ -229,7 +231,7 @@ const BuzonSolicitudes = () => {
             </Col>  
             </Row>
             </Container>
-        </div>
+        </React.Fragment>
     );
 }
 

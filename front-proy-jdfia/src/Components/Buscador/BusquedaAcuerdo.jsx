@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { pedirAcuerdos } from '../../Helpers/pedirDatos';   
 import FilaAcuerdo from './Filas/FilaAcuerdo';
 import {  Col, Container, Input, Label, Row, Table } from 'reactstrap';
+import NavBar from '../Navbar/NavBar';
 
 const BusquedaAcuerdo = () => {
 
@@ -37,7 +38,8 @@ const BusquedaAcuerdo = () => {
 
 
     return (
-        <div>
+        <React.Fragment>
+            <NavBar/>
             <Container>
             <Row>
             <Col xs="12">
@@ -87,7 +89,7 @@ const BusquedaAcuerdo = () => {
             </Col>
             </Row>
             </Container>
-        </div>
+        </React.Fragment>
     );
 }
 

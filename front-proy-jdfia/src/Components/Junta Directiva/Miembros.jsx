@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Input, Label, Row, Table } from 'reactstrap';
+import NavBar from '../Navbar/NavBar';
 
 
 const Miembros = () => {
@@ -45,6 +46,8 @@ const Miembros = () => {
     }, []);
 
     return (
+        <React.Fragment>
+            <NavBar/>
         <Container className=' p-4 bg-custom-dark my-4 rounded bg-opacity-75' >
                     <Row>
                         <Col xs="12">
@@ -104,6 +107,7 @@ const Miembros = () => {
                         </Table>
                     </Row>
        </Container>
+    </React.Fragment>
     );
 }
 

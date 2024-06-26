@@ -3,6 +3,7 @@ import { Button, Col, Container,Row, Table } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { ModalEditActa } from './ModalEditActa';
 import { VerPdf } from '../Pdf/VerPdf';
+import NavBar from '../Navbar/NavBar';
 
 export const GestionActas = () => {
 
@@ -76,6 +77,8 @@ export const GestionActas = () => {
 
 
   return (
+    <React.Fragment>
+    <NavBar/>
     <Container className='p-4 bg-custom-dark my-3 rounded bg-opacity-75'>
     <br />
     <Row>
@@ -112,5 +115,6 @@ export const GestionActas = () => {
                     </Row>
                     <ModalEditActa   toggleEdit={toggleEdit} modalEdit={modalEdit} acta={actaEdit}/>
     </Container>
+    </React.Fragment>
   )
 }

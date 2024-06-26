@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {  Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import { pedirAgendas } from '../../Helpers/pedirDatos';
 import FilaAgenda from './Filas/FilaAgenda';
+import NavBar from '../Navbar/NavBar';
 
 const BusquedaAgenda = () => {
 
@@ -37,6 +38,8 @@ const BusquedaAgenda = () => {
 
 
     return (
+        <React.Fragment>
+            <NavBar/>
             <Container>
             <Row>
             <Col xs="12">
@@ -86,6 +89,7 @@ const BusquedaAgenda = () => {
             </Col>
             </Row>
             </Container>
+        </React.Fragment>
     );
 }
 

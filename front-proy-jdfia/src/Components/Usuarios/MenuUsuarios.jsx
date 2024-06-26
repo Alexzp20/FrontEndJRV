@@ -4,6 +4,7 @@ import FilaUsuario from './FilaUsuario';
 import ModalNewUsuario from './ModalNewUsuario';
 import ModalEditUsuario from './ModalEditUsuario';
 import Swal from 'sweetalert2';
+import NavBar from '../Navbar/NavBar';
 
 
 const MenuUsuarios = () => {
@@ -65,6 +66,8 @@ const MenuUsuarios = () => {
     }, []);
 
     return (
+        <React.Fragment>
+                <NavBar/>
             <Container className='p-3 bg-custom-dark my-4 rounded bg-opacity-75'>
                     <br />
                     <Row>
@@ -109,6 +112,7 @@ const MenuUsuarios = () => {
                         <ModalNewUsuario toggleNew={toggleNew} modalNew={modalNew}/>
                         <ModalEditUsuario toggleEdit={toggleEdit} modalEdit={modalEdit}  usuario = {usuarioEdit}/>
                     </Container>
+        </React.Fragment>
 );
 }
 

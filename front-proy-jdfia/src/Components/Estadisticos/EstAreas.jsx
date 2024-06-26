@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import { pedirEstFechas } from '../../Helpers/estadisticos';
+import NavBar from '../Navbar/NavBar';
 
 const EstAreas = () => {
 
@@ -16,6 +17,8 @@ const EstAreas = () => {
     }, []);*/
 
     return (
+        <React.Fragment>
+        <NavBar/>
         <Container>
             <Row>
                 <Col xs="12">
@@ -70,6 +73,7 @@ const EstAreas = () => {
                 </Col>
             </Row>
         </Container>
+        </React.Fragment>
     );
 }
 

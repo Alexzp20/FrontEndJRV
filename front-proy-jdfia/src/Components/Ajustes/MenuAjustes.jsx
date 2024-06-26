@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Container, Row} from 'reactstrap';
+import NavBar from '../Navbar/NavBar';
 
 const MenuAjustes = () => {
     return (
+        <React.Fragment>
+            <NavBar/>
         <Container className=' p-2 bg-custom-dark my-4 bg-opacity-75'>
             <Row>
                 <Col xs="12">
@@ -23,8 +26,8 @@ const MenuAjustes = () => {
                 <Col xs="4"> <Link style={{ textDecoration: 'none', color: 'White' }} to="/buzon" ><h6>Opción 2</h6></Link></Col>
                 <Col xs="4"> <Link style={{ textDecoration: 'none', color: 'White' }} to="/buzon" ><h6>Opción 3</h6></Link></Col>
             </Row>
-
         </Container>
+        </React.Fragment>
         );
 }
 

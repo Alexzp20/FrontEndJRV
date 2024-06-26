@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import { pedirEstFechas } from '../../Helpers/estadisticos';
 import ContenidoFechas from './ContenidoFechas';
+import NavBar from '../Navbar/NavBar';
 
 
 const EstRanFecha = () => {
@@ -18,7 +19,8 @@ const EstRanFecha = () => {
 
 
     return (
-        <div>
+        <React.Fragment>
+            <NavBar/>
               <Container>
             <Row>
                 <Col xs="12">
@@ -79,7 +81,7 @@ const EstRanFecha = () => {
                 </Col>
             </Row>
         </Container>
-        </div>
+        </React.Fragment>
     );
 }
 

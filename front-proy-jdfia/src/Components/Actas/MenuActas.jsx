@@ -1,9 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { Card, CardBody, CardImg, CardText, Col, Container, Row} from 'reactstrap';
+import NavBar from '../Navbar/NavBar';
 
 export const MenuActas = () => {
   return (
+    <React.Fragment>
+    <NavBar/>
     <Container className='p-3 bg-custom-dark my-5 rounded bg-opacity-75' >
 
     <Row className='p-2'>
@@ -45,7 +48,7 @@ export const MenuActas = () => {
                         color="custom-secondary"
                         outline
                         className="bg-transparent"
-                    >
+                        >
                        
                         <CardBody>
                         <CardText tag={"h6"} className='text-center pb-2'>
@@ -65,5 +68,6 @@ export const MenuActas = () => {
         </Container>
         <br />
     </Container>
+    </React.Fragment>
   )
 }

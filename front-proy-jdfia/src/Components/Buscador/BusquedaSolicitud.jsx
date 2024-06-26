@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { pedirSolicitudes } from '../../Helpers/pedirDatos';
 import {  Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import FilaSolicitud from './Filas/FilaSolicitud';
+import NavBar from '../Navbar/NavBar';
 
 const BusquedaSolicitud = () => {
 
@@ -37,6 +38,8 @@ const BusquedaSolicitud = () => {
 
 
     return (
+        <React.Fragment>
+            <NavBar/>
         <Container>
         <Row>
         <Col xs="12">
@@ -88,6 +91,7 @@ const BusquedaSolicitud = () => {
         </Col>
         </Row>
         </Container>
+        </React.Fragment>
     );
 }
 

@@ -7,6 +7,7 @@ import MenuActas from './3Actas/MenuActas';
 import TablaSolicitudes from './4Solicitudes/TablaSolicitudes';
 import { MenuInformes } from './9Informes/MenuInformes';
 import Swal from 'sweetalert2';
+import NavBar from '../Navbar/NavBar';
 
 
 const NuevaAgenda = () => {
@@ -65,8 +66,9 @@ const NuevaAgenda = () => {
         }
 
     return (
+        <React.Fragment>
+                    <NavBar/>
                         <Container className='bg-custom-dark my-4  py-2 rounded bg-opacity-75' >
-                            
                              <br />
                              <Form  className="bg-custom-light rounded mb-3 py-3" onSubmit={handleAgenda(onSubmitAgenda)} >
                                 <Row>
@@ -229,7 +231,7 @@ const NuevaAgenda = () => {
                                 <br />
                                 </Form >
                         </Container>
-
+        </React.Fragment>
     );
 }
 

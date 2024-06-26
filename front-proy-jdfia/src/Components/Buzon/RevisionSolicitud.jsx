@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Container, Label, Row, Table } from 'reactstrap';     
+import { Button, Col, Container, Row, Table } from 'reactstrap';     
 import ModalEditarSolicitud from './ModalEditarSolicitud';
 import ModalDenegarSolicitud from './ModalDenegarSolicitud';
+import NavBar from '../Navbar/NavBar';
 import Swal from 'sweetalert2';
 import { VerPdf } from '../Pdf/VerPdf';
+import Cookies from 'universal-cookie';
 
 export default function RevisionSolicitud() {
 
     const [solicitudes, setSolicitudes] = useState([]);
     const [solicitudEdit, setSolicitudEdit] = useState({});
-    const [documentoSolicitud, setDocumentoSolicitud] = useState(null);
     const cookies = new Cookies();
     const token = cookies.get('token')
 
@@ -117,44 +118,47 @@ export default function RevisionSolicitud() {
     }
     
   return (
-    <Container className='p-4 bg-custom-dark my-3 rounded bg-opacity-75'>
-    <br />
-    <Row>
-        <Col xs="12">
-            <h1 className='text-center text-light'>Revisión de Solicitudes</h1>
-        </Col>
-    </Row>
-    <br />
-    <Row>
-                        <Col xs='12'>
-                            <Table bordered striped className='text-center'>
-                                <thead className='table-primary'>
-                                    <tr>    
-                                        <th>#</th>
-                                        <th>Fecha y hora de subida</th>
-                                        <th>Codigo de la solicitud</th>
-                                        <th>Categoria de la solicitud</th>
-                                        <th>Archivo</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody className='table-light'> 
-                                    {solicitudes.map((solicitud)=>
-                                <tr key={solicitud.id}>
-                                    <th>{solicitud.id}</th>
-                                    <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
-                                    <td>{solicitud.codigo}</td>
-                                    <td>{solicitud.descripcion}</td>
-                                    <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
-                                    <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(solicitud)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{handleSolicitud(solicitud, 2,"")}}>Aprobar</Button> { } <Button color='custom-danger'className='text-light' onClick={()=>{toggleDenegar(solicitud)}}>Denegar</Button> { }
-                                    </td>
-                                </tr>)}
-                                </tbody>
-                            </Table>
-                        </Col>      
-                    </Row>
-                    <ModalEditarSolicitud toggleEdit={toggleEdit} modalEdit={modalEdit} solicitud={solicitudEdit}/>
-                    <ModalDenegarSolicitud toggleDeneg={toggleDeneg} modalDeneg={modalDeneg} denegado={denegado} handleSolicitud={handleSolicitud}/>
-    </Container>
+    <React.Fragment>
+        <NavBar/>
+        <Container className='p-4 bg-custom-dark my-3 rounded bg-opacity-75'>
+        <br />
+        <Row>
+            <Col xs="12">
+                <h1 className='text-center text-light'>Revisión de Solicitudes</h1>
+            </Col>
+        </Row>
+        <br />
+        <Row>
+            <Col xs='12'>
+                <Table bordered striped className='text-center'>
+                    <thead className='table-primary'>
+                        <tr>    
+                            <th>#</th>
+                            <th>Fecha y hora de subida</th>
+                            <th>Codigo de la solicitud</th>
+                            <th>Categoria de la solicitud</th>
+                            <th>Archivo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody className='table-light'> 
+                        {solicitudes.map((solicitud)=>
+                    <tr key={solicitud.id}>
+                        <th>{solicitud.id}</th>
+                        <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
+                        <td>{solicitud.codigo}</td>
+                        <td>{solicitud.descripcion}</td>
+                        <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
+                        <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(solicitud)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{handleSolicitud(solicitud, 2,"")}}>Aprobar</Button> { } <Button color='custom-danger'className='text-light' onClick={()=>{toggleDenegar(solicitud)}}>Denegar</Button> { }
+                        </td>
+                    </tr>)}
+                    </tbody>
+                </Table>
+            </Col>      
+        </Row>
+        <ModalEditarSolicitud toggleEdit={toggleEdit} modalEdit={modalEdit} solicitud={solicitudEdit}/>
+        <ModalDenegarSolicitud toggleDeneg={toggleDeneg} modalDeneg={modalDeneg} denegado={denegado} handleSolicitud={handleSolicitud}/>
+        </Container>
+    </React.Fragment>
   )
 }

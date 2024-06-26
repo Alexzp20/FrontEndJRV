@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, Row, Table } from 'reactstrap';
 import { pedirSolicitudes } from '../../Helpers/pedirDatos';
 import FilaSolicitud from '../Buscador/Filas/FilaSolicitud';
+import NavBar from '../Navbar/NavBar';
 
 const HistorialBuzon = () => {
 
@@ -15,7 +16,9 @@ const HistorialBuzon = () => {
         })
     }, []);
 
-    return (    
+    return (   
+        <React.Fragment>
+            <NavBar/>
         <Container>
             <Row>
                 <Col xs='12'>
@@ -51,6 +54,7 @@ const HistorialBuzon = () => {
              
             </Row>
         </Container>
+        </React.Fragment> 
     );
 }
 
