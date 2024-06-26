@@ -15,6 +15,7 @@ const NuevaAgenda = () => {
     const [solicitudes , setSolicitudes] = useState ({});
     const [asistencias , setAsistencias] = useState ([]);
     const [actas , setActas] = useState ([]);
+    const [votaciones , setVotaciones] = useState ([]);
     const [informes , setInformes] = useState ([]);
 
       const onSubmitAgenda = async (data) =>{
@@ -26,7 +27,8 @@ const NuevaAgenda = () => {
             "asistencias": asistencias,
             "actas": actas,
             "solicitudes": solicitudes,
-            "informes": informes
+            "informes": informes,
+            "votaciones": votaciones
           }
           console.log(agenda)
         try {
@@ -60,11 +62,6 @@ const NuevaAgenda = () => {
                     icon: "error"
                 });
           }
-    
-
-
-
-
         }
 
     return (
@@ -214,12 +211,11 @@ const NuevaAgenda = () => {
                                 <br />
                                 <Row>
                                     <Col xs="12">
-
-                                               <Asistencia setAsistencia={setAsistencias}/>
-                                                <AprobacionAgenda Controller={Controller} control={control}/>
-                                              <MenuActas setTotalActas={setActas}/>
-                                             <TablaSolicitudes setSolicitudes={setSolicitudes} solicitudes={solicitudes} />
-                                                <MenuInformes setTotalInformes={setInformes}/>
+                                        <Asistencia setAsistencia={setAsistencias}/>
+                                        <AprobacionAgenda Controller={Controller} control={control}/>
+                                        <MenuActas setTotalActas={setActas}/>
+                                        <TablaSolicitudes setSolicitudes={setSolicitudes} solicitudes={solicitudes} votaciones={votaciones} setVotaciones={setVotaciones}/>
+                                        <MenuInformes setTotalInformes={setInformes}/>
                                     </Col>
                                 </Row>
                                 <br />

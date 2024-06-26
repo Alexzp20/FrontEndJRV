@@ -4,9 +4,11 @@ import ModalSolicitudes from './ModalSolicitudes';
 import ModalEditarEstadoSolicitud from './ModalEditarEstadoSolicitud';
 import TablaSolicitud from './TablaSolicitud';
 
-const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
+const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotaciones}) => {
 
        //Hooks de arreglos para las solicitudes
+       const [solicitudEditarEstado, setSolicitudEditarEstado ] = useState("");
+       const [votacion, setVotacion ] = useState([]);
        const [solicitudesSeguimiento, setSolicitudesSeguimiento ] = useState([]);
        const [solicitudesAdminAcademicas, setSolicitudesAdminAcademicas ] = useState([]);
        const [solicitudesComiteTecnico, setSolicitudesComiteTecnico ] = useState([]);
@@ -16,6 +18,7 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
        const [solicitudesConErogacion, setSolicitudesConErogacion] = useState([]);
        const [solicitudesSinErogacion, setSolicitudesSinErogacion] = useState([]);
        const [solicitudesVarios, setSolicitudesVarios ] = useState([]);
+       
 
         //Hacer un array de votaciones, luego en el metodo de añadir, crear el objeto votación y añadirlo al array para que se puedan hacer las votaciones
 
@@ -46,16 +49,40 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
         ])
         
 
+        useEffect(() => {
+          setVotaciones(votacion)
+        }, [votacion, setVotaciones]);
+
+        const handleVotacion = (voto) =>{
+            if (votacion.some((o) => o.solicitud_id === voto.solicitud_id)) {
+              let votosFiltrados = votacion.filter((o) => o.solicitud_id !== voto.solicitud_id)
+              setVotacion([...votosFiltrados, voto])  
+          }
+          else
+          {
+              setVotacion([...votacion, voto])  
+          }
+        }
+
+        
+
 
 
 
      //hooks de estado del modal de solicitudes
      const [modal, setModal] = useState(false);
      const toggle = () => setModal(!modal);
-
+     
      //hooks de estado del modal de solicitudes
      const [modalEstado, setModalEstado] = useState(false);
-     const toggleEstado = () => setModalEstado(!modalEstado);
+     const toggleEstado = (id) => {
+
+      setSolicitudEditarEstado(id)
+       setModalEstado(!modalEstado);
+      }
+      const togglemodalEstado = () => setModalEstado(!modalEstado);
+      
+
 
 
       const anadirSolicitud = (solicitud, solicitudes, setSolicitudes) => {
@@ -195,7 +222,7 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes}) => {
                 </Col>
             </Row>
             <ModalSolicitudes toggle={toggle} modal={modal} handleAsignacion={handleSeleccion} ></ModalSolicitudes>
-            <ModalEditarEstadoSolicitud toggleEstado={toggleEstado} modalEstado={modalEstado}  ></ModalEditarEstadoSolicitud>
+            <ModalEditarEstadoSolicitud toggleEstado={togglemodalEstado} modalEstado={modalEstado} idSolicitud={solicitudEditarEstado} handleVotacion={handleVotacion} ></ModalEditarEstadoSolicitud>
         </Container>
     );
 }

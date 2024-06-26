@@ -22,7 +22,7 @@ const TablaSolicitud = ({titulo ="", solicitudes, setSolicitudes, toggleEstado, 
                                     <Button color="custom-danger" className='text-light' onClick={() => eliminarElemento(solicitud.id, setSolicitudes, solicitudes)}>X</Button>
                                 </td>
                                 <td ><Button color="custom-warning" className='text-light' onClick={() => subirElemento(solicitud.id, setSolicitudes)}>Subir</Button></td>
-                                <td ><Button color="custom-dark" className='text-light' onClick={toggleEstado}>Actualizar</Button></td>
+                                <td ><Button color="custom-dark" className='text-light' onClick={()=>toggleEstado(solicitud.id)}>Actualizar</Button></td>
                             </tr>
                             )}
             </tbody>
