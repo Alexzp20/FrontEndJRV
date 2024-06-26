@@ -10,6 +10,8 @@ export default function RevisionSolicitud() {
     const [solicitudes, setSolicitudes] = useState([]);
     const [solicitudEdit, setSolicitudEdit] = useState({});
     const [documentoSolicitud, setDocumentoSolicitud] = useState(null);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
     
     const [denegado, setDenegado] = useState({});
@@ -60,6 +62,15 @@ export default function RevisionSolicitud() {
                 }
         }
 
+        if(!token)
+            {
+                console.log("token no encontrado")
+                return
+            }
+            else{
+                console.log(token)
+            }
+
         Swal.fire({
             title: `Desea ${comentario !== ""? "denegar": "aprobar"} la siguiente solicitud: `,
             text: `${solicitud.descripcion}`,
@@ -73,6 +84,8 @@ export default function RevisionSolicitud() {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json, text/plain, */*',
+                        'Authorization': `Bearer ${token}`
                       },
                       body: JSON.stringify(estado),
                   })

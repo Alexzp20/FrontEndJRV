@@ -3,11 +3,14 @@ import { Button, Container, Input, Label, Row, Col,Form} from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 const InicioSesion = () => {
 
     const {handleSubmit, control} = useForm();
     const navigate = useNavigate();
+    const cookies = new Cookies(null, { path: '/' });
+
 
 
     const onSubmit = async (data) =>{
@@ -30,7 +33,12 @@ const InicioSesion = () => {
             if (response.ok) {
                 const data = await response.json();
                 const token = data.token;
-                localStorage.setItem("token",token)
+                const rutas = data.rutas;
+                const user = data.user;
+                cookies.set('token',token);
+                cookies.set('rutas',rutas);
+                cookies.set('user',user);
+                
                 Swal.fire({
                     title: "Bienvenido",
                     text: "Sesión iniciada con exito",

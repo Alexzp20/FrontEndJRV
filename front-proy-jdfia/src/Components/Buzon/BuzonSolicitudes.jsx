@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Ro
 import {useForm, Controller, set} from 'react-hook-form'; 
 
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 const BuzonSolicitudes = () => {
 
@@ -11,7 +12,8 @@ const BuzonSolicitudes = () => {
     const [subCategorias, setSubCategorias ] = useState([]);
     const [documento, setDocumento ] = useState(null);
     const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', 0), 10);
-    const token = localStorage.getItem('token')
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
 
 

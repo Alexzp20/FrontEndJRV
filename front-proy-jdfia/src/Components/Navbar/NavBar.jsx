@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { Container, Navbar, NavbarBrand, NavbarText, Row,Col, Nav, NavItem } from 'reactstrap';
+import { Container, Navbar, NavbarBrand, NavbarText, Row,Col, Nav, NavItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 const NavBar = () => {
-    const token = localStorage.getItem("token")
+    
     const navigate = useNavigate();
+    const cookies = new Cookies();
+    const token = cookies.get('token')
+    const user = cookies.get('user')
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     
     const logout = async () =>{
@@ -23,6 +29,9 @@ const NavBar = () => {
                     text: "Adios",
                     icon: "success"
                 });
+                cookies.remove('user', { path: '/' })
+                cookies.remove('token', { path: '/' })
+                cookies.remove('rutas', { path: '/' })
                navigate("/")
             } else {
                 const errorData = await response.json();
@@ -52,7 +61,7 @@ const NavBar = () => {
             light
             >
             <Container fluid>
-                <Row >
+                <Row style={{ alignItems: 'center'}}>
                     <Col xs="6" >
                         <NavbarBrand >
                         <Link className='text-white'  style={{ textDecoration: 'none'}} to="/inicio" >Junta Directiva</Link>
@@ -60,13 +69,9 @@ const NavBar = () => {
 
                     </Col>
                     <Col xs="6" >
-                        <Nav fill>
+                        <Nav fill style={{ alignItems: 'center'}} >
                         <NavItem  >
                             <NavbarText><Link className='text-white' style={{ textDecoration: 'none' }} to="/inicio" >Inicio</Link></NavbarText>                              
-                        </NavItem>
-
-                        <NavItem>
-                            <NavbarText><Link className='text-white' style={{ textDecoration: 'none' }} to="/" >Perfil</Link></NavbarText>                              
                         </NavItem>
                         <NavItem>
                             <NavbarText><Link className='text-white' style={{ textDecoration: 'none'}} to="/junta/miembros" >Miembros JD</Link></NavbarText>                              
@@ -74,8 +79,16 @@ const NavBar = () => {
                         <NavItem>
                             <NavbarText><Link className='text-white' style={{ textDecoration: 'none' }} to="/" >notificaciones</Link></NavbarText>                              
                         </NavItem>
-                        <NavItem>
-                            <NavbarText className='link-light' onClick={()=>{logout()}}>Cerrar Sesion</NavbarText>                              
+                        <NavItem> 
+                            <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+                                <DropdownToggle color='custom-light' caret>{user.name+" "+ user.apellido}</DropdownToggle>
+                                <DropdownMenu dark>
+                                <DropdownItem className='text-white'header><h5>{user.name+" "+ user.apellido}</h5></DropdownItem>
+                                <DropdownItem><Link className='text-white' style={{ textDecoration: 'none' }} to="/inicio" >Perfil</Link></DropdownItem>
+                                <DropdownItem divider />
+                                <DropdownItem><Button color='custom-light' onClick={()=>logout()}>Cerrar sesión</Button></DropdownItem>
+                                </DropdownMenu>
+                            </Dropdown>
                         </NavItem>
                         </Nav>
                     </Col>

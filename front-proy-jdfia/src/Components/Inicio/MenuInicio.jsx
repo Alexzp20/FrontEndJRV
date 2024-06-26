@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardHeader, CardImg, Col} from 'reactstrap';
-import { pedirOpciones } from '../../Helpers/menu';
+import Cookies from 'universal-cookie';
 
 const MenuInicio = () => {
 
     const [opciones, setOpciones] = useState([]);
+    const cookies = new Cookies();
+    const rutas = cookies.get('rutas')
 
     useEffect(() => {
-        pedirOpciones()
-        .then((res)=>{
-            setOpciones(res);
-        })
+        setOpciones(rutas)
     }, []);
 
     return (
@@ -35,7 +34,7 @@ const MenuInicio = () => {
                                 {/*INICIO DEL CARD */}
                                 <Col xs = "3">
                                     <br />
-                                    <Link style={{ textDecoration: 'none', color: 'white' }} to={opcion.direccion} >
+                                    <Link style={{ textDecoration: 'none', color: 'white' }} to={opcion.ruta} >
                                         <Card
                                             body
                                             color="custom-secondary"
@@ -50,7 +49,7 @@ const MenuInicio = () => {
                                                 <CardImg
                                                     style={{filter: 'invert(100%)', width:"5rem", aspectRatio: 20/22    }}
                                                     alt="Card image cap"
-                                                    src={opcion.imagen}
+                                                    src={opcion.ruta_imagen}
                                                     />
                                                 </CardBody>
                                         </Card> 
