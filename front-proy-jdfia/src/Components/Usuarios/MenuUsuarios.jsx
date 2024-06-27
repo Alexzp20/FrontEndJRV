@@ -38,7 +38,7 @@ const MenuUsuarios = () => {
             confirmButtonText: "Eliminar",
           }).then((result) => {
             if (result.isConfirmed) {
-                    fetch(`http://127.0.0.1:8000/api/users/${id}`, {
+                    fetch(`http://127.0.0.1:8000/api/user/${id}`, {
                         method: 'DELETE',
                         })
                     .then(res => res.json())
@@ -49,7 +49,7 @@ const MenuUsuarios = () => {
                             text: "El usuario se ha eliminado con exito",
                             icon: "success"
                         });
-                        consumo()
+                        consumo();
 
                     })
                     .catch(err => {
@@ -109,7 +109,7 @@ const MenuUsuarios = () => {
                             </Table>
                         </Col>
                     </Row>
-                        <ModalNewUsuario toggleNew={toggleNew} modalNew={modalNew}/>
+                        <ModalNewUsuario toggleNew={toggleNew} modalNew={modalNew} consumo={consumo}/>
                         <ModalEditUsuario toggleEdit={toggleEdit} modalEdit={modalEdit}  usuario = {usuarioEdit}/>
                     </Container>
         </React.Fragment>

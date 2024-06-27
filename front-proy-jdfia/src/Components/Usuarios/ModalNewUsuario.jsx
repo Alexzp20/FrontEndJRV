@@ -2,30 +2,29 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
+import Swal from 'sweetalert2';
 
-const ModalNewUsuario = ({modalNew, toggleNew}) => {
+const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
 
-    const {handleSubmit, control,watch} = useForm();
+    const {handleSubmit, control,watch,reset} = useForm();
 
     const [roles, setRoles] = useState([]);
     const [puestos, setPuestos] = useState([]);
-    const puesto = parseInt(watch('puestoUsuario', ''), 10);
+    const rol = parseInt(watch('rolUsuario', ''), 10);
     
     const deshabilitar = () =>{
-        if(puesto === 1 || puesto === 3) return true
+        if(rol === 3  || rol === 4 ) return true
         else return false
     }
     
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/rols")
-        //pedirUsuarios()
         .then((data) => data.json())
         .then((res)=>{
             setRoles(res);
         })
         
         fetch("http://127.0.0.1:8000/api/puestos")
-        //pedirUsuarios()
         .then((data) => data.json())
         .then((res)=>{
             setPuestos(res);
@@ -33,20 +32,20 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
         
     }, []);
     
-    const onSubmit = (data) =>{
-        console.log(data)
+    const  onSubmit = async (data) =>{
         var newUser = { 
         }
         
-        if(data.puestoUsuario === '2')
+        if(data.rolUsuario === '1' || data.rolUsuario === '2' )
         {
             newUser = {
-                "username": data.nombreUsuario,
+                "username": data.puestoEspUsuario,
                 "name": data.nombresUsuario,
                 "apellido": data.apellidoUsuario,
                 "email": data.correoUsuario,
                 "password": data.contraUsuario,
-                "fecha_nacimiento": "2000-12-12",
+                "password_confirmation": data.contrarepUsuario,
+                "fecha_nacimiento": data.nacUsuario,
                 "carnet": data.carnetUsuario,
                 "puesto_id": parseInt(data.puestoUsuario),
                 "rol_id": parseInt(data.rolUsuario)
@@ -54,30 +53,51 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
         }
         else{
             newUser = {
-                "username": data.nombreUsuario,
+                "username": "escuela/unidad",
                 "name": data.nombresUsuario,
                 "apellido": null,
                 "email": data.correoUsuario,
                 "password": data.contraUsuario,
-                "fecha_nacimiento": null,
+                "password_confirmation": data.contrarepUsuario,
                 "carnet": null,
-                "puesto_id": parseInt(data.puestoUsuario),
+                "puesto_id": null,
                 "rol_id": parseInt(data.rolUsuario)
                  }  
         }
-        
-        console.log(newUser)
-        fetch('http://127.0.0.1:8000/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-                        },
-            body: JSON.stringify(newUser)
-        })
-        .then(response => response.json())
-        .then(data => console.log('Datos enviados:', data))
-        .catch(error => console.error('Error al enviar datos:', error));
-
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/user', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+              method: 'POST',
+              body:  JSON.stringify(newUser)
+            });
+      
+            if (response.ok) {
+                Swal.fire({
+                    title: "Usuario creado",
+                    text: "El usuario se añadio con exito",
+                    icon: "success"
+                });
+               reset();
+               consumo()
+            } else {
+                const errorData = await response.json();
+                console.log(errorData);
+                Swal.fire({
+                    title: "Error",
+                    text: "Error al añadir el usuario",
+                    icon: "Error"
+                });
+              console.error('');
+            }
+          } catch (error) {
+            Swal.fire({
+                    title: "Error en la solicitud",
+                    text: {error},
+                    icon: "error"
+                });
+          }
         }
 
     return (
@@ -95,10 +115,10 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                                             control={control}
                                             defaultValue=""
                                             render={({ field }) => (
-                                                <Input  {...field} id="puestoUsuario" type="select" options={roles.ROL}>
+                                                <Input  {...field} id="puestoUsuario" type="select"  disabled={deshabilitar()}>
                                                 <option value="0">Seleccione una    </option>
                                                 {puestos.map((puesto)=>{
-                                                  return  <option value={puesto.id} key={puesto.id}>{puesto.PUESTO}</option>
+                                                  return  <option value={puesto.id} key={puesto.id}>{puesto.name}</option>
                                                 })}
                                                 </Input>
                                             )}
@@ -106,17 +126,18 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                                     
                                 </FormGroup>
                                 <FormGroup >
-                                    <Label for="nombreUsuario">Nombre de usuario</Label>
+                                    <Label for="puestoEspUsuario">Puesto (Especifico)</Label>
                                     <Controller
-                                            name="nombreUsuario"
+                                            name="puestoEspUsuario"
                                             control={control}
                                             defaultValue=""
                                             render={({ field }) => 
                                             <Input
                                             {...field}
-                                            id="nombreUsuario"
+                                            id="puestoEspUsuario"
                                             placeholder="Ingrese un nombre de usuario"
                                             type="text"
+                                            disabled={deshabilitar()}
                                             />}
                                         />
                                     
@@ -133,7 +154,6 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                                             id="nombresUsuario"
                                             placeholder="Ingrese un nombre"
                                             type="text"
-                                            disabled={deshabilitar()}
                                             />
                                             }
                                         />
@@ -183,9 +203,9 @@ const ModalNewUsuario = ({modalNew, toggleNew}) => {
                                             control={control}
                                             defaultValue=""
                                             render={({ field }) => (
-                                    <Input {...field} id="rolUsuario" type="select" options={roles.ROL}>
+                                    <Input {...field} id="rolUsuario" type="select">
                                     {roles.map((rol)=>{
-                                      return  <option value={rol.id} key={rol.id}>{rol.ROL}</option>
+                                      return  <option value={rol.id} key={rol.id}>{rol.name}</option>
                                     })}
                                     </Input>)}
                                         />                          
