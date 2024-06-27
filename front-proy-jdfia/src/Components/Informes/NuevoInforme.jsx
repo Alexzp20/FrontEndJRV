@@ -3,11 +3,13 @@ import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Ro
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 export const NuevoInforme = () => {
 
     const {handleSubmit, control, reset, formState: { errors }} = useForm();
     const [documento, setDocumento ] = useState(null);
+    const navigate = useNavigate()
 
 
     const onSubmit = async (data) =>{
@@ -15,7 +17,7 @@ export const NuevoInforme = () => {
         const form = new FormData();
         form.append('codigoInforme', data.codInforme);
         form.append('documentoInforme', documento);
-
+        
         try {
             const response = await fetch('http://127.0.0.1:8000/api/informe', {
               method: 'POST',
@@ -116,7 +118,7 @@ export const NuevoInforme = () => {
                             <Container fluid className='text-center'>
                                 <Button className='m-2 text-light' color='custom-success' type='submit'>Subir</Button>
                                 
-                                <Button className='m-2 text-light' color='custom-danger'>Cancelar</Button>
+                                <Button className='m-2 text-light' color='custom-danger'onClick={()=>navigate('/informe')}>Cancelar</Button>
                             </Container>
                     </Form>
                 </Col>

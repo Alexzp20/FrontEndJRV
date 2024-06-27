@@ -3,11 +3,13 @@ import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Ro
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export const NuevaActa = () => {
 
+    const navigate = useNavigate()
     const {handleSubmit, control, reset, formState: { errors },setValue} = useForm();
     const [documento, setDocumento ] = useState(null);
 
@@ -120,7 +122,7 @@ export const NuevaActa = () => {
                             <Container fluid className='text-center'>
                                 <Button className='m-2 text-light' color='custom-success' type='submit'>Subir</Button>
                                 
-                                <Button className='m-2 text-light' color='custom-danger'>Cancelar</Button>
+                                <Button className='m-2 text-light' color='custom-danger'onClick={()=>navigate('/acta')}>Cancelar</Button>
                             </Container>
                     </Form>
                 </Col>

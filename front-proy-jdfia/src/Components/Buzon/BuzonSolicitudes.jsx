@@ -5,6 +5,7 @@ import NavBar from '../Navbar/NavBar';
 
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const BuzonSolicitudes = () => {
 
@@ -15,7 +16,7 @@ const BuzonSolicitudes = () => {
     const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', 0), 10);
     const cookies = new Cookies();
     const token = cookies.get('token')
-
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -220,7 +221,7 @@ const BuzonSolicitudes = () => {
                                     <Container fluid className='text-center'>
                                         <Button className='m-2 text-light' color='custom-success' type='submit'>Enviar</Button>
                                         
-                                        <Button className='m-2 text-light' color='custom-danger'>Cancelar</Button>
+                                        <Button className='m-2 text-light' color='custom-danger' onClick={()=>navigate('/buzon')}>Cancelar</Button>
                                     </Container>
                             </Form>
                         </Col>

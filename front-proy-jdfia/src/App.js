@@ -60,7 +60,7 @@ function App() {
           <Route path='/informe/gestion' element={<GestionInformes/>}/>
           <Route path='/acuerdo' element={<GestionAcuerdos/>}/>
           <Route path='/acuerdo/revision/:idAgenda' element={<RevisionAcuerdos/>}/>
-          <Route path='/acuerdo/revision/nuevo/:idSolicitud' element={<NuevoAcuerdo/>}/>
+          <Route path='/acuerdo/revision/:idAgenda/nuevo/:idSolicitud' element={<NuevoAcuerdo/>}/>
           <Route path='/' element={<InicioSesion/>}/>
           <Route path='*' element={<InicioSesion/>}/>
         </Routes>

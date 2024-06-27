@@ -59,7 +59,7 @@ export const RevisionAcuerdos = () => {
                         <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
                         <td><VerPdf id={solicitud.id} tipo="acuerdo"/></td>
                         <td>
-                           <Link to={`/acuerdo/revision/nuevo/${solicitud.id}`}> <Button color='custom-success'className='text-light'>Nuevo</Button></Link> { } 
+                           <Link to={`/acuerdo/revision/${idAgenda}/nuevo/${solicitud.id}`}> <Button color='custom-success'className='text-light'>Nuevo</Button></Link> { } 
                             <Button color='custom-warning' className='text-light' onClick={()=>{}}>Editar</Button> { }
                            <Button color='custom-danger'className='text-light' onClick={()=>{}}>Eliminar</Button>
                         </td>
