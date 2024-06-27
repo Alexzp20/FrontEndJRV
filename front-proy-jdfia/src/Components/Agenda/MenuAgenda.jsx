@@ -42,7 +42,7 @@ export const MenuAgenda = () => {
                     </Col>
                     <Col xs="1"></Col>
                     <Col xs = "2">
-                    <Link style={{ textDecoration: 'none', color: 'white' }} to="/agenda" >
+                    <Link style={{ textDecoration: 'none', color: 'white' }} to="/agenda/revision" >
                         <Card
                             body
                             color="custom-secondary"
