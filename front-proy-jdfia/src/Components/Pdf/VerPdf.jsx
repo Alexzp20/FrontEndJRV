@@ -15,12 +15,13 @@ export const VerPdf = ({id, tipo}) => {
       });
 
       if (!response.ok) {
-        throw new Error('Error al obtener el documento');
+        throw new Error('Error, documento inexistente');
+       
       }
 
       // Convierte la respuesta en un Blob
       const blob = await response.blob();
-      
+
       // Crea una URL para el Blob
       const url = window.URL.createObjectURL(blob);
 
