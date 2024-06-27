@@ -43,7 +43,6 @@ const MenuUsuarios = () => {
                         })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data)
                         Swal.fire({
                             title: "Registro eliminado",
                             text: "El usuario se ha eliminado con exito",
@@ -97,7 +96,6 @@ const MenuUsuarios = () => {
                                         <th>Correo Electronido</th>
                                         <th>Fecha nacimiento</th>
                                         <th>Carnet</th>
-                                        <th>CV</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>

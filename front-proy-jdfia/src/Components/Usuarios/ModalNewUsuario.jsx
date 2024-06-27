@@ -48,7 +48,7 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
                 "fecha_nacimiento": data.nacUsuario,
                 "carnet": data.carnetUsuario,
                 "puesto_id": parseInt(data.puestoUsuario),
-                "rol_id": parseInt(data.rolUsuario)
+                "role_id": parseInt(data.rolUsuario)
             }
         }
         else{
@@ -61,7 +61,7 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
                 "password_confirmation": data.contrarepUsuario,
                 "carnet": null,
                 "puesto_id": null,
-                "rol_id": parseInt(data.rolUsuario)
+                "role_id": parseInt(data.rolUsuario)
                  }  
         }
         try {

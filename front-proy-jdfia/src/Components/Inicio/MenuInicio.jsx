@@ -32,7 +32,7 @@ const MenuInicio = () => {
                 <Container>
                     <Row>
                     {opciones.map((opcion)=>
-                            <React.Fragment>
+                            <React.Fragment key={opcion.id}>
                                 {/*INICIO DEL CARD */}
                                 <Col xs = "3">
                                     <br />

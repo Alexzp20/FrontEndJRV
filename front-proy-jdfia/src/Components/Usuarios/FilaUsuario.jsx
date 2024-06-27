@@ -18,7 +18,6 @@ const FilaUsuario = ({usuario, toggleEdit, setUsuarioEdit, deleteUser}) => {
             <td>{usuario.email}</td>
             <td>{usuario.fecha_nacimiento}</td>
             <td>{usuario.carnet}</td>
-            <td>{usuario.cv}</td>
             <td>
                 <Button className='m-1 text-light' color='custom-warning' onClick={toggleEditar}>Editar</Button>
                 <Button className='m-1 text-light' color='custom-danger' onClick={()=>{deleteUser(usuario.id)}}>Eliminar</Button>
