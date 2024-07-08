@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
-import { FaFilePdf } from 'react-icons/fa6';
+import { VerPdf } from '../../Pdf/VerPdf';
 
 const ModalAnadirActa = ({modalNew, toggleNew, setActasAgenda}) => {
 
@@ -39,7 +39,7 @@ const ModalAnadirActa = ({modalNew, toggleNew, setActasAgenda}) => {
                                         <th scope='row'>{acta.id}</th>
                                         <td >{acta.created_at.split("T")[0]+" "+ acta.created_at.split("T")[1].split(".")[0]}</td>
                                         <td >{acta.codigo}</td>
-                                        <td ><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                        <td ><VerPdf id={acta.id} tipo="acta"/></td>
                                         <td >
                                             <Button color='custom-primary' onClick={()=>setActasAgenda(acta)}>
                                                 Añadir

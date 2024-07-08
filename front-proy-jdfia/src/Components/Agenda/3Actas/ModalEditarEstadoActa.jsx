@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, Input, Row, Modal, ModalHeader, ModalBody, Label   } from 'reactstrap';
 
-export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, solicitud, handleVotacion}) {
- 
+export const ModalEditarEstadoActa = ({modalEstado, toggleEstado, acta, handleVotacion}) => {
+
   const [votosFavor, setVotosFavor] = useState(0)
   const [votosContra, setVotosContra] = useState(0)
   const [votosAbstencion, setVotosAbstencion] = useState(0)
-  const [estado, setEstado] = useState("6")
+  const [estado, setEstado] = useState("1")
   const [comentario, setComentario] = useState("")
   const [desactivado, setDesactivado] = useState(true);
+
+
+  useEffect(() => {
+   
+    if(estado === 1){
+      setDesactivado(true)
+      setVotosFavor(0)
+      setVotosContra(0)
+      setVotosAbstencion(0)
+    }else{
+      setDesactivado(false)
+    }
+    
+  }, [estado]);
+
+
+
+
 
   const handleVotosFavorChange = (e) => {
     setVotosFavor(e.target.value);
@@ -26,24 +44,12 @@ export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, s
     setComentario(e.target.value);
   };
 
-  useEffect(() => {
-   
-    if(estado === 6){
-      setDesactivado(true)
-      setVotosFavor(0)
-      setVotosContra(0)
-      setVotosAbstencion(0)
-    }else{
-      setDesactivado(false)
-    }
-    
-  }, [estado]);
 
 
 
   const handleVoto = () =>{
     let voto = {
-      "solicitud_id": solicitud.id,
+      "acta_id": acta.id,
       "afavor": votosFavor,
       "contra": votosContra,
       "abstencion": votosAbstencion,
@@ -62,21 +68,22 @@ export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, s
     setComentario("")
   }
 
- 
- 
+
+
+
   return (
     <Container className='p-3 my-4'>
     <Modal scrollable size="lg" isOpen={modalEstado} toggle={toggleEstado}>
-        <ModalHeader toggle={toggleEstado}>Editar estado de la solicitud</ModalHeader>
+        <ModalHeader toggle={toggleEstado}>Editar estado del acta</ModalHeader>
         <ModalBody>
                 <Row>
-                    <h6>Solicitud: {solicitud.codigo}</h6>
+                    <h6>Acta: {acta.codigo}</h6>
                     <Col xs="12">   
                     <Label >Editar Estado</Label>
                     <Input type='select'value={estado} onChange={handleEstadoChange}>
-                        <option value="4" >Aprobado</option>
-                        <option value="5" >Denegado</option>
-                        <option value="6" >pendiente</option>
+                        <option value="2" >Aprobado</option>
+                        <option value="3" >Denegado</option>
+                        <option value="1" >pendiente</option>
                     </Input>
                     <br />
                     </Col>

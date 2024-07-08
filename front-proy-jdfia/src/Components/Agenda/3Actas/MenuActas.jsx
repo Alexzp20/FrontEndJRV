@@ -2,20 +2,48 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Label, Row, Table } from 'reactstrap';
 import ModalAnadirActa from './ModalAnadirActa';
 import Swal from 'sweetalert2';
-import { FaFilePdf } from 'react-icons/fa6';
+import { ModalEditarEstadoActa } from './ModalEditarEstadoActa';
+import { VerPdf } from '../../Pdf/VerPdf';
 
-const MenuActas = ({setTotalActas}) => {
+const MenuActas = ({setTotalActas, setVotaciones}) => {
 
     const [modalNew, setModalNew] = useState(false);
-    const [actas, setActas] = useState([])
+    const [modalEditarEstado, setModalEditarEstado] = useState(false);
+    const [actas, setActas] = useState([]);
+    const [actaEditar, setActaEditar] = useState({});
+    const [votacion, setVotacion ] = useState([]);
+
     const toggleNew = () =>{
         setModalNew(!modalNew)
     }
+    const toggleEditarEstado = () =>{
+        setModalEditarEstado(!modalEditarEstado)
+    }
+
+    const handleEditarEstado  = (acta)=>{
+        setActaEditar(acta)
+        toggleEditarEstado()
+    }
+
     
     useEffect(() => {
         setTotalActas(actas)
     }, [actas, setTotalActas]);
+    
+    useEffect(() => {
+        setVotaciones(votacion)
+      }, [votacion, setVotaciones]);
 
+      const handleVotacion = (voto) =>{
+          if (votacion.some((o) => o.acta_id === voto.acta_id)) {
+            let votosFiltrados = votacion.filter((o) => o.acta_id !== voto.acta_id)
+            setVotacion([...votosFiltrados, voto])  
+        }
+        else
+        {
+            setVotacion([...votacion, voto])  
+        }
+      }
 
 
     const anadirActa = (acta) =>{
@@ -94,14 +122,17 @@ const MenuActas = ({setTotalActas}) => {
                                             <th>{acta.id}</th>
                                             <td>{acta.codigo}</td>
                                             <td>{acta.created_at.split("T")[0]+" "+ acta.created_at.split("T")[1].split(".")[0]}</td>
-                                            <td><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
-                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteActa(acta.id-1)}}>Eliminar</Button></td>
+                                            <td><VerPdf id={acta.id} tipo="acta"/></td>
+                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteActa(acta.id-1)}}>Eliminar</Button>
+                                               {''} <Button color='custom-dark' className='text-light' onClick={()=>{handleEditarEstado(acta)}}>Editar estado</Button>
+                                            </td>
                                            </tr>
                                 }))}
                             </tbody>
                         </Table>
                     </Col>
                 </Row>
+                <ModalEditarEstadoActa modalEstado={modalEditarEstado} toggleEstado={toggleEditarEstado} acta={actaEditar} handleVotacion={handleVotacion}/>
        </Container>
     );
 }
