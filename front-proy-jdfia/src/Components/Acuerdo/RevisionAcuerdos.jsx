@@ -4,21 +4,70 @@ import { Link, useParams } from 'react-router-dom'
 import { Button, Col, Container, Row, Table } from 'reactstrap';
 import NavBar from '../Navbar/NavBar';
 import { VerPdf } from '../Pdf/VerPdf';
+import { ModalEditarAcuerdo } from './ModalEditarAcuerdo';
+import Swal from 'sweetalert2';
 
 export const RevisionAcuerdos = () => {
 
     const {idAgenda} = useParams()
     const [solicitudes, setSolicitudes] = useState([]);
-
-
+    const [modalEdit, setModalEdit] = useState(false);
+    const [acuerdoEdit, setAcuerdoEdit] = useState(null);
+    
+    
     useEffect(() => {
-        fetch(`http://localhost:8000/api/agenda/${idAgenda}`)
-         .then(response => response.json())
-         .then(data =>{ setSolicitudes(Object.values(data.solicitudes).flat())})
-         .catch(error => console.log(error));
-        
-     }, []);
+        getAcuerdos()
+    }, []);
 
+    const getAcuerdos =() =>{
+        fetch(`http://127.0.0.1:8000/api/agenda/acuerdos/${idAgenda}`)
+        .then(response => response.json())
+        .then(data =>{setSolicitudes(data.agenda); console.log(data.agenda) })
+        .catch(error => console.log(error));
+    }
+    
+    const toggleEdit = () => setModalEdit(!modalEdit);
+        
+    const toggleEditar = (solicitud) => {
+        setAcuerdoEdit(solicitud)
+        toggleEdit()
+
+    }
+
+    const eliminarAcuerdo = (id) =>{
+        Swal.fire({
+            title: "Desea eliminar este acuerdo",
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                    fetch(`http://127.0.0.1:8000/api/acuerdo/${id}`, {
+                        method: 'DELETE',
+                        })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        Swal.fire({
+                            title: "Registro eliminado",
+                            text: "El acuerdo se ha eliminado con exito",
+                            icon: "success"
+                        });
+                        getAcuerdos()
+
+                    })
+                    .catch(err => {
+                    Swal.fire({
+                            title: "Error al eliminar el registro",
+                            text: {err},
+                            icon: "error"
+                        });
+                        console.error(':', err);
+                    });
+            } else if (result.isDenied) {
+              Swal.fire("No se han realizado Cambios", "", "info");
+            }
+          });
+    }
 
 
     
@@ -42,8 +91,8 @@ export const RevisionAcuerdos = () => {
                             <th>Fecha y hora de subida</th>
                             <th>Codigo de la solicitud</th>
                             <th>Descripcion de la solicitud</th>
-                            <th>Estado</th>
                             <th>Archivo de la solicitud</th>
+                            <th>Codigo del acuerdo</th>
                             <th>Archivo del acuerdo</th>
                             <th>Acciones para acuerdos</th>
                         </tr>
@@ -52,22 +101,26 @@ export const RevisionAcuerdos = () => {
                         {solicitudes && solicitudes.map((solicitud)=>
                     <tr key={solicitud.id}>
                         <th>{solicitud.id}</th>
-                        <td>{solicitud.creado.split("T")[0]+" "+ solicitud.creado.split("T")[1].split(".")[0]}</td>
+                        <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
                         <td>{solicitud.codigo}</td>
                         <td>{solicitud.descripcion}</td>
-                        <td>{solicitud.estado}</td>
                         <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
-                        <td><VerPdf id={solicitud.id} tipo="acuerdo"/></td>
+                        <td>{solicitud.acuerdos.length > 0 ? solicitud.acuerdos[0].codigo:"-"}</td>
+                        <td>{solicitud.acuerdos.length > 0 ? <VerPdf id={solicitud.acuerdos[0].id} tipo="acuerdo"/>: '-'}</td>
                         <td>
-                           <Link to={`/acuerdo/revision/${idAgenda}/nuevo/${solicitud.id}`}> <Button color='custom-success'className='text-light'>Nuevo</Button></Link> { } 
-                            <Button color='custom-warning' className='text-light' onClick={()=>{}}>Editar</Button> { }
-                           <Button color='custom-danger'className='text-light' onClick={()=>{}}>Eliminar</Button>
+    
+                        {solicitud.acuerdos.length === 0 && <Link to={`/acuerdo/revision/${idAgenda}/nuevo/${solicitud.id}`}> <Button color='custom-success'className='text-light'>Nuevo</Button></Link>} { } 
+                             {solicitud.acuerdos.length > 0 && <Button color='custom-warning' className='text-light my-1' onClick={()=>toggleEditar(solicitud)}>Editar</Button>}{ }
+                            {solicitud.acuerdos.length > 0 &&<Button color='custom-danger'className='text-light' onClick={()=>eliminarAcuerdo(solicitud.acuerdos[0].id)}>Eliminar</Button>}
+                               
+                                               
                         </td>
                     </tr>)}
                     </tbody>
                 </Table></Col>
             </Row> 
         </Container>
+        <ModalEditarAcuerdo toggleEdit={toggleEdit} modalEdit={modalEdit} solicitud={acuerdoEdit} getAcuerdos={getAcuerdos}/>
     </Container>
 </React.Fragment>  
   )
