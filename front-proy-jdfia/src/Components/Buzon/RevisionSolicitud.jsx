@@ -135,8 +135,10 @@ export default function RevisionSolicitud() {
                         <tr>    
                             <th>#</th>
                             <th>Fecha y hora de subida</th>
-                            <th>Codigo de la solicitud</th>
-                            <th>Categoria de la solicitud</th>
+                            <th>Codigo </th>
+                            <th>Categoria </th>
+                            <th>SubCategoria </th>
+                            <th>Descripción </th>
                             <th>Archivo</th>
                             <th>Acciones</th>
                         </tr>
@@ -147,6 +149,8 @@ export default function RevisionSolicitud() {
                         <th>{solicitud.id}</th>
                         <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
                         <td>{solicitud.codigo}</td>
+                        <td>{solicitud.categoria.name}</td>
+                        <td>{solicitud.subcategoria !== null ? solicitud.subcategoria.name : '-'}</td>
                         <td>{solicitud.descripcion}</td>
                         <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
                         <td><Button color='custom-warning' className='text-light' onClick={()=>{toggleEditar(solicitud)}}>Editar</Button> { } <Button color='custom-success'className='text-light' onClick={()=>{handleSolicitud(solicitud, 2,"")}}>Aprobar</Button> { } <Button color='custom-danger'className='text-light' onClick={()=>{toggleDenegar(solicitud)}}>Denegar</Button> { }
@@ -156,7 +160,7 @@ export default function RevisionSolicitud() {
                 </Table>
             </Col>      
         </Row>
-        <ModalEditarSolicitud toggleEdit={toggleEdit} modalEdit={modalEdit} solicitud={solicitudEdit}/>
+        <ModalEditarSolicitud toggleEdit={toggleEdit} modalEdit={modalEdit} solicitud={solicitudEdit} getSolicitudes={getSolicitudes}/>
         <ModalDenegarSolicitud toggleDeneg={toggleDeneg} modalDeneg={modalDeneg} denegado={denegado} handleSolicitud={handleSolicitud}/>
         </Container>
     </React.Fragment>

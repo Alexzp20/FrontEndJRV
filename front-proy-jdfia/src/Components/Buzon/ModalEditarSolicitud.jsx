@@ -1,37 +1,97 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
-import { pedirCategorias, pedirSubCategorias } from '../../Helpers/pedirDatos';
 import Swal from 'sweetalert2';
 
-export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud}) {
+export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, getSolicitudes}) {
 
-    const {handleSubmit, control, watch, reset, formState: { errors },clearErrors} = useForm();
+    const {handleSubmit, control, watch, reset,setValue} = useForm();
     const [categorias, setCategorias ] = useState([]);
     const [subCategorias, setSubCategorias ] = useState([]);
-    const [documento, setDocumento ] = useState(null);
     const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', ''), 10);
 
+      useEffect(() => {
+        fetch('http://localhost:8000/api/categorias')
+         .then(response => response.json())
+         .then(data =>{ 
+            setCategorias(data); 
+        })
+         .catch(error => console.log(error));
+        
+     }, []);
+         
+     
+     useEffect(() => {
+         const categoria = categorias.find(cat => cat.id === parseInt(idCategoriaSeleccionada));
+         if (categoria) {
+             setSubCategorias(categoria.subcategorias);
+             categoria.subcategorias.length > 0 ? setValue('subCategoriaSolicitud', solicitud.subcategoria_id) : setValue('subCategoriaSolicitud', ''); // Reset subcategory when category changes
+            } else {
+                setSubCategorias([]);
+                setValue('subCategoriaSolicitud', '');
+            }
+        }, [idCategoriaSeleccionada, categorias, setValue]);
 
-    const subcategoriasSeleccionadas = subCategorias.filter(
-        subcategoria => subcategoria.idCategoria === idCategoriaSeleccionada
-      );
 
-    useEffect(() => {
-       pedirCategorias()
-       .then((res) =>{
-        setCategorias(res)
+        
+        useEffect(() => {
+            setValue('codSolicitud', solicitud.codigo)
+            setValue('descSolicitud', solicitud.descripcion)
+            setValue('categoriaSolicitud', solicitud.categoria_id)
+        }, [solicitud]);
     
-       })
-       pedirSubCategorias()
-       .then((res)=>{
-        setSubCategorias(res)
-       })
-    }, []);
+    const onSubmit = async (data) =>{
 
-    const onSubmit = (data) =>{
-        console.log(data.archivoSolicitud)
-        console.log(documento)
+        
+        let solicitudEdit = {
+            "codigo": data.codSolicitud,
+            "descripcion": data.descSolicitud,
+            "categoria_id": data.categoriaSolicitud,
+            "subcategoria_id": !data.subCategoriaSolicitud? null : data.subCategoriaSolicitud
+        }
+
+        console.log({solicitudEdit})
+
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/solicitud/edit/${solicitud.id}`, {
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+              method: 'PUT',
+              body: JSON.stringify(solicitudEdit)
+            });
+      
+            if (response.ok) {
+                Swal.fire({
+                    title: "Solicitud Editada",
+                    text: "La solicitud se ha editado con exito ",
+                    icon: "success"
+                });
+                console.log(response)
+                reset()
+                getSolicitudes()
+                toggleEdit()
+            } else {
+                const errorData = await response.json();
+                console.log(errorData)
+                Swal.fire({
+                    title: "Error, datos invalidos al editar",
+                    text: "",
+                    icon: "error"
+                });
+              console.error('');
+            }
+          } catch (error) {
+            Swal.fire({
+                    title: "Error en la petición",
+                    text: {error},
+                    icon: "error"
+                });
+          }
+
+
+
+
     }
     return (
     <Modal scrollable size="lg" isOpen={modalEdit} toggle={toggleEdit}>
@@ -40,7 +100,7 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud}) 
         <Row>
                         <Col xs="12">
                             <Form  onSubmit={handleSubmit(onSubmit)} >
-                                   {/*  <FormGroup>
+                                    <FormGroup>
                                         <Label for="codSolicitud">
                                             Codigo de la solicitud
                                         </Label>
@@ -50,7 +110,7 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud}) 
                                             defaultValue=""
                                             render={({ field }) =>  <Input {...field} type="text" id= "codSolicitud"  placeholder="Ingrese un codigo" />}
                                         />
-                                    </FormGroup> */}
+                                    </FormGroup>
                                     <FormGroup>
                                         <Label  for="descSolicitud">
                                             Descripción de la solicitud
@@ -62,45 +122,7 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud}) 
                                             render={({ field }) =>  <Input {...field} type="textarea" id= "descSolicitud" placeholder="Ingrese una descripción" />}
                                         />
                                     </FormGroup>
-                                    <FormGroup>
-                                    <Label for="archivoSolicitud">
-                                        Archivo de la solicitud
-                                    </Label>
-                                    <Controller
-                                            name="archivoSolicitud"
-                                            control={control}
-                                            /* rules={{
-                                                required: "Debe seleccionar un archivo .pdf",
-                                                validate: {
-                                                    maxSize: (value) => {
-                                                      if (!value) return true; // Si no hay archivo, no hay error
-                                                      return (value[0]?.size <= 5 * 1024 * 1024) || 'El archivo debe ser menor o igual a 5 MB';
-                                                    },
-                                                  },
-                                              }} */
-                                            defaultValue=""
-                                            render={({ field, fieldState }) =>(
-                                                <>
-                                                <Input 
-                                                {...field} 
-                                                type="file" 
-                                                id= "archivoSolicitud"
-                                                accept='.pdf'
-                                                onChange={(e) => {
-                                                    setDocumento(e.target.files[0])
-                                                    field.onChange(e);
-                                                    field.onBlur(e);   
-                                                }} 
-                                                /> 
-                                                 {errors.archivoSolicitud && (
-                                                    <p style={{ color: 'red' }}>{errors.archivoSolicitud.message}</p>
-                                                )}
-                                                </>)}
-                                                
-                                                  /* {{fieldState.error && (
-                                                    <FormFeedback>{fieldState.error.message}</FormFeedback>)}} */
-                                        />
-                                    </FormGroup>
+                                    
                                     <FormGroup>
                                     <Label for="categoriaSolicitud">
                                         Categoria de la solicitud
@@ -113,13 +135,13 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud}) 
 
                                                 <Input {...field}type="select" id= "categoriaSolicitud">
                                                     <option value="" >Seleccione una opción</option>
-                                                    {categorias.map((categoria) =><option value={categoria.idCategoria} key={categoria.idCategoria}>{categoria.categoria}</option>)}
+                                                    {categorias.map((categoria) =><option value={categoria.id} key={categoria.id}>{categoria.name}</option>)}
                                                 </Input>
                                             )}
                                         />
                                     
                                     </FormGroup>
-                                    {subcategoriasSeleccionadas.length > 0 && (
+                                    {subCategorias.length > 0 && (
                                         <FormGroup>
                                         <Label for="subCategoriaSolicitud">
                                             Subcategoria de la solicitud
@@ -132,7 +154,7 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud}) 
     
                                                     <Input {...field}type="select" id= "subCategoriaSolicitud">
                                                          <option value="" >Seleccione una opción</option>
-                                                        {subcategoriasSeleccionadas.map((subcategoria) =><option value={subcategoria.idSubCategoria} key={subcategoria.idSubCategoria}>{subcategoria.subCategoria}</option>)}    
+                                                        {subCategorias.map((subcategoria) =><option value={subcategoria.id} key={subcategoria.id}>{subcategoria.name}</option>)}    
                                                     </Input>
                                                 )}
                                             />
