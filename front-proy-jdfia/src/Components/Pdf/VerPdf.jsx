@@ -34,6 +34,6 @@ export const VerPdf = ({id, tipo}) => {
   };
 
 
-  return <FaFilePdf className='w-50 h-50' style={{color: 'rgb(0, 0, 0)'}} onClick={()=>handleDocSolicitud(id, tipo)}/>
+  return <FaFilePdf className='w-25 h-25' style={{color: 'rgb(0, 0, 0)'}} onClick={()=>handleDocSolicitud(id, tipo)}/>
   
 }
