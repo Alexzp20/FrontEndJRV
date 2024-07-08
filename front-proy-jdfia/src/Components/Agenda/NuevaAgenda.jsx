@@ -171,15 +171,15 @@ const NuevaAgenda = () => {
                                         <hr />
                                         
                                         <FormGroup>
-                                            <Label for="tipoSesion">Tipo de convocatoria</Label>
+                                            <Label for="tipoConvocatoria">Tipo de convocatoria</Label>
                                             <Controller
-                                                name="tipoSesion"
+                                                name="tipoConvocatoria"
                                                 control={control}
                                                 defaultValue=""
                                                 render={({ field }) => 
                                                     <Input
                                                     {...field}
-                                                    id="tipoSesion"
+                                                    id="tipoConvocatoria"
                                                     type="select"
                                                     >
                                                     <option value="ordinario">
