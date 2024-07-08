@@ -28,9 +28,9 @@ const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
                                     <thead>
                                     <tr>    
                                         <th>#</th>
+                                        <th>Codigo de la solicitud</th>
                                         <th>Fecha de subida</th>
                                         <th>Descripción de la solicitud</th>
-                                        <th>Documento de acuerdo</th>
                                         <th>Seleccionar</th>
                                     </tr>
                                     </thead>
@@ -38,9 +38,9 @@ const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
                                     {solicitudes.map((solicitud)=>
                                         <tr key={solicitud.id}>
                                         <th scope='row'>{solicitud.id}</th>
-                                        <td >{solicitud.fechaSubida}</td>
+                                        <td >{solicitud.codigo}</td>
+                                        <td>{solicitud.created_at.split("T")[0]+" "+ solicitud.created_at.split("T")[1].split(".")[0]}</td>
                                         <td >{solicitud.descripcion}</td>
-                                        <td >{solicitud.documento}</td>
                                         <td >
                                             <Button color='custom-primary' onClick={()=>handleAsignacion(solicitud)}>
                                                 Añadir

@@ -75,9 +75,9 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotacione
      
      //hooks de estado del modal de solicitudes
      const [modalEstado, setModalEstado] = useState(false);
-     const toggleEstado = (id) => {
+     const toggleEstado = (solicitud) => {
 
-      setSolicitudEditarEstado(id)
+      setSolicitudEditarEstado(solicitud)
        setModalEstado(!modalEstado);
       }
       const togglemodalEstado = () => setModalEstado(!modalEstado);
@@ -98,10 +98,10 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotacione
       const handleSeleccion = (solicitud) => {
 
         switch(parseInt(solicitud.categoria_id)) {
-            case 0:
+            case 1:
                 anadirSolicitud(solicitud, solicitudesSeguimiento, setSolicitudesSeguimiento)
               break;
-            case 1:
+            case 2:
               switch (parseInt(solicitud.subcategoria_id)) {
                 case 1:
                       anadirSolicitud(solicitud, solicitudesAdminAcademicas, setSolicitudesAdminAcademicas)
@@ -121,15 +121,15 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotacione
                   break;
               }
               break;
-            case 2:
+            case 3:
                 anadirSolicitud(solicitud, solicitudesFacultad, setSolicitudesFacultad)
               break;
-            case 3:
+            case 4:
               switch (parseInt(solicitud.subcategoria_id)) {
                 case 5:
                       anadirSolicitud(solicitud, solicitudesConErogacion, setSolicitudesConErogacion)
                   break;
-                case 4:
+                case 6:
                     anadirSolicitud(solicitud, solicitudesSinErogacion,setSolicitudesSinErogacion)
                   break;
                 default:
@@ -137,7 +137,7 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotacione
                   break;
               }
               break;
-            case 4:
+            case 5:
                 anadirSolicitud(solicitud, solicitudesVarios, setSolicitudesVarios)
               break;
             default:
@@ -181,12 +181,11 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotacione
             <Row>
                 <Col xs="12 ">
                     <Table className='rounded' striped hover borderless>
-                        <thead className='table-primary'>
+                        <thead className='table-primary text-center'>
                             <tr>
                                 <th>#</th>
                                 <th>Descripción</th>
                                 <th>Documento</th>
-                                <th>Anexo</th>
                                 <th>Eliminar</th>
                                 <th>Subir</th>
                                 <th>Actualizar estado</th>
@@ -222,7 +221,7 @@ const TablaSolicitudes = ({solicitudes, setSolicitudes, votaciones, setVotacione
                 </Col>
             </Row>
             <ModalSolicitudes toggle={toggle} modal={modal} handleAsignacion={handleSeleccion} ></ModalSolicitudes>
-            <ModalEditarEstadoSolicitud toggleEstado={togglemodalEstado} modalEstado={modalEstado} idSolicitud={solicitudEditarEstado} handleVotacion={handleVotacion} ></ModalEditarEstadoSolicitud>
+            <ModalEditarEstadoSolicitud toggleEstado={togglemodalEstado} modalEstado={modalEstado} solicitud={solicitudEditarEstado} handleVotacion={handleVotacion} ></ModalEditarEstadoSolicitud>
         </Container>
     );
 }

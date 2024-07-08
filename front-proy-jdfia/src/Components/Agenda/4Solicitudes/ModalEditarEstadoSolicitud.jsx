@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Col, Container, Input, Row, Modal, ModalHeader, ModalBody, Label   } from 'reactstrap';
 
-export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, idSolicitud, handleVotacion}) {
+export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, solicitud, handleVotacion}) {
  
   const [votosFavor, setVotosFavor] = useState(0)
   const [votosContra, setVotosContra] = useState(0)
@@ -30,7 +30,7 @@ export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, i
 
   const handleVoto = () =>{
     let voto = {
-      "solicitud_id": idSolicitud,
+      "solicitud_id": solicitud.id,
       "afavor": votosFavor,
       "contra": votosContra,
       "abstencion": votosAbstencion,
@@ -57,7 +57,7 @@ export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, i
         <ModalHeader toggle={toggleEstado}>Editar estado de la solicitud</ModalHeader>
         <ModalBody>
                 <Row>
-                    <h6>Solicitud: x</h6>
+                    <h6>Solicitud: {solicitud.codigo}</h6>
                     <Col xs="12">   
                     <Label >Editar Estado</Label>
                     <Input type='select'value={estado} onChange={handleEstadoChange}>
