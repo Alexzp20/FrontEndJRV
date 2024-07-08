@@ -46,7 +46,6 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
                 "password": data.contraUsuario,
                 "password_confirmation": data.contrarepUsuario,
                 "fecha_nacimiento": data.nacUsuario,
-                "carnet": data.carnetUsuario,
                 "puesto_id": parseInt(data.puestoUsuario),
                 "role_id": parseInt(data.rolUsuario)
             }
@@ -59,7 +58,6 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
                 "email": data.correoUsuario,
                 "password": data.contraUsuario,
                 "password_confirmation": data.contrarepUsuario,
-                "carnet": null,
                 "puesto_id": null,
                 "role_id": parseInt(data.rolUsuario)
                  }  
@@ -172,23 +170,6 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
                                             id="contraUsuario"
                                             placeholder="Ingrese una contraseña"
                                             type="password"
-                                            />
-                                            }
-                                        />
-                                </FormGroup>
-                                <FormGroup >
-                                    <Label for="carnetUsuario">Carnet</Label>
-                                    <Controller
-                                            name="carnetUsuario"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) => 
-                                            <Input
-                                            {...field}
-                                            id="carnetUsuario"
-                                            placeholder='ingrese un carnet'
-                                            type="text"
-                                            disabled={deshabilitar()}   
                                             />
                                             }
                                         />

@@ -30,7 +30,6 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
         setValue('correoUsuario',usuario.email)
         setValue('fechaNacimiento',usuario.fecha_nacimiento)
         setValue('contraUsuario',usuario.password)
-        setValue('carnetUsuario',usuario.carnet)
         setIdEdit(usuario.id)
     }, [setValue,usuario])
     
@@ -68,9 +67,8 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
                 "email": data.correoUsuario,
                 "password": data.contraUsuario,
                 "fecha_nacimiento": "2000-12-12",
-                "carnet": data.carnetUsuario,
                 "puesto_id": parseInt(data.puestoUsuario),
-                "rol_id": parseInt(data.rolUsuario)
+                "role_id": parseInt(data.rolUsuario)
             }
         }
         else{
@@ -81,13 +79,12 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
                 "email": data.correoUsuario,
                 "password": data.contraUsuario,
                 "fecha_nacimiento": null,
-                "carnet": null,
                 "puesto_id": parseInt(data.puestoUsuario),
-                "rol_id": parseInt(data.rolUsuario)
+                "role_id": parseInt(data.rolUsuario)
                  }  
         }
         
-        fetch(`http://127.0.0.1:8000/api/users/${idEdit}`, {
+        fetch(`http://127.0.0.1:8000/api/user/${idEdit}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -115,10 +112,10 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
                                             control={control}
                                             defaultValue=""
                                             render={({ field }) => (
-                                                <Input  {...field} id="puestoUsuario" type="select" options={roles.ROL}>
+                                                <Input  {...field} id="puestoUsuario" type="select">
                                                 <option value="0">Seleccione una    </option>
                                                 {puestos.map((puesto)=>{
-                                                  return  <option value={puesto.id} key={puesto.id}>{puesto.PUESTO}</option>
+                                                  return  <option value={puesto.id} key={puesto.id}>{puesto.name}</option>
                                                 })}
                                                 </Input>
                                             )}
@@ -189,23 +186,6 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
                                             }
                                         />
                                 </FormGroup>
-                                <FormGroup >
-                                    <Label for="carnetUsuario">Carnet</Label>
-                                    <Controller
-                                            name="carnetUsuario"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) => 
-                                            <Input
-                                            {...field}
-                                            id="carnetUsuario"
-                                            placeholder='ingrese un carnet'
-                                            type="text"
-                                            disabled={deshabilitar()}   
-                                            />
-                                            }
-                                        />
-                                </FormGroup>
                             </Col>
 
                             <Col xs="6">
@@ -218,7 +198,7 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
                                             render={({ field }) => (
                                     <Input {...field} id="rolUsuario" type="select" options={roles.ROL}>
                                     {roles.map((rol)=>{
-                                      return  <option value={rol.id} key={rol.id}>{rol.ROL}</option>
+                                      return  <option value={rol.id} key={rol.id}>{rol.name}</option>
                                     })}
                                     </Input>)}
                                         />                          

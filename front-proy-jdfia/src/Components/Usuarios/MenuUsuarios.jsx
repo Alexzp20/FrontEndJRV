@@ -95,7 +95,6 @@ const MenuUsuarios = () => {
                                         <th>Nombre de usuario</th>
                                         <th>Correo Electronido</th>
                                         <th>Fecha nacimiento</th>
-                                        <th>Carnet</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
