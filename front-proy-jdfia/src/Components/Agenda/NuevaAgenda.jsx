@@ -17,6 +17,7 @@ const NuevaAgenda = () => {
     const [asistencias , setAsistencias] = useState ([]);
     const [actas , setActas] = useState ([]);
     const [votaciones , setVotaciones] = useState ([]);
+    const [votacionesActas , setVotacionesActas] = useState ([]);
     const [informes , setInformes] = useState ([]);
 
       const onSubmitAgenda = async (data) =>{
@@ -29,7 +30,8 @@ const NuevaAgenda = () => {
             "actas": actas,
             "solicitudes": solicitudes,
             "informes": informes,
-            "votaciones": votaciones
+            "votaciones": votaciones,
+            "votacionesActas": votacionesActas
           }
           console.log(agenda)
         try {
@@ -175,7 +177,7 @@ const NuevaAgenda = () => {
                                             <Controller
                                                 name="tipoConvocatoria"
                                                 control={control}
-                                                defaultValue=""
+                                                defaultValue="ordinario"
                                                 render={({ field }) => 
                                                     <Input
                                                     {...field}
@@ -215,7 +217,7 @@ const NuevaAgenda = () => {
                                     <Col xs="12">
                                         <Asistencia setAsistencia={setAsistencias}/>
                                         <AprobacionAgenda Controller={Controller} control={control}/>
-                                        <MenuActas setTotalActas={setActas}/>
+                                        <MenuActas setTotalActas={setActas} setVotaciones={setVotacionesActas}/>
                                         <TablaSolicitudes setSolicitudes={setSolicitudes} solicitudes={solicitudes} votaciones={votaciones} setVotaciones={setVotaciones}/>
                                         <MenuInformes setTotalInformes={setInformes}/>
                                     </Col>

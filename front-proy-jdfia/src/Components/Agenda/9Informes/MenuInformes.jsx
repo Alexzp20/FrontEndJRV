@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Label, Row, Table } from 'reactstrap';
 import Swal from 'sweetalert2';
 import { ModalAnadirInforme } from './ModalAnadirInforme';
-import { FaFilePdf } from 'react-icons/fa6';
+import { VerPdf } from '../../Pdf/VerPdf';
 
 export const MenuInformes = ({setTotalInformes}) => {
     const [modalNew, setModalNew] = useState(false);
@@ -91,7 +91,7 @@ export const MenuInformes = ({setTotalInformes}) => {
                                                 <th>{informe.id}</th>
                                                 <td>{informe.codigo}</td>
                                                 <td>{informe.created_at.split("T")[0]+" "+ informe.created_at.split("T")[1].split(".")[0]}</td>
-                                                <td><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                                <td><VerPdf id={informe.id} tipo="informe"/></td>
                                                 <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteInforme(informe.id-1)}}>Eliminar</Button></td>
                                             </tr>
                                 }))}

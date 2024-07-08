@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
-import { FaFilePdf } from 'react-icons/fa6';
+import { VerPdf } from '../../Pdf/VerPdf';
+
 export const ModalAnadirInforme = ({modalNew, toggleNew, setInformesAgenda}) => {
 
     const [informes,setInformes] = useState([]);
@@ -38,7 +39,7 @@ export const ModalAnadirInforme = ({modalNew, toggleNew, setInformesAgenda}) => 
                                     <th scope='row'>{informe.id}</th>
                                     <td >{informe.created_at.split("T")[0]+" "+ informe.created_at.split("T")[1].split(".")[0]}</td>
                                     <td >{informe.codigo}</td>
-                                    <td ><FaFilePdf onClick={()=>{}} className='w-40 h-50' style={{color: 'rgb(0, 0, 0)'}}/></td>
+                                    <td ><VerPdf id={informe.id} tipo="informe"/></td>
                                     <td >
                                         <Button color='custom-primary' onClick={()=>setInformesAgenda(informe)}>
                                             Añadir
