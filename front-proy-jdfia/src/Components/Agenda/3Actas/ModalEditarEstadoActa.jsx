@@ -13,7 +13,7 @@ export const ModalEditarEstadoActa = ({modalEstado, toggleEstado, acta, handleVo
 
   useEffect(() => {
    
-    if(estado === 1){
+    if(estado === '1'){
       setDesactivado(true)
       setVotosFavor(0)
       setVotosContra(0)

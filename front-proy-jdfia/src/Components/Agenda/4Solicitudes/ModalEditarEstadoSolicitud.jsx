@@ -28,7 +28,7 @@ export default function ModalEditarEstadoSolicitud({modalEstado, toggleEstado, s
 
   useEffect(() => {
    
-    if(estado === 6){
+    if(estado === '6'){
       setDesactivado(true)
       setVotosFavor(0)
       setVotosContra(0)
