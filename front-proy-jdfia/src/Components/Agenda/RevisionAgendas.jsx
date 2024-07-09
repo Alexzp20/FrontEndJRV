@@ -23,9 +23,6 @@ export const RevisionAgendas = () => {
                   <Row>
                       <h3 className='text-center text-light'>Lista de agendas</h3>
                   </Row> 
-                  <Row>
-                      <h6 className='text-center text-light'></h6>
-                  </Row> 
                   <br />
                   <br />
                   <br />
@@ -42,6 +39,7 @@ export const RevisionAgendas = () => {
                             <th>Convoca</th>
                             <th>Lugar</th>
                             <th>Acciones para la agenda</th>
+                            <th>Acciones para los acuerdos</th>
                         </tr>
                     </thead>
                     <tbody className='table-light'> 
@@ -53,7 +51,10 @@ export const RevisionAgendas = () => {
                         <td>{agenda.convoca}</td>
                         <td>{agenda.lugar}</td>
                         <td>
-                           <Link to={`/acuerdo/revision/${agenda.id}`}> <Button color='custom-success'className='text-light'>Ver agenda</Button></Link>
+                           <Link to={`/agenda/mostrar/${agenda.id}`}> <Button color='custom-success'className='text-light'>Ver agenda</Button></Link>
+                        </td>
+                        <td>
+                           <Link to={`/acuerdo/revision/${agenda.id}`}> <Button color='custom-success'className='text-light'>Ver acuerdos</Button></Link>
                         </td>
                     </tr>)}
                     </tbody>

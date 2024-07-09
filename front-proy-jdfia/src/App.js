@@ -28,6 +28,7 @@ import { GestionAcuerdos } from './Components/Acuerdo/GestionAcuerdos';
 import { RevisionAcuerdos } from './Components/Acuerdo/RevisionAcuerdos';
 import { NuevoAcuerdo } from './Components/Acuerdo/NuevoAcuerdo';
 import { RevisionAgendas } from './Components/Agenda/RevisionAgendas';
+import { MostrarAgenda } from './Components/Agenda/Mostrar/MostrarAgenda';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path='/agenda' element={<MenuAgenda/>}/>
           <Route path='/agenda/revision' element={<RevisionAgendas/>}/>
           <Route path='/agenda/nueva' element={<NuevaAgenda/>}/>
+          <Route path='/agenda/mostrar/:id' element={<MostrarAgenda/>}/>
           <Route path='/acta' element={<MenuActas/>}/>
           <Route path='/acta/nueva' element={<NuevaActa/>}/>
           <Route path='/acta/gestion' element={<GestionActas/>}/>
