@@ -29,11 +29,16 @@ const BusquedaSolicitud = () => {
 
     //hook para devolver los datos de las agendas
     useEffect(() => {
-        pedirSolicitudes()
-        .then((res)=>{
-            setSolicitudes(res);
-            setSolicitudesBusqueda(res);
-        })
+
+        fetch('http://127.0.0.1:8000/api/solicitudes')
+        .then(response => response.json())
+        .then(data =>{ setSolicitudes(data);
+            setSolicitudesBusqueda(data);
+            
+            console.log(data)})
+        .catch(error => console.log(error));
+        
+
     }, []);
 
 
@@ -74,11 +79,10 @@ const BusquedaSolicitud = () => {
                                 <tr>    
                                     <th>#</th>
                                     <th>Fecha/hora de subida</th>
+                                    <th>Codigo de la solicitud</th>
                                     <th>Descripción de la solicitud</th>
                                     <th>Documento de acuerdo</th>
-                                    <th>Codigo de la solicitud</th>
                                     <th>Estado de la solicitud</th>
-                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className='table-light'>

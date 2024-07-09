@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button } from 'reactstrap';
+import { VerPdf } from '../../Pdf/VerPdf';
 
 const FilaSolicitud = ({solicitud}) => {
     return (
         <tr>
             <th scope='row'>{solicitud.id}</th>
-            <td>{solicitud.fechaSubida}</td>
+            <td>{solicitud.creado.split("T")[0]+" "+ solicitud.creado.split("T")[1].split(".")[0]}</td>
+            <td>{solicitud.codigo}</td>
             <td>{solicitud.descripcion}</td>
-            <td>{solicitud.documento}</td>
-            <td></td>
-            <td></td>
-            <td><Button className="text-white" color='custom-danger'>Eliminar</Button></td>
+            <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
+            <td>{solicitud.estado}</td>
         </tr>   
     );
 }
