@@ -67,12 +67,7 @@ const MenuActas = ({setTotalActas, setVotaciones}) => {
           }).then((result) => {
             if (result.isConfirmed) {
 
-                setActas(prevActas => {
-                    const nuevoArreglo = [...prevActas]; 
-                    nuevoArreglo.splice(index, 1);
-                    console.log(nuevoArreglo)
-                    return nuevoArreglo;
-                })
+                setActas(actas.filter((o) => o.id !== index))
                 Swal.fire({
                     title: "Registro eliminado",
                     text: `El acta se ha eliminado con exito`,
@@ -123,7 +118,7 @@ const MenuActas = ({setTotalActas, setVotaciones}) => {
                                             <td>{acta.codigo}</td>
                                             <td>{acta.created_at.split("T")[0]+" "+ acta.created_at.split("T")[1].split(".")[0]}</td>
                                             <td><VerPdf id={acta.id} tipo="acta"/></td>
-                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteActa(acta.id-1)}}>Eliminar</Button>
+                                            <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteActa(acta.id)}}>Eliminar</Button>
                                                {''} <Button color='custom-dark' className='text-light' onClick={()=>{handleEditarEstado(acta)}}>Editar estado</Button>
                                             </td>
                                            </tr>

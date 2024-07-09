@@ -38,11 +38,7 @@ export const MenuInformes = ({setTotalInformes}) => {
           }).then((result) => {
             if (result.isConfirmed) {
 
-                setInformes(prevInformes => {
-                    const nuevoArreglo = [...prevInformes]; 
-                    nuevoArreglo.splice(index, 1);
-                    return nuevoArreglo;
-                })
+                setInformes(informes.filter((o) => o.id !== index))
                 Swal.fire({
                     title: "Registro eliminado",
                     text: `El informe se ha eliminado con exito`,
@@ -92,7 +88,7 @@ export const MenuInformes = ({setTotalInformes}) => {
                                                 <td>{informe.codigo}</td>
                                                 <td>{informe.created_at.split("T")[0]+" "+ informe.created_at.split("T")[1].split(".")[0]}</td>
                                                 <td><VerPdf id={informe.id} tipo="informe"/></td>
-                                                <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteInforme(informe.id-1)}}>Eliminar</Button></td>
+                                                <td><Button color='custom-danger' className='text-light' onClick={()=>{deleteInforme(informe.id)}}>Eliminar</Button></td>
                                             </tr>
                                 }))}
                             </tbody>
