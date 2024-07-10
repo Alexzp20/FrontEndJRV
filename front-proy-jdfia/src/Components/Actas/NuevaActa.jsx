@@ -81,10 +81,19 @@ export const NuevaActa = () => {
                                     Codigo del acta
                                 </Label>
                                 <Controller
+                                
                                     name="codActa"
                                     control={control}
                                     defaultValue=""
-                                    render={({ field }) =>  <Input {...field} type="text" id= "codActa" bsSize="sm" placeholder="Ingrese un codigo" />}
+                                    rules={{ required: "El código de la acta es obligatorio" }}
+                                    render={({ field }) => (
+                                     <>
+                                        <Input {...field} type="text" id= "codActa" bsSize="sm" placeholder="Ingrese un codigo" invalid={!!errors.codActa} />
+                                        {errors.codActa && (
+                                        <FormFeedback>{errors.codActa.message}</FormFeedback>
+                                        )}
+                                    </>
+                                    )}                 
                                 />
                             </FormGroup>
                             <FormGroup>
@@ -94,29 +103,39 @@ export const NuevaActa = () => {
                             <Controller
                                     name="archivoActa"
                                     control={control}
+                                    rules={{
+                                        required: "Debe seleccionar un archivo .pdf",
+                                        validate: {
+                                            fileFormat: value => {
+                                                const file = value && value[0];
+                                                return file && file.type === 'application/pdf' || "El archivo debe ser un PDF";
+                                            },
+                                            fileSize: value => {
+                                                const file = value && value[0];
+                                                return file && file.size <= 524288000 || "El archivo debe ser menor o igual a 500 MB";
+                                            }
+                                        }
+                                    }}
                                     defaultValue=""
                                     render={({ field, fieldState }) =>(
                                         <>
-                                        <Input 
-                                        {...field} 
-                                        type="file" 
-                                        id= "archivoActa"
-                                        bsSize="sm"
-                                        accept='.pdf'
-                                        onChange={(e) => {
-                                            setDocumento(e.target.files[0])
-                                            field.onChange(e);
-                                            field.onBlur(e);  
-                                            console.log(!!fieldState.error, fieldState.error)     
-                                        }} 
-                                        /> 
-                                         {errors.archivoSolicitud && (
-                                            <p style={{ color: 'red' }}>{errors.archivoSolicitud.message}</p>
-                                        )}
+                                        <Input
+                                            type="file"
+                                            id="archivoActa"
+                                            bsSize="sm"
+                                            accept='.pdf'
+                                            onChange={(e) => {
+                                                    setDocumento(e.target.files[0]);
+                                                    field.onChange(e.target.files);
+                                                    field.onBlur();
+                                            }}
+                                            invalid={!!errors.archivoActa}
+                                                /> 
+                                         {errors.archivoActa && (
+                                                    <FormFeedback>{errors.archivoActa.message}</FormFeedback>
+                                                )}
+
                                         </>)}
-                                        
-                                          /* {{fieldState.error && (
-                                            <FormFeedback>{fieldState.error.message}</FormFeedback>)}} */
                                 />
                             </FormGroup>
                             <Container fluid className='text-center'>

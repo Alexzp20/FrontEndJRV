@@ -80,7 +80,16 @@ export const NuevoInforme = () => {
                                     name="codInforme"
                                     control={control}
                                     defaultValue=""
-                                    render={({ field }) =>  <Input {...field} type="text" id= "codInforme" bsSize="sm" placeholder="Ingrese un codigo" />}
+                                    rules={{ required: "El código del informe es obligatorio" }}
+                                    render={({ field }) => (
+                                     <>
+                                         <Input {...field} type="text" id= "codInforme" bsSize="sm" placeholder="Ingrese un codigo" invalid={!!errors.codInforme} />
+                                        {errors.codInforme && (
+                                        <FormFeedback>{errors.codInforme.message}</FormFeedback>
+                                        )}
+                                    </>
+                                    )} 
+                                    
                                 />
                             </FormGroup>
                             <FormGroup>
@@ -91,28 +100,38 @@ export const NuevoInforme = () => {
                                     name="archivoInforme"
                                     control={control}
                                     defaultValue=""
+                                    rules={{
+                                        required: "Debe seleccionar un archivo .pdf",
+                                        validate: {
+                                            fileFormat: value => {
+                                                const file = value && value[0];
+                                                return file && file.type === 'application/pdf' || "El archivo debe ser un PDF";
+                                            },
+                                            fileSize: value => {
+                                                const file = value && value[0];
+                                                return file && file.size <= 524288000 || "El archivo debe ser menor o igual a 500 MB";
+                                            }
+                                        }
+                                    }}
                                     render={({ field, fieldState }) =>(
                                         <>
-                                        <Input 
-                                        {...field} 
-                                        type="file" 
-                                        id= "archivoInforme"
-                                        bsSize="sm"
-                                        accept='.pdf'
-                                        onChange={(e) => {
-                                            setDocumento(e.target.files[0])
-                                            field.onChange(e);
-                                            field.onBlur(e);  
-                                            console.log(!!fieldState.error, fieldState.error)     
-                                        }} 
-                                        /> 
-                                         {errors.archivoSolicitud && (
-                                            <p style={{ color: 'red' }}>{errors.archivoSolicitud.message}</p>
-                                        )}
+                                        <Input
+                                            type="file"
+                                            id="archivoInforme"
+                                            bsSize="sm"
+                                            accept='.pdf'
+                                            onChange={(e) => {
+                                                    setDocumento(e.target.files[0]);
+                                                    field.onChange(e.target.files);
+                                                    field.onBlur();
+                                            }}
+                                            invalid={!!errors.archivoInforme}
+                                                /> 
+                                         {errors.archivoInforme && (
+                                                    <FormFeedback>{errors.archivoInforme.message}</FormFeedback>
+                                                )}
+
                                         </>)}
-                                        
-                                          /* {{fieldState.error && (
-                                            <FormFeedback>{fieldState.error.message}</FormFeedback>)}} */
                                 />
                             </FormGroup>
                             <Container fluid className='text-center'>

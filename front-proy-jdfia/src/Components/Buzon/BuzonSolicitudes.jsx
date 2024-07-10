@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Col, Container, Form, FormGroup, Input, Label, Row } from 'reactstrap';
+import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import NavBar from '../Navbar/NavBar';
 
@@ -120,24 +120,46 @@ const BuzonSolicitudes = () => {
                                     <FormGroup>
                                         <Label className='text-light' for="codSolicitud">
                                             Codigo de la solicitud
-                                        </Label>
-                                        <Controller
-                                            name="codSolicitud"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) =>  <Input {...field} type="text" id= "codSolicitud" bsSize="sm" placeholder="Ingrese un codigo" />}
-                                        />
+                                            </Label>
+                                            <Controller
+                                                name="codSolicitud"
+                                                control={control}
+                                                defaultValue=""
+                                                rules={{ required: "El código de la solicitud es obligatorio" }}
+                                                render={({ field }) => (
+                                                    <>
+                                                        <Input {...field} type="text" id="codSolicitud" bsSize="sm" placeholder="Ingrese un código" invalid={!!errors.codSolicitud} />
+                                                        {errors.codSolicitud && (
+                                                            <FormFeedback>{errors.codSolicitud.message}</FormFeedback>
+                                                        )}
+                                                    </>
+                                                )}
+                                            />
                                     </FormGroup>
                                     <FormGroup>
                                         <Label className='text-light' for="descSolicitud">
                                             Descripción de la solicitud
-                                        </Label>
-                                        <Controller
-                                            name="descSolicitud"
-                                            control={control}
-                                            defaultValue=""
-                                            render={({ field }) =>  <Input {...field} type="textarea" id= "descSolicitud" bsSize="sm" placeholder="Ingrese una descripción" />}
-                                        />
+                                            </Label>
+                                            <Controller
+                                                name="descSolicitud"
+                                                control={control}
+                                                defaultValue=""
+                                                rules={{
+                                                    required: "La descripción es obligatoria",
+                                                    maxLength: {
+                                                        value: 500,
+                                                        message: "La descripción no puede exceder las 500 palabras"
+                                                    }
+                                                }}
+                                                render={({ field }) => (
+                                                    <>
+                                                        <Input {...field} type="textarea" id="descSolicitud" bsSize="sm" placeholder="Ingrese una descripción" invalid={!!errors.descSolicitud} />
+                                                        {errors.descSolicitud && (
+                                                            <FormFeedback>{errors.descSolicitud.message}</FormFeedback>
+                                                        )}
+                                                    </>
+                                                )}
+                                            />
                                     </FormGroup>
                                     <FormGroup>
                                     <Label className='text-light' for="archivoSolicitud">
@@ -146,38 +168,41 @@ const BuzonSolicitudes = () => {
                                     <Controller
                                             name="archivoSolicitud"
                                             control={control}
-                                            // rules={{
-                                            //     required: "Debe seleccionar un archivo .pdf",
-                                            //     validate: {
-                                            //         maxSize: (value) => {
-                                            //           if (!value) return true; // Si no hay archivo, no hay error
-                                            //           return (value[0]?.size <= 5 * 1024 * 1024) || 'El archivo debe ser menor o igual a 5 MB';
-                                            //         },
-                                            //       },
-                                            //   }} 
+                                            rules={{
+                                                required: "Debe seleccionar un archivo .pdf",
+                                                validate: {
+                                                    fileFormat: value => {
+                                                        const file = value && value[0];
+                                                        return file && file.type === 'application/pdf' || "El archivo debe ser un PDF";
+                                                    },
+                                                    fileSize: value => {
+                                                        const file = value && value[0];
+                                                        return file && file.size <= 524288000 || "El archivo debe ser menor o igual a 500 MB";
+                                                    }
+                                                }
+                                            }}
                                             defaultValue=""
                                             render={({ field, fieldState }) =>(
                                                 <>
-                                                <Input 
-                                                {...field} 
-                                                type="file" 
-                                                id= "archivoSolicitud"
-                                                bsSize="sm"
-                                                accept='.pdf'
-                                                onChange={(e) => {
-                                                    setDocumento(e.target.files[0])
-                                                    field.onChange(e);
-                                                    field.onBlur(e);  
-                                                    console.log(!!fieldState.error, fieldState.error)     
-                                                }} 
-                                                /> 
+                                                <Input
+                                                    type="file"
+                                                    id="archivoSolicitud"
+                                                    bsSize="sm"
+                                                    accept='.pdf'
+                                                    onChange={(e) => {
+                                                            setDocumento(e.target.files[0]);
+                                                            field.onChange(e.target.files);
+                                                            field.onBlur();
+                                                    }}
+                                                    invalid={!!errors.archivoSolicitud}
+                                                        /> 
                                                  {errors.archivoSolicitud && (
-                                                    <p style={{ color: 'red' }}>{errors.archivoSolicitud.message}</p>
-                                                )}
+                                                            <FormFeedback>{errors.archivoSolicitud.message}</FormFeedback>
+                                                        )}
+
                                                 </>)}
                                                 
-                                                  /* {{fieldState.error && (
-                                                    <FormFeedback>{fieldState.error.message}</FormFeedback>)}} */
+                                                
                                         />
                                     </FormGroup>
                                     <FormGroup>
