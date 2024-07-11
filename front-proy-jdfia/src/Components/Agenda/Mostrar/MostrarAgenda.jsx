@@ -6,6 +6,7 @@ import { MostrarAsistencia } from './MostrarAsistencia'
 import { MostrarActas } from './MostrarActas'
 import { MostrarSolicitudes } from './MostrarSolicitudes'
 import { MostrarInformes } from './MostrarInformes'
+import Cookies from 'universal-cookie'
 
 export const MostrarAgenda = () => {
     const {id} = useParams()
@@ -16,10 +17,17 @@ export const MostrarAgenda = () => {
     const [informes, setInformes] = useState([]);
     const [solicitudes, setSolicitudes] = useState([]);
     const [votaciones, setVotaciones] = useState([]);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
+
 
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/agenda/${id}`)
+        fetch(`http://localhost:8000/api/agenda/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+      },
+        })
         .then(response => response.json())
         .then(data =>{ 
             console.log(data)

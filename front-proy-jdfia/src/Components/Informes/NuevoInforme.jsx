@@ -4,12 +4,15 @@ import {useForm, Controller} from 'react-hook-form';
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 export const NuevoInforme = () => {
 
     const {handleSubmit, control, reset, formState: { errors }} = useForm();
     const [documento, setDocumento ] = useState(null);
     const navigate = useNavigate()
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
 
     const onSubmit = async (data) =>{
@@ -21,6 +24,9 @@ export const NuevoInforme = () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/informe', {
               method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${token}`
+                },
               body: form
             });
       

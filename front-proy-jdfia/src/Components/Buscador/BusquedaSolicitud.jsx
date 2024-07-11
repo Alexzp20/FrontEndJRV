@@ -3,12 +3,15 @@ import { pedirSolicitudes } from '../../Helpers/pedirDatos';
 import {  Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import FilaSolicitud from './Filas/FilaSolicitud';
 import NavBar from '../Navbar/NavBar';
+import Cookies from 'universal-cookie';
 
 const BusquedaSolicitud = () => {
 
     const [solicitudes, setSolicitudes] = useState([]);
     const [solicitudesBusqueda, setSolicitudesBusqueda] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
       //funcion que guarda en la busqueda el valor del input de entrada
       const handleChange = e => {
@@ -30,7 +33,11 @@ const BusquedaSolicitud = () => {
     //hook para devolver los datos de las agendas
     useEffect(() => {
 
-        fetch('http://127.0.0.1:8000/api/solicitudes')
+        fetch('http://127.0.0.1:8000/api/solicitudes', {
+            headers: {
+               'Authorization': `Bearer ${token}`
+      },
+        })
         .then(response => response.json())
         .then(data =>{ setSolicitudes(data);
             setSolicitudesBusqueda(data);

@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
 import { VerPdf } from '../../Pdf/VerPdf';
+import Cookies from 'universal-cookie';
 
 const ModalAnadirActa = ({modalNew, toggleNew, setActasAgenda}) => {
 
     const [actas,setActas] = useState([]);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/actasAgenda")
+        fetch("http://127.0.0.1:8000/api/actasAgenda",{
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                  },
+                  method: 'GET',
+                })
         .then((data) => data.json())
         .then((res)=>{
             console.log(res)

@@ -2,13 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, Row, Table } from 'reactstrap';
 import NavBar from '../Navbar/NavBar'
 import { Link } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 export const RevisionAgendas = () => {
 
     const [agendas, setAgendas] = useState([])
+    const cookies = new Cookies();
+    const token = cookies.get('token')
+
 
     useEffect(() => {
-      fetch('http://localhost:8000/api/agendas')
+      fetch('http://localhost:8000/api/agendas',{
+        headers: {
+            'Authorization': `Bearer ${token}`
+  },
+      })
        .then(response => response.json())
        .then(data =>{ setAgendas(data); console.log(data)})
        .catch(error => console.log(error));

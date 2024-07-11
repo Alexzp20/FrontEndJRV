@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import NavBar from '../Navbar/NavBar';
+import Cookies from 'universal-cookie';
+
+
 
 
 const Miembros = () => {
@@ -10,7 +13,8 @@ const Miembros = () => {
     const [fechaFinal, setFechaFinal] = useState('2024-01-01');
     const [usuarios, setUsuarios ] = useState([]);
     const [usuariosFiltrados, setUsuariosFiltrados ] = useState([]);
-
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
     const reiniciar = () =>{
         setFechaInicial('');
@@ -37,7 +41,14 @@ const Miembros = () => {
         
         
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/users/puesto?puesto_id=2")
+        fetch("http://127.0.0.1:8000/api/users/puesto?puesto_id=2", 
+            {
+                headers: {
+                 'Authorization': `Bearer ${token}`
+                  },
+                  method: 'GET',
+            }
+        )
         .then((data) => data.json())
         .then((res)=>{
            setUsuarios(res);

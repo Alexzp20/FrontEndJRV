@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {Button, Col, Container, Label, Row, Table } from 'reactstrap';
 import FilaAsistencia from './FilaAsistencia';
 import ModalNuevaAsistencia from './ModalNuevaAsistencia';
+import Cookies from 'universal-cookie';
 
 const Asistencia = ({setAsistencia}) => {
 
@@ -11,10 +12,17 @@ const Asistencia = ({setAsistencia}) => {
     const [modalNew,setModalNew]= useState(false);
     const [usuarios, setUsuarios]= useState([])
     const toggleNew = () => setModalNew(!modalNew)
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/users/asistencia")
+        fetch("http://127.0.0.1:8000/api/users/asistencia", {
+        headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            method: 'GET',
+        })
         .then((data) => data.json())
         .then((res)=>{
            console.log(res)

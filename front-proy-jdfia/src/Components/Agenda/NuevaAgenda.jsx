@@ -8,6 +8,7 @@ import TablaSolicitudes from './4Solicitudes/TablaSolicitudes';
 import { MenuInformes } from './9Informes/MenuInformes';
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
+import Cookies from 'universal-cookie';
 
 
 const NuevaAgenda = () => {
@@ -19,6 +20,8 @@ const NuevaAgenda = () => {
     const [votaciones , setVotaciones] = useState ([]);
     const [votacionesActas , setVotacionesActas] = useState ([]);
     const [informes , setInformes] = useState ([]);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
       const onSubmitAgenda = async (data) =>{
 
@@ -38,7 +41,8 @@ const NuevaAgenda = () => {
             const response = await fetch('http://127.0.0.1:8000/api/agenda', {
               method: 'POST',
               headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`
                     },
               body: JSON.stringify(agenda)
             });

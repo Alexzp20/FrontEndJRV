@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, getSolicitudes}) {
 
@@ -9,9 +10,19 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, g
     const [categorias, setCategorias ] = useState([]);
     const [subCategorias, setSubCategorias ] = useState([]);
     const idCategoriaSeleccionada = parseInt(watch('categoriaSolicitud', ''), 10);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
+
 
       useEffect(() => {
-        fetch('http://localhost:8000/api/categorias')
+        fetch('http://localhost:8000/api/categorias',
+            {
+                headers: {
+                 'Authorization': `Bearer ${token}`
+                  },
+                  method: 'GET',
+            }
+        )
          .then(response => response.json())
          .then(data =>{ 
             setCategorias(data); 
@@ -55,7 +66,8 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, g
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/solicitud/edit/${solicitud.id}`, {
                 headers: {
-                    'Content-Type': 'application/json', 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
                 },
               method: 'PUT',
               body: JSON.stringify(solicitudEdit)

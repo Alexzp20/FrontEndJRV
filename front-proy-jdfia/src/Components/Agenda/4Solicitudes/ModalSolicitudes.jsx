@@ -1,14 +1,24 @@
 
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
+import Cookies from 'universal-cookie';
 
 
 const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
 
     const [solicitudes,setSolicitudes] = useState([]);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/solicitudes/estado/2")
+        fetch("http://127.0.0.1:8000/api/solicitudes/estado/2",
+            {
+                headers: {
+                       'Authorization': `Bearer ${token}`
+                  },
+                  method: 'GET',
+            }
+        )
         .then((data) => data.json())
         .then((res)=>{
            console.log(res)

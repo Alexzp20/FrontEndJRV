@@ -5,6 +5,7 @@ import ModalNewUsuario from './ModalNewUsuario';
 import ModalEditUsuario from './ModalEditUsuario';
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
+import Cookies from 'universal-cookie';
 
 
 const MenuUsuarios = () => {
@@ -12,18 +13,21 @@ const MenuUsuarios = () => {
     //hooks de estado del modal de nuevo usuario
     const [modalNew, setModalNew] = useState(false);
     const toggleNew = () => setModalNew(!modalNew);
-    
     //hooks de estado del modal de edit usuario
     const [modalEdit, setModalEdit] = useState(false);
     const toggleEdit = () => setModalEdit(!modalEdit);
-    
     const [usuarios, setUsuarios] = useState([]);
-    
     const [usuarioEdit, setUsuarioEdit] = useState({})
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
 
     const consumo = () =>{
-        fetch("http://127.0.0.1:8000/api/users")
+        fetch("http://127.0.0.1:8000/api/users", {
+            headers: {
+                'Authorization': `Bearer ${token}`
+      } 
+        })
         .then((data) => data.json())
         .then((res)=>{
            setUsuarios(res);
@@ -40,6 +44,9 @@ const MenuUsuarios = () => {
             if (result.isConfirmed) {
                     fetch(`http://127.0.0.1:8000/api/user/${id}`, {
                         method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                            } 
                         })
                     .then(res => res.json())
                     .then(data => {

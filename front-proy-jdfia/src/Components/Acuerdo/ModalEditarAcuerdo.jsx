@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, FormFeedback, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 export const ModalEditarAcuerdo = ({toggleEdit, modalEdit,solicitud,getAcuerdos}) => {
 
     const {handleSubmit, control, reset, formState: { errors },setValue} = useForm();
     const [documento, setDocumento ] = useState(null);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
 
     useEffect(() => {
@@ -30,6 +33,8 @@ export const ModalEditarAcuerdo = ({toggleEdit, modalEdit,solicitud,getAcuerdos}
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/acuerdo/${solicitud.acuerdos[0].id}`, {
                 headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Authorization': `Bearer ${token}` ,
                 },
               method: 'POST',
               body: form

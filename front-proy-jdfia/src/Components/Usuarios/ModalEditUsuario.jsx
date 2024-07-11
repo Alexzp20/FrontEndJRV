@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
+import Cookies from 'universal-cookie';
 
 const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
 
     const {handleSubmit, control,watch,setValue} = useForm();
-    
-    
-    
     const [roles, setRoles] = useState([]);
     const puesto = parseInt(watch('puestoUsuario', ''), 10);
     const [puestos, setPuestos] = useState([]);
     const [idEdit,setIdEdit] = useState('');
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
 
     const deshabilitar = () =>{
@@ -38,14 +38,22 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
     useEffect(() => {
 
 
-        fetch("http://127.0.0.1:8000/api/rols")
+        fetch("http://127.0.0.1:8000/api/rols" , {
+            headers: {
+                'Authorization': `Bearer ${token}`
+                } 
+        })
         //pedirUsuarios()
         .then((data) => data.json())
         .then((res)=>{
             setRoles(res);
         })
         
-        fetch("http://127.0.0.1:8000/api/puestos")
+        fetch("http://127.0.0.1:8000/api/puestos", {
+            headers: {
+                'Authorization': `Bearer ${token}`
+                } 
+        })
         //pedirUsuarios()
         .then((data) => data.json())
         .then((res)=>{
@@ -87,7 +95,8 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
         fetch(`http://127.0.0.1:8000/api/user/${idEdit}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`
                         },
             body: JSON.stringify(newUser)
         })

@@ -6,6 +6,7 @@ import NavBar from '../Navbar/NavBar';
 import { VerPdf } from '../Pdf/VerPdf';
 import { ModalEditarAcuerdo } from './ModalEditarAcuerdo';
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 export const RevisionAcuerdos = () => {
 
@@ -13,14 +14,22 @@ export const RevisionAcuerdos = () => {
     const [solicitudes, setSolicitudes] = useState([]);
     const [modalEdit, setModalEdit] = useState(false);
     const [acuerdoEdit, setAcuerdoEdit] = useState(null);
-    
+    const cookies = new Cookies();
+    const token = cookies.get('token')
     
     useEffect(() => {
         getAcuerdos()
     }, []);
 
     const getAcuerdos =() =>{
-        fetch(`http://127.0.0.1:8000/api/agenda/acuerdos/${idAgenda}`)
+        fetch(`http://127.0.0.1:8000/api/agenda/acuerdos/${idAgenda}`, 
+            {
+                headers: {
+                       'Authorization': `Bearer ${token}`
+                  },
+                  method: 'GET',
+                        }
+        )
         .then(response => response.json())
         .then(data =>{setSolicitudes(data.agenda); console.log(data.agenda) })
         .catch(error => console.log(error));
@@ -43,6 +52,9 @@ export const RevisionAcuerdos = () => {
             if (result.isConfirmed) {
                     fetch(`http://127.0.0.1:8000/api/acuerdo/${id}`, {
                         method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                  },
                         })
                     .then(res => res.json())
                     .then(data => {

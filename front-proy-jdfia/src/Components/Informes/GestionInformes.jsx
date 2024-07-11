@@ -4,11 +4,13 @@ import Swal from 'sweetalert2';
 import { ModalEditInforme } from './ModalEditInforme';
 import { VerPdf } from '../Pdf/VerPdf';
 import NavBar from '../Navbar/NavBar';
+import Cookies from 'universal-cookie';
 
 export const GestionInformes = () => {
     const [informes, setInformes] = useState([]);
     const [informeEdit, setInformeEdit] = useState({});
-    
+    const cookies = new Cookies();
+    const token = cookies.get('token')
       //hooks de estado del modal de edit Informe
       const [modalEdit, setModalEdit] = useState(false);
       const toggleEdit = () => setModalEdit(!modalEdit);
@@ -18,7 +20,11 @@ export const GestionInformes = () => {
     }, []);     
 
     const getInformes = () => {
-        fetch('http://127.0.0.1:8000/api/informes')
+        fetch('http://127.0.0.1:8000/api/informes', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+      } 
+        })
         .then(response => response.json())
         .then(data =>{ setInformes(data)})
         .catch(error => console.log(error));
@@ -41,6 +47,9 @@ export const GestionInformes = () => {
             if (result.isConfirmed) {
                     fetch(`http://127.0.0.1:8000/api/informe/${id}`, {
                         method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                            } 
                         })
                     .then(res => res.json())
                     .then(data => {

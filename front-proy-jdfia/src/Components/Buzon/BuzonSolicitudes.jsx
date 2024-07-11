@@ -20,7 +20,13 @@ const BuzonSolicitudes = () => {
 
 
     useEffect(() => {
-       fetch('http://localhost:8000/api/categorias')
+       fetch('http://localhost:8000/api/categorias',{
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data =>{ setCategorias(data); console.log(data)})
         .catch(error => console.log(error));

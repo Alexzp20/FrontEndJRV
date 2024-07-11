@@ -4,6 +4,7 @@ import {useForm, Controller} from 'react-hook-form';
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 
 
@@ -12,7 +13,8 @@ export const NuevaActa = () => {
     const navigate = useNavigate()
     const {handleSubmit, control, reset, formState: { errors },setValue} = useForm();
     const [documento, setDocumento ] = useState(null);
-
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
     const onSubmit = async (data) =>{
 
@@ -23,6 +25,10 @@ export const NuevaActa = () => {
         try {
             const response = await fetch('http://127.0.0.1:8000/api/acta', {
               method: 'POST',
+              headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Authorization': `Bearer ${token}`
+                },
               body: form
             });
       

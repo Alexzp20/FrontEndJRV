@@ -1,8 +1,11 @@
 import { FaFilePdf } from 'react-icons/fa6';
 import Swal from "sweetalert2";
+import Cookies from 'universal-cookie';
 
 export const VerPdf = ({id, tipo}) => {
 
+  const cookies = new Cookies();
+    const token = cookies.get('token')
 
     const handleDocSolicitud = async (id, tipo) => {
     try {
@@ -11,6 +14,7 @@ export const VerPdf = ({id, tipo}) => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/pdf',
+           'Authorization': `Bearer ${token}`
         },
       });
 

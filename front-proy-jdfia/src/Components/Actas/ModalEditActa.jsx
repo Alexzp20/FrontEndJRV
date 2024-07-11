@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal, ModalHeader, ModalBody, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 
 
@@ -11,6 +12,8 @@ export const ModalEditActa = ({acta, toggleEdit, modalEdit}) => {
 
     const {handleSubmit, control, watch, reset, formState: { errors },setValue} = useForm();
     const [documento, setDocumento ] = useState(null);
+    const cookies = new Cookies();
+    const token = cookies.get('token')  
 
     useEffect(() => {
         setValue("codActa", acta.codigo)
@@ -26,6 +29,10 @@ export const ModalEditActa = ({acta, toggleEdit, modalEdit}) => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/acta/${acta.id}`, {
               method: 'POST',
+              headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Authorization': `Bearer ${token}`
+                },
               body: form
             });
       

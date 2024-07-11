@@ -4,11 +4,14 @@ import Swal from 'sweetalert2';
 import { ModalEditActa } from './ModalEditActa';
 import { VerPdf } from '../Pdf/VerPdf';
 import NavBar from '../Navbar/NavBar';
+import Cookies from 'universal-cookie';
 
 export const GestionActas = () => {
 
     const [actas, setActas] = useState([]);
     const [actaEdit, setActaEdit] = useState({});
+    const cookies = new Cookies();
+    const token = cookies.get('token')
     
       //hooks de estado del modal de edit Acta
       const [modalEdit, setModalEdit] = useState(false);
@@ -19,7 +22,13 @@ export const GestionActas = () => {
     }, []);     
 
     const getActas = () => {
-        fetch('http://127.0.0.1:8000/api/actas')
+        fetch('http://127.0.0.1:8000/api/actas', {
+    headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Authorization': `Bearer ${token}`
+      },
+      method: 'GET'
+        })
         .then(response => response.json())
         .then(data =>{ setActas(data)})
         .catch(error => console.log(error));
@@ -42,6 +51,9 @@ export const GestionActas = () => {
             if (result.isConfirmed) {
                     fetch(`http://127.0.0.1:8000/api/acta/${id}`, {
                         method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
                         })
                     .then(res => res.json())
                     .then(data => {

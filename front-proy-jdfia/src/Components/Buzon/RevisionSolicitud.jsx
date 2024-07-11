@@ -29,7 +29,11 @@ export default function RevisionSolicitud() {
     }, []);     
 
     const getSolicitudes = () => {
-        fetch('http://127.0.0.1:8000/api/solicitudes/estado/1')
+        fetch('http://127.0.0.1:8000/api/solicitudes/estado/1', {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            } 
+        })
         .then(response => response.json())
         .then(data =>{ setSolicitudes(data); console.log(data)})
         .catch(error => console.log(error));

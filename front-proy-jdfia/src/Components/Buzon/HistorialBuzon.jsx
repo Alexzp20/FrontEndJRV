@@ -5,10 +5,13 @@ import FilaSolicitud from '../Buscador/Filas/FilaSolicitud';
 import NavBar from '../Navbar/NavBar';
 import { VerPdf } from '../Pdf/VerPdf';
 import Swal from 'sweetalert2';
+import Cookies from 'universal-cookie';
 
 const HistorialBuzon = () => {
 
     const [solicitudes, setSolicitudes] = useState([]);
+    const cookies = new Cookies();
+    const token = cookies.get('token')
 
     useEffect(() => {
        getSolicitudes()
@@ -17,7 +20,12 @@ const HistorialBuzon = () => {
 
     
     const getSolicitudes = ()=>{
-        fetch('http://127.0.0.1:8000/api/solicitudes')
+        fetch('http://127.0.0.1:8000/api/solicitudes' ,{
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+      } 
+    })
         .then(response => response.json())
         .then(data =>{ setSolicitudes(data); console.log(data)})
         .catch(error => console.log(error));
@@ -33,6 +41,9 @@ const HistorialBuzon = () => {
             if (result.isConfirmed) {
                     fetch(`http://127.0.0.1:8000/api/solicitud/${id}`, {
                         method: 'DELETE',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                            } 
                         })
                     .then(res => res.json())
                     .then(data => {
@@ -103,7 +114,7 @@ const HistorialBuzon = () => {
                                         <td>{solicitud.descripcion}</td>
                                         <td><VerPdf id={solicitud.id} tipo="solicitud"/></td>
                                         <td>{solicitud.estado}</td>
-                                        <td></td>
+                                        <td>{solicitud.estado === "RECHAZO" ? solicitud.comentario: '-'}</td>
                                         <td> {solicitud.estado === "RECHAZO" ?  <Button className="text-white" color='custom-danger' onClick={()=>eliminarSolicitud(solicitud.id)}>Eliminar</Button>: '-' }</td>
                                          </tr> )}
                                 </tbody>
