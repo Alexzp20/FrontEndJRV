@@ -1,6 +1,7 @@
 import { FaFilePdf } from 'react-icons/fa6';
 import Swal from "sweetalert2";
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const VerPdf = ({id, tipo}) => {
 
@@ -10,7 +11,7 @@ export const VerPdf = ({id, tipo}) => {
     const handleDocSolicitud = async (id, tipo) => {
     try {
       // Realiza la solicitud a la API para obtener el PDF
-      const response = await fetch(`http://127.0.0.1:8000/api/${tipo}/doc/${id}`, {
+      const response = await fetch(`${REACT_API_BASE_URL}/${tipo}/doc/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/pdf',

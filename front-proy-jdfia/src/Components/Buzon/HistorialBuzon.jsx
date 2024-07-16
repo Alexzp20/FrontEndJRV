@@ -6,6 +6,7 @@ import NavBar from '../Navbar/NavBar';
 import { VerPdf } from '../Pdf/VerPdf';
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 const HistorialBuzon = () => {
 
@@ -20,7 +21,7 @@ const HistorialBuzon = () => {
 
     
     const getSolicitudes = ()=>{
-        fetch('http://127.0.0.1:8000/api/solicitudes' ,{
+        fetch(`${REACT_API_BASE_URL}/solicitudes` ,{
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -39,7 +40,7 @@ const HistorialBuzon = () => {
             confirmButtonText: "Eliminar",
           }).then((result) => {
             if (result.isConfirmed) {
-                    fetch(`http://127.0.0.1:8000/api/solicitud/${id}`, {
+                    fetch(`${REACT_API_BASE_URL}/solicitud/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -70,12 +71,6 @@ const HistorialBuzon = () => {
           });
 
     }
-
-
-
-
-
-
 
 
     return (   

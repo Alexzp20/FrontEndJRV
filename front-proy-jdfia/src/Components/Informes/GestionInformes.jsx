@@ -5,6 +5,7 @@ import { ModalEditInforme } from './ModalEditInforme';
 import { VerPdf } from '../Pdf/VerPdf';
 import NavBar from '../Navbar/NavBar';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const GestionInformes = () => {
     const [informes, setInformes] = useState([]);
@@ -20,7 +21,7 @@ export const GestionInformes = () => {
     }, []);     
 
     const getInformes = () => {
-        fetch('http://127.0.0.1:8000/api/informes', {
+        fetch(`${REACT_API_BASE_URL}/informes`, {
             headers: {
                 'Authorization': `Bearer ${token}`
       } 
@@ -45,7 +46,7 @@ export const GestionInformes = () => {
             confirmButtonText: "Eliminar",
           }).then((result) => {
             if (result.isConfirmed) {
-                    fetch(`http://127.0.0.1:8000/api/informe/${id}`, {
+                    fetch(`${REACT_API_BASE_URL}/informe/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`
@@ -76,12 +77,6 @@ export const GestionInformes = () => {
           });
 
     }
-
-
-
-
-
-
 
 
   return (

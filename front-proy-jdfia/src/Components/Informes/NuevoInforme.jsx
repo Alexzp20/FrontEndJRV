@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const NuevoInforme = () => {
 
@@ -22,7 +23,7 @@ export const NuevoInforme = () => {
         form.append('documentoInforme', documento);
         
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/informe', {
+            const response = await fetch(`${REACT_API_BASE_URL}/informe`, {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${token}`

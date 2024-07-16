@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
 import { VerPdf } from '../../Pdf/VerPdf';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../../Api.js';
 
 export const ModalAnadirInforme = ({modalNew, toggleNew, setInformesAgenda}) => {
 
@@ -10,7 +11,7 @@ export const ModalAnadirInforme = ({modalNew, toggleNew, setInformesAgenda}) => 
     const token = cookies.get('token')
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/informesAgenda",
+        fetch(`${REACT_API_BASE_URL}/informesAgenda`,
             {
                 headers: {
                     'Authorization': `Bearer ${token}`

@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, Container, Form, FormGroup, Inpu
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const ModalEditInforme = ({informe, toggleEdit, modalEdit}) => {
   const {handleSubmit, control, watch, reset, formState: { errors },setValue} = useForm();
@@ -22,7 +23,7 @@ export const ModalEditInforme = ({informe, toggleEdit, modalEdit}) => {
         form.append('documentoInforme', documento);
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/informe/${informe.id}`, {
+            const response = await fetch(`${REACT_API_BASE_URL}/informe/${informe.id}`, {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${token}`

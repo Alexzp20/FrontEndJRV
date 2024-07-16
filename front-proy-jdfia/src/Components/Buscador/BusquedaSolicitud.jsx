@@ -4,6 +4,7 @@ import {  Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import FilaSolicitud from './Filas/FilaSolicitud';
 import NavBar from '../Navbar/NavBar';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 const BusquedaSolicitud = () => {
 
@@ -33,7 +34,7 @@ const BusquedaSolicitud = () => {
     //hook para devolver los datos de las agendas
     useEffect(() => {
 
-        fetch('http://127.0.0.1:8000/api/solicitudes', {
+        fetch(`${REACT_API_BASE_URL}/solicitudes`, {
             headers: {
                'Authorization': `Bearer ${token}`
       },

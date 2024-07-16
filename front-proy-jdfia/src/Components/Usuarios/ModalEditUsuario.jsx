@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Row, Col, FormGroup, Input, Label } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
 
@@ -38,7 +39,7 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
     useEffect(() => {
 
 
-        fetch("http://127.0.0.1:8000/api/rols" , {
+        fetch(`${REACT_API_BASE_URL}/rols` , {
             headers: {
                 'Authorization': `Bearer ${token}`
                 } 
@@ -49,7 +50,7 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
             setRoles(res);
         })
         
-        fetch("http://127.0.0.1:8000/api/puestos", {
+        fetch(`${REACT_API_BASE_URL}/puestos`, {
             headers: {
                 'Authorization': `Bearer ${token}`
                 } 
@@ -92,7 +93,7 @@ const ModalEditUsuario = ({modalEdit, toggleEdit,usuario}) => {
                  }  
         }
         
-        fetch(`http://127.0.0.1:8000/api/user/${idEdit}`, {
+        fetch(`${REACT_API_BASE_URL}/user/${idEdit}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

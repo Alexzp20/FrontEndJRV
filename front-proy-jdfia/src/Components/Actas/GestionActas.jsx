@@ -5,6 +5,7 @@ import { ModalEditActa } from './ModalEditActa';
 import { VerPdf } from '../Pdf/VerPdf';
 import NavBar from '../Navbar/NavBar';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const GestionActas = () => {
 
@@ -22,7 +23,7 @@ export const GestionActas = () => {
     }, []);     
 
     const getActas = () => {
-        fetch('http://127.0.0.1:8000/api/actas', {
+        fetch(`${REACT_API_BASE_URL}/actas`, {
     headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Authorization': `Bearer ${token}`
@@ -49,7 +50,7 @@ export const GestionActas = () => {
             confirmButtonText: "Eliminar",
           }).then((result) => {
             if (result.isConfirmed) {
-                    fetch(`http://127.0.0.1:8000/api/acta/${id}`, {
+                    fetch(`${REACT_API_BASE_URL}/acta/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`

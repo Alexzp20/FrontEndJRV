@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, ModalHeader, ModalBody, Container,  Row, Col, Table, Button } from 'reactstrap';
 import Cookies from 'universal-cookie';
-
+import { REACT_API_BASE_URL } from '../../../Api.js';
 
 const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
 
@@ -11,7 +11,7 @@ const ModalSolicitudes = ({modal, toggle, handleAsignacion}) => {
     const token = cookies.get('token')
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/solicitudes/estado/2",
+        fetch(`${REACT_API_BASE_URL}/solicitudes/estado/2`,
             {
                 headers: {
                        'Authorization': `Bearer ${token}`

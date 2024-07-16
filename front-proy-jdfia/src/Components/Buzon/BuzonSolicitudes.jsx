@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormFeedback, FormGroup, Input, Label, Row } from 'reactstrap';
 import {useForm, Controller} from 'react-hook-form'; 
 import NavBar from '../Navbar/NavBar';
-
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
+import { REACT_API_BASE_URL } from '../../Api';
 
 const BuzonSolicitudes = () => {
 
@@ -20,7 +20,7 @@ const BuzonSolicitudes = () => {
 
 
     useEffect(() => {
-       fetch('http://localhost:8000/api/categorias',{
+       fetch(`${REACT_API_BASE_URL}/categorias`,{
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -68,7 +68,7 @@ const BuzonSolicitudes = () => {
             }
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/solicitud', {
+            const response = await fetch(`${REACT_API_BASE_URL}/solicitud`, {
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Authorization': `Bearer ${token}`

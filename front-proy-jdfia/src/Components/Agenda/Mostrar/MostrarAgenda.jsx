@@ -7,6 +7,7 @@ import { MostrarActas } from './MostrarActas'
 import { MostrarSolicitudes } from './MostrarSolicitudes'
 import { MostrarInformes } from './MostrarInformes'
 import Cookies from 'universal-cookie'
+import { REACT_API_BASE_URL } from '../../../Api.js';
 
 export const MostrarAgenda = () => {
     const {id} = useParams()
@@ -23,7 +24,7 @@ export const MostrarAgenda = () => {
 
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/agenda/${id}`, {
+        fetch(`${REACT_API_BASE_URL}/agenda/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
       },

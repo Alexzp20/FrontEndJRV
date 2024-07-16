@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import { Container, Navbar, NavbarBrand, NavbarText, Row,Col, Nav, NavItem, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 const NavBar = () => {
     
@@ -16,7 +17,7 @@ const NavBar = () => {
     
     const logout = async () =>{
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/logout', {
+            const response = await fetch(`${REACT_API_BASE_URL}/logout`, {
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
                     'Authorization': `Bearer ${token}`

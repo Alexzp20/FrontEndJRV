@@ -4,6 +4,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Container, Form, Ro
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
 
@@ -21,7 +22,7 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
     }
     
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/rols", {
+        fetch(`${REACT_API_BASE_URL}/rols`, {
             headers: {
                 'Authorization': `Bearer ${token}`
                 } 
@@ -31,7 +32,7 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
             setRoles(res);
         })
         
-        fetch("http://127.0.0.1:8000/api/puestos", {
+        fetch(`${REACT_API_BASE_URL}/puestos`, {
             headers: {
                 'Authorization': `Bearer ${token}`
                 } 
@@ -74,7 +75,7 @@ const ModalNewUsuario = ({modalNew, toggleNew, consumo}) => {
                  }  
         }
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/user', {
+            const response = await fetch(`${REACT_API_BASE_URL}/user`, {
                 headers: {
                     'Content-Type': 'application/json',
                      'Authorization': `Bearer ${token}`

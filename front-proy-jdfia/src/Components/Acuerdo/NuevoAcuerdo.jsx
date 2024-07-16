@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
 import { useNavigate, useParams } from 'react-router-dom'
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const NuevoAcuerdo = () => {
 
@@ -24,7 +25,7 @@ export const NuevoAcuerdo = () => {
         form.append('solicitud', idSolicitud);
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/acuerdo', {
+            const response = await fetch(`${REACT_API_BASE_URL}/acuerdo`, {
               method: 'POST',
               headers: {
                 'Accept': 'application/json, text/plain, */*',

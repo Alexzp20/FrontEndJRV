@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Input, Label, Row, Table } from 'reactstrap';
 import NavBar from '../Navbar/NavBar';
 import Cookies from 'universal-cookie';
-
-
+import { REACT_API_BASE_URL } from '../../Api';
 
 
 const Miembros = () => {
@@ -41,7 +40,7 @@ const Miembros = () => {
         
         
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/users/puesto?puesto_id=2", 
+        fetch(`${REACT_API_BASE_URL}/users/puesto?puesto_id=2`, 
             {
                 headers: {
                  'Authorization': `Bearer ${token}`

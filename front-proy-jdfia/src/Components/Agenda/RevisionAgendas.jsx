@@ -3,6 +3,7 @@ import { Button, Col, Container, Row, Table } from 'reactstrap';
 import NavBar from '../Navbar/NavBar'
 import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const RevisionAgendas = () => {
 
@@ -12,7 +13,7 @@ export const RevisionAgendas = () => {
 
 
     useEffect(() => {
-      fetch('http://localhost:8000/api/agendas',{
+      fetch(`${REACT_API_BASE_URL}/agendas`,{
         headers: {
             'Authorization': `Bearer ${token}`
   },

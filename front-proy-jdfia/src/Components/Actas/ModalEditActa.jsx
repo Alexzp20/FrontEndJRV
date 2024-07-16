@@ -3,8 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, Container, Form, FormGroup, Inpu
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
-
-
+import { REACT_API_BASE_URL } from '../../Api';
 
 
 export const ModalEditActa = ({acta, toggleEdit, modalEdit}) => {
@@ -27,7 +26,7 @@ export const ModalEditActa = ({acta, toggleEdit, modalEdit}) => {
         form.append('documentoActa', documento);
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/acta/${acta.id}`, {
+            const response = await fetch(`${REACT_API_BASE_URL}/acta/${acta.id}`, {
               method: 'POST',
               headers: {
                 'Accept': 'application/json, text/plain, */*',

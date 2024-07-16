@@ -3,6 +3,7 @@ import {Button, Col, Container, Label, Row, Table } from 'reactstrap';
 import FilaAsistencia from './FilaAsistencia';
 import ModalNuevaAsistencia from './ModalNuevaAsistencia';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../../Api.js';
 
 const Asistencia = ({setAsistencia}) => {
 
@@ -17,7 +18,7 @@ const Asistencia = ({setAsistencia}) => {
 
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/users/asistencia", {
+        fetch(`${REACT_API_BASE_URL}/users/asistencia`, {
         headers: {
               'Authorization': `Bearer ${token}`
             },

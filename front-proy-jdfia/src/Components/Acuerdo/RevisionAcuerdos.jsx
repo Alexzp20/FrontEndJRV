@@ -7,6 +7,7 @@ import { VerPdf } from '../Pdf/VerPdf';
 import { ModalEditarAcuerdo } from './ModalEditarAcuerdo';
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export const RevisionAcuerdos = () => {
 
@@ -22,7 +23,7 @@ export const RevisionAcuerdos = () => {
     }, []);
 
     const getAcuerdos =() =>{
-        fetch(`http://127.0.0.1:8000/api/agenda/acuerdos/${idAgenda}`, 
+        fetch(`${REACT_API_BASE_URL}/agenda/acuerdos/${idAgenda}`, 
             {
                 headers: {
                        'Authorization': `Bearer ${token}`
@@ -50,7 +51,7 @@ export const RevisionAcuerdos = () => {
             confirmButtonText: "Eliminar",
           }).then((result) => {
             if (result.isConfirmed) {
-                    fetch(`http://127.0.0.1:8000/api/acuerdo/${id}`, {
+                    fetch(`${REACT_API_BASE_URL}/acuerdo/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`

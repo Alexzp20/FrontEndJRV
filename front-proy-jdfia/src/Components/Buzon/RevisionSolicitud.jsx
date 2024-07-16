@@ -6,6 +6,7 @@ import NavBar from '../Navbar/NavBar';
 import Swal from 'sweetalert2';
 import { VerPdf } from '../Pdf/VerPdf';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export default function RevisionSolicitud() {
 
@@ -29,7 +30,7 @@ export default function RevisionSolicitud() {
     }, []);     
 
     const getSolicitudes = () => {
-        fetch('http://127.0.0.1:8000/api/solicitudes/estado/1', {
+        fetch(`${REACT_API_BASE_URL}/solicitudes/estado/1`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             } 
@@ -85,7 +86,7 @@ export default function RevisionSolicitud() {
         }).then((result) => {
             if (result.isConfirmed) {
                 
-                fetch('http://127.0.0.1:8000/api/revision', {
+                fetch(`${REACT_API_BASE_URL}/revision`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

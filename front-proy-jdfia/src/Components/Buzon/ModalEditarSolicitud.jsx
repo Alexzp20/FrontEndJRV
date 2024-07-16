@@ -3,6 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, Row, Col, For
 import {useForm, Controller} from 'react-hook-form'; 
 import Swal from 'sweetalert2';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, getSolicitudes}) {
 
@@ -15,7 +16,7 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, g
 
 
       useEffect(() => {
-        fetch('http://localhost:8000/api/categorias',
+        fetch(`${REACT_API_BASE_URL}/categorias`,
             {
                 headers: {
                  'Authorization': `Bearer ${token}`
@@ -64,7 +65,7 @@ export default function ModalEditarSolicitud({modalEdit, toggleEdit,solicitud, g
         console.log({solicitudEdit})
 
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/solicitud/edit/${solicitud.id}`, {
+            const response = await fetch(`${REACT_API_BASE_URL}/solicitud/edit/${solicitud.id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}` 

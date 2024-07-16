@@ -6,6 +6,7 @@ import ModalEditUsuario from './ModalEditUsuario';
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 
 const MenuUsuarios = () => {
@@ -23,7 +24,7 @@ const MenuUsuarios = () => {
 
 
     const consumo = () =>{
-        fetch("http://127.0.0.1:8000/api/users", {
+        fetch(`${REACT_API_BASE_URL}/users`, {
             headers: {
                 'Authorization': `Bearer ${token}`
       } 
@@ -42,7 +43,7 @@ const MenuUsuarios = () => {
             confirmButtonText: "Eliminar",
           }).then((result) => {
             if (result.isConfirmed) {
-                    fetch(`http://127.0.0.1:8000/api/user/${id}`, {
+                    fetch(`${REACT_API_BASE_URL}/user/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${token}`

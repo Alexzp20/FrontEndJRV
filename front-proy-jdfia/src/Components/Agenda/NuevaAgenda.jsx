@@ -9,6 +9,7 @@ import { MenuInformes } from './9Informes/MenuInformes';
 import Swal from 'sweetalert2';
 import NavBar from '../Navbar/NavBar';
 import Cookies from 'universal-cookie';
+import { REACT_API_BASE_URL } from '../../Api';
 
 
 const NuevaAgenda = () => {
@@ -22,6 +23,7 @@ const NuevaAgenda = () => {
     const [informes , setInformes] = useState ([]);
     const cookies = new Cookies();
     const token = cookies.get('token')
+    
 
       const onSubmitAgenda = async (data) =>{
 
@@ -38,7 +40,7 @@ const NuevaAgenda = () => {
           }
           console.log(agenda)
         try {
-            const response = await fetch('http://127.0.0.1:8000/api/agenda', {
+            const response = await fetch(`${REACT_API_BASE_URL}/agenda`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
